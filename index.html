@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DHL - ChatBot</title>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-route.min.js"></script>  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-base64/2.0.5/angular-base64.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>  
+  <script src="script.js"></script>
+  <style>
+  	#chat,
+  	#livechat {
+  		max-width: 400px;
+  		width: 100%;
+  		height:350px;
+  		border: 1px #000 solid;
+  	}
+  	.chat-messages,
+  	.livechat-messages{
+  		height:300px;
+  		overflow-x: scroll
+  	}
+  	
+.mytext{
+    border:0;padding:10px;background:whitesmoke;
+}
+.text{
+    width:75%;display:flex;flex-direction:column;
+}
+.text > p:first-of-type{
+    width:100%;margin-top:0;margin-bottom:auto;line-height: 13px;font-size: 12px;
+}
+.text > p:last-of-type{
+    width:100%;text-align:right;color:black;margin-bottom:-7px;margin-top:auto;
+}
+.text-l{
+    float:left;padding-right:10px;
+}
+.text-r{
+    float:right;padding-left:10px;
+}
+.avatar{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width:25%;
+    float:left;
+    padding-right:10px;
+}
+.macro{
+    margin-top:5px;width:85%;border-radius:5px;padding:5px;display:flex;padding-bottom: 10px;
+}
+.msj-rta{
+    float:right;background:whitesmoke;
+}
+.msj{
+    float:left;background:white;
+}
+.frame{
+    background:#e0e0de;
+    height:450px;
+    overflow:hidden;
+    padding:0;
+}
+.frame > div:last-of-type{
+    position:absolute;bottom:5px;width:100%;display:flex;
+}
+ul {
+    width:340px;
+    list-style-type: none;
+    padding:18px;
+    position:relative;
+    display:flex;
+    flex-direction: column;
+
+}
+.msj:before{
+    width: 0;
+    height: 0;
+    content:"";
+    top:-5px;
+    left:-14px;
+    position:relative;
+    border-style: solid;
+    border-width: 0 13px 13px 0;
+    border-color: transparent #ffffff transparent transparent;
+}
+.msj-rta:after{
+    width: 0;
+    height: 0;
+    content:"";
+    top:-5px;
+    left:14px;
+    position:relative;
+    border-style: solid;
+    border-width: 13px 13px 0 0;
+    border-color: whitesmoke transparent transparent transparent;
+}
+input:focus{
+    outline: none;
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #d4d4d4;
+}
+::-moz-placeholder { /* Firefox 19+ */
+    color: #d4d4d4;
+}
+:-ms-input-placeholder { /* IE 10+ */
+    color: #d4d4d4;
+}
+:-moz-placeholder { /* Firefox 18- */
+    color: #d4d4d4;
+}
+
+label{
+	line-height:30px;
+	width: 100px;
+	display: block;
+	float: left;
+} 
+input[type="text"] {
+	line-height: 30px;
+	margin-bottom: 10px;
+} 
+.wrap {
+	width: 400px;
+	margin: 0 auto;
+}
+#login-view button {
+	line-height:30px;
+	width: 191px;
+	margin-left: 100px;
+	margin-top: 10px;
+}
+.chatbutton,
+.livechatbutton {
+	line-height:30px;
+	width: 191px;
+}
+.chat-input input {
+	margin-left: 7px;
+}
+  	
+  </style>
+</head>
+<body ng-app="chat-bot" ng-controller="chat">
+	<div class="header">
+		<img src="1502890870.png" width="200">
+	</div>
+	
+	<div class="wrap">
+		<div id="login-view">
+	        <div id="login">
+	        	<label>Name</label>
+	            <input type="text" size="30" ng-model="name"><br>
+	            <label>Email</label>
+	            <input type="text" size="30" ng-model="email"><br>
+	            <label>Phone</label>
+	            <input type="text" size="30" ng-model="phone"><br>
+	            
+	            <button ng-click="open_chat()">Start Chat</button><br>
+	        </div>
+		</div>
+		
+		<div id="chat-view" style="display: none;">
+			<div id="chat">
+				<div class="chat-messages">
+					<ul>
+						
+					</ul>
+				</div>
+				<div class="chat-input">
+					<input class="input" type="text" ng-model="message" size="30">
+					<button ng-click="sendMessage()" class="chatbutton">Send Message</button>
+					<button ng-click="sendLiveMessage()" class="livechatbutton" style="display:none">Send Message</button>
+	
+				</div>
+			</div>
+		</div>
+		
+		<div id="survey-view" style="display: none;">
+			<h1>Vielen Dank</h1>
+			
+			<h3>Bitte bewerten Sie noch kurz unseren neuen Service.</h3>
+			
+			<table>
+				<tr>
+					<td>1</td>
+					<td>2</td>
+					<td>3</td>
+					<td>4</td>
+					<td>5</td>
+				</tr>
+				<tr>
+					<td><img src="https://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png"></td>
+					<td><img src="https://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png"></td>
+					<td><img src="https://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png"></td>
+					<td><img src="https://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png"></td>
+					<td><img src="https://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png"></td>
+				</tr>
+			</table>
+		</div>
+		
+		<div id="callback-view" style="display: none;">
+			<h1>Derzeit ist kein Live-Agent verfügbar.</h1>
+			
+			<h3>Bitte geben Sie nachfolgend Ihre Telefonnummer ein, damit wir Sie zeitnah zurückrufen können.</h3>
+			
+			<input type="text" name="phone" ng-model="callbackphone" value="" size="30"> <button ng-click="sendCallBackRequest()">Rückrufwunsch senden</button>
+		</div>
+	</div>
+</body>
+</html>
