@@ -28,10 +28,7 @@ chatBot.controller('chat', function ($scope, $http, $base64) {
 		$('input[type="email"]').removeClass('error');
 		$('.error_msg').hide();
 		
-        if ($scope.email == "" || $scope.email == undefined) {
-            
-            error = true;
-        } else if (!reg.test($scope.email)) {
+		if (!reg.test($scope.email)) {
             
             error = true;
         } else {
@@ -80,6 +77,8 @@ chatBot.controller('chat', function ($scope, $http, $base64) {
 					
 					$('#login-view').hide();
 					$('#chat-view').show();
+					
+					$('.chat-messages').find('ul').append($scope.entryChatbot('Hallo<br>Wie kann ich Ihnen helfen?'));
 			
 				} else {
 					
@@ -87,7 +86,6 @@ chatBot.controller('chat', function ($scope, $http, $base64) {
 					$('#callback-view').show();
 					
 					savedData.chatstatus = response.data['status'];
-					$scope.saveCustomerData();
 					
 				}
 			}, function error(response){
@@ -118,7 +116,15 @@ chatBot.controller('chat', function ($scope, $http, $base64) {
 		$http({
 			method: 'POST',
 			url: 'api.php',
-			data: {'type': 'sendCustomerData', 'session_id': $scope.sessionid, 'email': savedData.email, 'name': savedData.name, 'phone': savedData.phone, 'callback': savedData.callback, 'status': savedData.chatstatus},
+			data: {
+				'type': 'sendCustomerData', 
+				'session_id': $scope.sessionid, 
+				'email': savedData.email, 
+				'name': savedData.name, 
+				'phone': savedData.phone, 
+				'callback': savedData.callback, 
+				'status': savedData.chatstatus
+			},
 			headers: {
 			    'Accept':'application/json',
 			    'Content-Type':'application/json'
@@ -139,6 +145,46 @@ chatBot.controller('chat', function ($scope, $http, $base64) {
 		$('#callback-view').hide();
 		$('#survey-view').show();
 		
-	}	
+	}
+	
+	$scope.entryChatbot = function(text) {
+		
+		control_chatbot = '<li style="width:100%;">' +
+	                        '<div class="msj-rta macro">' +
+	                        '<div class="text text-r">' +
+	                        '<p>'+text+'</p>' +
+	                        '</div>' +
+	                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:20px;" src="'+you.avatar+'" /></div>' +
+	                        '</li>';
+		
+		return control_chatbot;
+	} 
+	
+	$scope.entryCustomer = function(text) {
+		
+		control_customer = '<li style="width:100%">' +
+	                        '<div class="msj macro">' +
+	                        '<div class="avatar"><img class="img-circle" style="width:20px;" src="'+ me.avatar +'" /></div>' +
+	                        '<div class="text text-l">' +
+	                        '<p>'+ text +'</p>' +
+	                        '</div>' +
+	                        '</div>' +
+	                        '</li>';
+		
+		return control_customer;
+	} 
+	
+	$scope.entryAgent = function(text) {
+		
+		control_agent = '<li style="width:100%;">' +
+                        '<div class="msj-rta macro">' +
+                        '<div class="text text-r">' +
+                        '<p>' + text + '</p>' + 
+                        '</div>' +
+                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:20px;" src="'+agentAvatar+'" /></div>' +
+                        '</li>';
+		
+		return control_agent;
+	}		
 
 });
