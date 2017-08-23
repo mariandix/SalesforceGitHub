@@ -45,7 +45,7 @@ chatBot.controller('chat', function ($scope, $http, $base64) {
 		} else {
 			savedData.phone = '03012345678';
 		}
-		
+
 		if (!error) {
 			savedData.history = [];
 			savedData.callback = '';
@@ -73,8 +73,9 @@ chatBot.controller('chat', function ($scope, $http, $base64) {
 			}).then(function success(response) {
 				
 				if (response.data['status'] == 'ok') {
-					$scope.sessionid = response.data['session-id'];
-					
+					var resp = JSON.parse(response.data['result'].result);
+					$scope.sessionid = resp['session-id'];
+console.log($scope.sessionid);
 					$('#login-view').hide();
 					$('#chat-view').show();
 					
@@ -99,6 +100,55 @@ chatBot.controller('chat', function ($scope, $http, $base64) {
 					
 	}	
 	
+	$scope.sendMessage = function () {
+		
+		if ($scope.message != '' && $scope.message != undefined) {
+			savedData.history.push($scope.message);
+			
+			$('.chat-messages').find('ul').append($scope.entryCustomer($scope.message));
+			$('.chat-input .input').val('');
+			
+			$http({
+				method: 'POST',
+				url: 'api.php',
+				data: {'type': 'cognesys_talk', 'session_id': $scope.sessionid, 'text': $scope.message},
+				headers: {
+				    'Accept':'application/json',
+				    'Content-Type':'application/json'
+				}
+				}).then(function success(response) {
+					console.log(response);
+					
+					var text = response.data['text'];
+					var status = response.data['status'];
+					
+					if (status == 'handover') {
+						
+
+					} else if (status == 'chat-topic-finished') {
+						
+						
+					}
+					
+					$('.chat-input .input').val('');
+					
+				}, function error(response){
+					
+				});
+		
+		}
+	}	
+	
+	$scope.showCustomerMessage = function (text) {
+		
+		if (text != '' && text != undefined) {
+			
+			$('.chat-messages').find('ul').append($scope.entryCustomer(text));
+			$('.chat-input .input').val('');
+			
+		
+		}
+	}	
 
 
 	// cognesys end

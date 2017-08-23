@@ -25,7 +25,7 @@ if (isset($data) && count($data) > 0) {
 					
 			if (is_array($data) && isset($data['session-id']) && $data['session-id'] != '') {
 				
-				echo json_encode(array('status' => 'ChatBot Not Available', 'result' => $response));
+				echo json_encode(array('status' => 'ok', 'result' => $response));
 				die();
 			} else {
 				
@@ -37,8 +37,23 @@ if (isset($data) && count($data) > 0) {
 		
 		case 'cognesys_talk':
 			
+			$con = new connector();
+			$con->setEndpoint(COGNESYS_URL . '/talk');
+			$con->setRequestMethod('POST');
 			
+			$header = array("Accept: application/json",
+				            "Content-Type: application/json");
+			$con->setRequestHeader($header);
 			
+			$params = '{"session-id":"' . $data->session_id . '","text":"' . $data->text . '"}';
+			
+			$con->setPostfields($params);
+
+			$response = $con->sendRequest();
+			
+			echo json_encode(array('status' => 'ok', 'result' => $response));
+			die();
+
 			break;
 		
 		case 'cognesys_stop':

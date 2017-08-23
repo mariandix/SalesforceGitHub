@@ -44,7 +44,7 @@
 					</ul>
 				</div>
 				<div class="chat-input">
-					<input class="input" type="text" ng-model="message" size="30">
+					<input class="input" type="text" class="messageinput" ng-model="message" size="30">
 					<button ng-click="sendMessage()" class="chatbutton">Send Message</button>
 					<button ng-click="sendLiveMessage()" class="livechatbutton" style="display:none">Send Message</button>
 				</div>
