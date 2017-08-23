@@ -112,7 +112,7 @@ if (isset($data) && count($data) > 0) {
 				      "Email":"' . $data->email . '",
 				      "PhoneNumber":"' . $data->phone . '",
 				      "Title":"Title",
-				      "chatHistory":"",
+				      "chatHistory":"' . json_encode($data->chathistory) . '",
 				      "callbackInfo":"' . $data->callback . '",
 				      "chatStatus":"' . $data->status . '",
 				      "chatBotSummary":"",
@@ -135,6 +135,12 @@ if (isset($data) && count($data) > 0) {
 				die();
 			}
 			
+			break;
+			
+		case 'liveagent_init':
+		
+		
+		
 			break;
 
 

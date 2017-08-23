@@ -110,7 +110,7 @@ chatBot.controller('chat', function ($scope, $http, $base64) {
 	$scope.sendMessage = function () {
 		
 		if ($scope.message != '' && $scope.message != undefined) {
-			savedData.history.push({'cnt':$scope.messageCount++, 'msg': $scope.message});
+			savedData.history.push({'cnt':$scope.messageCount++, 'type': 'Q', 'msg': $scope.message});
 			
 			$('.chat-messages').find('ul').append($scope.entryCustomer($scope.message));
 			$('.chat-input .input').val('');
@@ -133,15 +133,20 @@ chatBot.controller('chat', function ($scope, $http, $base64) {
 					var status = resp['status'];
 					savedData.summary = resp['summary'];
 					
-					savedData.history.push({'cnt':resp['sequence-id'], 'msg': resp['text']});
+					savedData.history.push({'cnt':resp['sequence-id'],'type': 'A', 'msg': resp['text']});
 					
 					if (status == 'handover') {
 						
-						
+						savedData.chatstatus = status;
 						
 						$('.chat-messages').find('ul').append($scope.entryChatbot(text));
+						
+						$scope.stop_cognesys_chat(false);
+						$scope.connectLiveAgent();
 
 					} else if (status == 'chat-topic-finished') {
+						
+						savedData.chatstatus = status;
 						
 						$scope.stop_cognesys_chat(true);
 						
@@ -208,8 +213,53 @@ chatBot.controller('chat', function ($scope, $http, $base64) {
 	
 	// live agent beginn
 	
+	$scope.connectLiveAgent = function () {
 	
+		$http({
+			method: 'POST',
+			url: 'api.php',
+			data: {'type': 'liveagent_init', 'history': savedData.history},
+			headers: {
+			    'Accept':'application/json',
+			    'Content-Type':'application/json'
+			}
+			}).then(function success(response) {
+				
+				
+				console.log(response);
+				/*
+				var agent = response.data['agent'];
+				console.log(agent);
+				if (agent) {
+					
+					control_agent = '<li style="width:100%;">' +
+		                        '<div class="msj-rta macro">' +
+		                        '<div class="text text-r">' +
+		                        '<p>Connect with Live-Agent<br />' + 
+		                        'How can I help you</p>' + 
+		                        '</div>' +
+		                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:20px;" src="'+agentAvatar+'" /></div>' +
+		                        '</li>';
+		                        
+					$('.chat-messages').find('ul').append(control_agent);
+					$('.chatbutton').hide();
+					$('.livechatbutton').show();
+					
+					setTimeout(function() {$scope.readLiveMessage();}, 10000);
+					
+				} else {
+					
+					$('#chat-view').hide();
+					$('#callback-view').show();
+					
+				}
+				*/
+
+			}, function error(response){
+				
+			});
 	
+	}
 	
 	// live agent end
 	
@@ -227,7 +277,8 @@ chatBot.controller('chat', function ($scope, $http, $base64) {
 				'phone': savedData.phone, 
 				'callback': savedData.callback, 
 				'status': savedData.chatstatus,
-				'tonality': savedData.tonality
+				'tonality': savedData.tonality,
+				'chathistory': savedData.history
 			},
 			headers: {
 			    'Accept':'application/json',
