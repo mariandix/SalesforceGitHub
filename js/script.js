@@ -19,6 +19,7 @@ chatBot.controller('chat', function ($scope, $http, $base64) {
 
 	$scope.sessionid = '';
 	$scope.stopChating = false;
+	$scope.messageCount = 0;
 	
 	$scope.open_chat = function () {
 		
@@ -31,7 +32,11 @@ chatBot.controller('chat', function ($scope, $http, $base64) {
 		if ($scope.email != undefined && !reg.test($scope.email)) {
             
             error = true;
+        } else if ($scope.email == undefined) {
+        	
+        	savedData.email = Math.random()+'test@test.de';
         } else {
+        	
             savedData.email = $scope.email;
         }
 		
@@ -50,6 +55,8 @@ chatBot.controller('chat', function ($scope, $http, $base64) {
 			savedData.history = [];
 			savedData.callback = '';
 			savedData.chatstatus = '';
+			savedData.summary = '';
+			savedData.tonality = '';
 				
 			$scope.start_cognesys_chat();
 		} else {
@@ -75,7 +82,7 @@ chatBot.controller('chat', function ($scope, $http, $base64) {
 				if (response.data['status'] == 'ok') {
 					var resp = JSON.parse(response.data['result'].result);
 					$scope.sessionid = resp['session-id'];
-console.log($scope.sessionid);
+
 					$('#login-view').hide();
 					$('#chat-view').show();
 					
@@ -103,34 +110,54 @@ console.log($scope.sessionid);
 	$scope.sendMessage = function () {
 		
 		if ($scope.message != '' && $scope.message != undefined) {
-			savedData.history.push($scope.message);
+			savedData.history.push({'cnt':$scope.messageCount++, 'msg': $scope.message});
 			
 			$('.chat-messages').find('ul').append($scope.entryCustomer($scope.message));
 			$('.chat-input .input').val('');
+			var message = $scope.message;
+			$scope.message = '';
 			
 			$http({
 				method: 'POST',
 				url: 'api.php',
-				data: {'type': 'cognesys_talk', 'session_id': $scope.sessionid, 'text': $scope.message},
+				data: {'type': 'cognesys_talk', 'session_id': $scope.sessionid, 'text': message, 'sequence': $scope.messageCount },
 				headers: {
 				    'Accept':'application/json',
 				    'Content-Type':'application/json'
 				}
 				}).then(function success(response) {
-					console.log(response);
 					
-					var text = response.data['text'];
-					var status = response.data['status'];
+					var resp = JSON.parse(response.data['result'].result);
+					
+					var text = resp['text'];
+					var status = resp['status'];
+					savedData.summary = resp['summary'];
+					
+					savedData.history.push({'cnt':resp['sequence-id'], 'msg': resp['text']});
 					
 					if (status == 'handover') {
 						
+						
+						
+						$('.chat-messages').find('ul').append($scope.entryChatbot(text));
 
 					} else if (status == 'chat-topic-finished') {
 						
+						$scope.stop_cognesys_chat(true);
 						
+						$('.chat-messages').find('ul').append($scope.entryChatbot(text));
+						$('.chat-messages').find('ul').append($scope.entryChatbot('Chat wurde beendet. Vielen Dank und einen schönen Tag.'));
+						
+						setTimeout(function(){
+							$('#chat-view').hide();
+							$('#survey-view').show();
+						}, 7500);
+						
+					} else {
+						
+						
+						$('.chat-messages').find('ul').append($scope.entryChatbot(text));
 					}
-					
-					$('.chat-input .input').val('');
 					
 				}, function error(response){
 					
@@ -148,6 +175,32 @@ console.log($scope.sessionid);
 			
 		
 		}
+	}	
+	
+	$scope.stop_cognesys_chat = function (saveCustomerData) {
+
+		$http({
+			method: 'POST',
+			url: 'api.php',
+			data: {'type': 'cognesys_stop', 'session_id': $scope.sessionid},
+			headers: {
+			    'Accept':'application/json',
+			    'Content-Type':'application/json'
+			}
+			}).then(function success(response) {
+
+				var resp = JSON.parse(response.data['result'].result);
+				
+				//TODO summary, tonality and chathistory
+				
+				if (saveCustomerData) {
+					$scope.saveCustomerData();
+				}
+
+			}, function error(response){
+				
+			});
+		
 	}	
 
 
@@ -173,7 +226,8 @@ console.log($scope.sessionid);
 				'name': savedData.name, 
 				'phone': savedData.phone, 
 				'callback': savedData.callback, 
-				'status': savedData.chatstatus
+				'status': savedData.chatstatus,
+				'tonality': savedData.tonality
 			},
 			headers: {
 			    'Accept':'application/json',

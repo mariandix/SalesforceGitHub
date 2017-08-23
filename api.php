@@ -45,7 +45,7 @@ if (isset($data) && count($data) > 0) {
 				            "Content-Type: application/json");
 			$con->setRequestHeader($header);
 			
-			$params = '{"session-id":"' . $data->session_id . '","text":"' . $data->text . '"}';
+			$params = '{"session-id":"' . $data->session_id . '","text":"' . $data->text . '", "sequence-id":"' . $data->sequence . '"}';
 			
 			$con->setPostfields($params);
 
@@ -58,8 +58,22 @@ if (isset($data) && count($data) > 0) {
 		
 		case 'cognesys_stop':
 			
+			$con = new connector();
+			$con->setEndpoint(COGNESYS_URL . '/stop');
+			$con->setRequestMethod('POST');
 			
+			$header = array("Accept: application/json",
+				            "Content-Type: application/json");
+			$con->setRequestHeader($header);
 			
+			$params = '{"session-id":"' . $data->session_id . '"}';
+			
+			$con->setPostfields($params);
+
+			$response = $con->sendRequest();
+
+			echo json_encode(array('status' => 'ok', 'result' => $response));
+			die();
 			
 			break;
 		
@@ -101,7 +115,8 @@ if (isset($data) && count($data) > 0) {
 				      "chatHistory":"",
 				      "callbackInfo":"' . $data->callback . '",
 				      "chatStatus":"' . $data->status . '",
-				      "chatBotSummary":""
+				      "chatBotSummary":"",
+				      "tonality": "' . $data->tonality . '"
 				   }
 				}';
 				$con->setPostfields($params);
