@@ -97,7 +97,7 @@ if (isset($data) && count($data) > 0) {
 
 				$response = $con->sendRequest();
 
-				echo json_encode(array('status' => 'ok'));
+				echo json_encode(array('status' => 'ok', 'result' => $response));
 				die();
 			} else {
 				
