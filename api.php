@@ -35,14 +35,18 @@ if (isset($data) && count($data) > 0) {
 					
 			break;
 		
+		case 'cognesys_talk':
+			
+			
+			
+			break;
+		
 		case 'cognesys_stop':
 			
 			
 			
 			
 			break;
-		
-		
 		
 		case 'sendCustomerData': 
 			
@@ -58,7 +62,7 @@ if (isset($data) && count($data) > 0) {
 				    . "&password=" . PASSWORD;
 			
 			$con->setPostfields($params);
-			
+			var_dump($params);
 			$response = $con->sendRequest();
 
 			if (isset($response['result'])) {
