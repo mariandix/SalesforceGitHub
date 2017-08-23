@@ -28,7 +28,7 @@ chatBot.controller('chat', function ($scope, $http, $base64) {
 		$('input[type="email"]').removeClass('error');
 		$('.error_msg').hide();
 		
-		if (!reg.test($scope.email)) {
+		if ($scope.email != undefined && !reg.test($scope.email)) {
             
             error = true;
         } else {

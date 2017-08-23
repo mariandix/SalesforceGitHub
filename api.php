@@ -25,11 +25,11 @@ if (isset($data) && count($data) > 0) {
 					
 			if (is_array($data) && isset($data['session-id']) && $data['session-id'] != '') {
 				
-				echo json_encode(array('status' => 'no-session', 'result' => $response));
+				echo json_encode(array('status' => 'ChatBot Not Available', 'result' => $response));
 				die();
 			} else {
 				
-				echo json_encode(array('status' => 'no-session'));
+				echo json_encode(array('status' => 'ChatBot Not Available'));
 				die();
 			}	
 					
