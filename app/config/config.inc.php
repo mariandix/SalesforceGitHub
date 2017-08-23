@@ -4,7 +4,7 @@ define("CLIENT_ID", "3MVG954MqIw6FnnM4PE4C_n5rf0LaljT_OSDyZOy7ZnuYv.ij6XWqYIxoW9
 define("CLIENT_SECRET", "4557138230826258012");
 define("LOGIN_URI", "https://test.salesforce.com");  
 define('USERNAME', 'hmalhotra@dpdhl.chatbot.dev');
-define('PASSWORD', 'P@ss0102');
+define('PASSWORD', 'P@ss01027XVjLMWxjiEWJQFFidTiVDfM8');
 
 define('DEPLOYMENT_ID', '5728E0000008OP1');
 define('BUTTON_ID', '5738E0000008OSU');

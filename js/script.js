@@ -11,12 +11,12 @@ agent.avatar = "https://cdn4.iconfinder.com/data/icons/user-avatar-flat-icons/51
 
 var REGEX_EMAIL = /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/;
 
+var savedData = [];	
 
 var chatBot = angular.module('chat-bot', ['base64']);
 
 chatBot.controller('chat', function ($scope, $http, $base64) {
 
-	$scope.savedData = [];	
 	$scope.sessionid = '';
 	$scope.stopChating = false;
 	
@@ -35,22 +35,24 @@ chatBot.controller('chat', function ($scope, $http, $base64) {
             
             error = true;
         } else {
-            $scope.savedData.email = $scope.email;
+            savedData.email = $scope.email;
         }
 		
 		if ($scope.name != undefined) {
-			$scope.savedData.name = $scope.name;
+			savedData.name = $scope.name;
 		} else {
-			$scope.savedData.name = 'Max_Mustermann';
+			savedData.name = 'Max_Mustermann';
 		}
 		if ($scope.phone != undefined) {
-			$scope.savedData.phone = $scope.phone;
+			savedData.phone = $scope.phone;
 		} else {
-			$scope.savedData.phone = '03012345678';
+			savedData.phone = '03012345678';
 		}
 		
 		if (!error) {
-			$scope.savedData.history = [];
+			savedData.history = [];
+			savedData.callback = '';
+			savedData.chatstatus = '';
 				
 			$scope.start_cognesys_chat();
 		} else {
@@ -61,6 +63,7 @@ chatBot.controller('chat', function ($scope, $http, $base64) {
 
 	}
 	
+	// cognesys beginn
 	$scope.start_cognesys_chat = function () {
 		
 		$http({
@@ -83,6 +86,7 @@ chatBot.controller('chat', function ($scope, $http, $base64) {
 					$('#login-view').hide();
 					$('#callback-view').show();
 					
+					savedData.chatstatus = response.data['status'];
 					$scope.saveCustomerData();
 					
 				}
@@ -99,15 +103,22 @@ chatBot.controller('chat', function ($scope, $http, $base64) {
 	
 
 
-
-
-
+	// cognesys end
+	
+	// live agent beginn
+	
+	
+	
+	
+	// live agent end
+	
+	// generall
 	$scope.saveCustomerData = function () {
 
 		$http({
 			method: 'POST',
 			url: 'api.php',
-			data: {'type': 'sendCustomerData', 'session_id': $scope.sessionid, 'cData': $scope.savedData},
+			data: {'type': 'sendCustomerData', 'session_id': $scope.sessionid, 'email': savedData.email, 'name': savedData.name, 'phone': savedData.phone, 'callback': savedData.callback, 'status': savedData.chatstatus},
 			headers: {
 			    'Accept':'application/json',
 			    'Content-Type':'application/json'
@@ -117,6 +128,17 @@ chatBot.controller('chat', function ($scope, $http, $base64) {
 			}, function error(response){
 				console.log(response);
 			});
+	}
+	
+	$scope.sendCallBackRequest =  function () {
+		
+		savedData.callback = $scope.callbackphone;
+		
+		$scope.saveCustomerData();
+		
+		$('#callback-view').hide();
+		$('#survey-view').show();
+		
 	}	
 
 });

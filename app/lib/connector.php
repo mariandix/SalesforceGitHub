@@ -9,6 +9,8 @@ class connector {
 	
 	public $postfields;
 	
+	public $requestHeader;
+	
     public function __construct() {
        
 	}	
@@ -49,6 +51,17 @@ class connector {
 		return $this->postfields;
 	}
 	
+	public function setRequestHeader ($header = array()) {
+		
+		$this->requestHeader = $header;
+		return $this;
+	}
+	
+	public function getRequestHeader () {
+		
+		return $this->requestHeader;
+	}
+	
 	public function sendRequest () {
 		
 		$ch = curl_init();
@@ -59,6 +72,10 @@ class connector {
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 		curl_setopt($ch, CURLOPT_VERBOSE, 1);
+		
+		if ($this->getRequestHeader() != '') {
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $this->getRequestHeader());
+		}
 		
 		if ($this->method == 'POST') {
 			
