@@ -225,35 +225,31 @@ chatBot.controller('chat', function ($scope, $http, $base64) {
 			}
 			}).then(function success(response) {
 				
-				
 				console.log(response);
-				/*
+				
 				var agent = response.data['agent'];
-				console.log(agent);
+
 				if (agent) {
 					
-					control_agent = '<li style="width:100%;">' +
-		                        '<div class="msj-rta macro">' +
-		                        '<div class="text text-r">' +
-		                        '<p>Connect with Live-Agent<br />' + 
-		                        'How can I help you</p>' + 
-		                        '</div>' +
-		                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:20px;" src="'+agentAvatar+'" /></div>' +
-		                        '</li>';
-		                        
-					$('.chat-messages').find('ul').append(control_agent);
+					$('.chat-messages').find('ul').append($scope.entryAgent('Connect with Live-Agent<br />How can I help you'));
+					
 					$('.chatbutton').hide();
 					$('.livechatbutton').show();
+					/*
 					
 					setTimeout(function() {$scope.readLiveMessage();}, 10000);
-					
+
+					*/
 				} else {
 					
+					savedData.status = 'Live Agent n/a';
+					$scope.saveCustomerData();
+					
 					$('#chat-view').hide();
-					$('#callback-view').show();
+					$('#survey-view').show();
 					
 				}
-				*/
+				
 
 			}, function error(response){
 				

@@ -138,8 +138,53 @@ if (isset($data) && count($data) > 0) {
 			break;
 			
 		case 'liveagent_init':
-		
-		
+			
+			// init session
+			$con = new connector();
+			$con->setEndpoint(LIVEAGENT_REST_URL . "/System/SessionId");
+			$con->setRequestMethod('GET');
+			
+			$header = array("X-LIVEAGENT-AFFINITY: null",
+				            "X-LIVEAGENT-API-VERSION: 40");
+			$con->setRequestHeader($header);
+			
+			$response = $con->sendRequest();
+			
+			$result = json_decode($response['result']);
+			
+			$_SESSION['affinityToken'] = $result->affinityToken;
+			$_SESSION['key'] = $result->key;
+			$_SESSION['sId'] = $result->id;
+			
+			
+			// check live agent availability
+			
+			//get params
+			$params = "?org_id=" . ORG_ID . "&"
+   					. "deployment_id=" . DEPLOYMENT_ID . "&Availability.ids=[" . BUTTON_ID . "]";
+			$con = new connector();
+			$con->setEndpoint(LIVEAGENT_REST_URL . "/Visitor/Availability" . $params);
+			$con->setRequestMethod('GET');
+			
+			$header = array("X-LIVEAGENT-API-VERSION: 40");
+			$con->setRequestHeader($header);
+			
+			$response = $con->sendRequest();
+			$result = json_decode($response['result']);
+			
+			if (isset($result->messages[0]->type) && $result->messages[0]->type == 'Availability' && 
+				isset($result->messages[0]->message->results[0]->isAvailable) && $result->messages[0]->message->results[0]->isAvailable == true) {
+				
+				
+				// TODO
+			
+			
+			} else {
+			
+				$result = array('status' => 'ok', 'agent' => false);
+				echo json_encode($result);	
+			}
+			
 		
 			break;
 
