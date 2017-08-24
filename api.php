@@ -244,7 +244,7 @@ $params = '{
 				
 				$response = $con->sendRequest();
 				
-/*
+
 				foreach ($data->history as $key => $value) {
 					// send message
 					
@@ -259,14 +259,14 @@ $params = '{
 				
 
 					$params = '{
-						"text": "' . $value . '"
+						"text": "' . $value->Type . ': ' . $value->message . '"
 					}'; 
 					
 					$con->setPostfields($params);
 				
 					$response = $con->sendRequest();
 				}
-*/
+
 
 
   				$result = array('status' => 'ok', 'response' => $response, 'agent' => true);
@@ -395,7 +395,7 @@ $params = '{
 						
 					}
 					
-					$result = array('text' => $resp);
+					$result = array('text' => $resp, 'resp' => $oResponse->messages);
 					header ('Content-Type: application/json');
 					echo json_encode($result);
 					

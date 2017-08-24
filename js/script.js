@@ -247,7 +247,7 @@ console.log(response.data);
 					$('.chatbutton').hide();
 					$('.livechatbutton').show();
 
-				//	$scope.timer = setTimeout(function() {$scope.readLiveMessage();}, 10000);
+					$scope.timer = setInterval(function() {$scope.readLiveMessage();}, 10000);
 					
 				} else {
 					
@@ -322,6 +322,7 @@ console.log(response.data);
 	
 	$scope.readLiveMessage = function() {
 		
+		clearInterval($scope.timer);
 		$http({
 			method: 'POST',
 			url: 'api.php',
@@ -337,7 +338,7 @@ console.log(response.data);
 				
 				console.log(text); 
 				if (text != '' && text != undefined) {
-					
+
 					$.each(text, function(key, value) {
 						
 						$('.chat-messages').find('ul').append($scope.entryAgent(value));
@@ -354,14 +355,14 @@ console.log(response.data);
 						$('#chat-view').hide();
 						$('#survey-view').show();
 					}, 5000);
-
+				} else {
+					$scope.timer = setInterval(function() {$scope.readLiveMessage();}, 10000);
 				}
 				
 			}, function error(response){
 				
 			});
-		
-		//setTimeout(function() {$scope.readLiveMessage();}, 10000);
+
 	}	
 	
 	
