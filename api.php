@@ -217,6 +217,9 @@ $params = '{
 				"buttonId": "' . BUTTON_ID . '", 
 				"sessionId": "' . $_SESSION['sId'] . '", 
 				"visitorName": "' . $data->name . '", 
+				"userAgent": "Lynx/2.8.8", 
+				"language": "de-DE", 
+				"screenResolution": "1900x1080", 
 				"prechatDetails": [{label: "chathistory", value: "", displayToAgent: true, transcriptFields: ["XXX"] }],  
 				"prechatEntities": [], 
 				"receiveQueueUpdates": true, 
@@ -229,7 +232,7 @@ $params = '{
 				
 				$response = $con->sendRequest();
 			
-/*					
+					
 				$con = new connector();
 				$con->setEndpoint(LIVEAGENT_REST_URL . "/System/Messages");
 				$con->setRequestMethod('GET');
@@ -240,8 +243,8 @@ $params = '{
 				$con->setRequestHeader($header);
 				
 				$response = $con->sendRequest();
-*/				
-/*
+				
+
 				foreach ($data->history as $key => $value) {
 					// send message
 					
@@ -266,7 +269,7 @@ $params = '{
 					
 					
 				}
-*/
+
   				$result = array('status' => 'ok', 'response' => $response, 'agent' => true);
 				echo json_encode($result);	
 			
