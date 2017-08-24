@@ -267,7 +267,7 @@ $params = '{
 					
 				}
 */
-  				$result = array('status' => 'ok', 'agent' => true);
+  				$result = array('status' => 'ok', 'response' => $response, 'agent' => true);
 				echo json_encode($result);	
 			
 			} else {
