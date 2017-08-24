@@ -229,7 +229,7 @@ console.log(response.data);
 		$http({
 			method: 'POST',
 			url: 'api.php',
-			data: {'type': 'liveagent_init', 'history': savedData.history},
+			data: {'type': 'liveagent_init', 'history': savedData.history, 'name': savedData.name},
 			headers: {
 			    'Accept':'application/json',
 			    'Content-Type':'application/json'

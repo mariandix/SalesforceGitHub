@@ -201,8 +201,69 @@ $params = '{
 			if (isset($result->messages[0]->type) && $result->messages[0]->type == 'Availability' && 
 				isset($result->messages[0]->message->results[0]->isAvailable) && $result->messages[0]->message->results[0]->isAvailable == true) {
 				
+				$con = new connector();
+				$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChasitorInit");
+				$con->setRequestMethod('POST');
 				
-				// TODO
+				$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'],
+					            "X-LIVEAGENT-API-VERSION: 40",
+								"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key'],
+								"X-LIVEAGENT-SEQUENCE : 1");
+				$con->setRequestHeader($header);
+				
+				$params = '{
+				"organizationId": "' . ORG_ID . '", 
+				"deploymentId": "' . DEPLOYMENT_ID . '", 
+				"buttonId": "' . BUTTON_ID . '", 
+				"sessionId": "' . $_SESSION['sId'] . '", 
+				"visitorName": "' . $data->name . '", 
+				"prechatDetails": [{label: "chathistory", value: "' . implode(';', $data->history) . '", displayToAgent: true, transcriptFields: ["XXX"] }],  
+				"prechatEntities": [], 
+				"receiveQueueUpdates": true, 
+				"isPost": true 
+				}';
+
+				$con->setPostfields($params);
+				
+				$response = $con->sendRequest();
+				
+				
+				$con = new connector();
+				$con->setEndpoint(LIVEAGENT_REST_URL . "/System/Messages");
+				$con->setRequestMethod('GET');
+				
+				$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'], 
+					            "X-LIVEAGENT-API-VERSION: 40",
+								"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+				$con->setRequestHeader($header);
+				
+				$response = $con->sendRequest();
+
+				foreach ($data->history as $key => $value) {
+					// send message
+					
+					$con = new connector();
+					$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChatMessage");
+					$con->setRequestMethod('POST');
+					
+					$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'],
+						            "X-LIVEAGENT-API-VERSION: 40",
+									"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+					$con->setRequestHeader($header);
+				
+
+					$params = '{
+						"text": "' . $value . '"
+					}'; 
+					
+					$con->setPostfields($params);
+				
+					$response = $con->sendRequest();
+					
+					$result = array('status' => 'ok', 'agent' => true);
+					echo json_encode($result);	
+					
+				}
 			
 			
 			} else {
