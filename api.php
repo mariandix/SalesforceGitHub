@@ -51,7 +51,7 @@ if (isset($data) && count($data) > 0) {
 
 			$response = $con->sendRequest();
 			
-			echo json_encode(array('status' => 'ok', 'result' => $response));
+			echo json_encode(array('status' => 'ok', 'params' => $params, 'result' => $response));
 			die();
 
 			break;
@@ -72,7 +72,7 @@ if (isset($data) && count($data) > 0) {
 
 			$response = $con->sendRequest();
 
-			echo json_encode(array('status' => 'ok', 'result' => $response));
+			echo json_encode(array('status' => 'ok', 'params' => $params, 'result' => $response));
 			die();
 			
 			break;
@@ -104,21 +104,47 @@ if (isset($data) && count($data) > 0) {
 				$con->setEndpoint($instance_url . "/services/apexrest/DHL/CustomerInfoAndCallBack/Operation");
 				$con->setRequestMethod('POST');
 				
-				$params = '{  
-				   "requestWrapper":{  
-				      "requestNumber":"' . $data->session_id . '",
-				      "FirstName":"FirstName",
-				      "LastName":"' . $data->name . '",
-				      "Email":"' . $data->email . '",
-				      "PhoneNumber":"' . $data->phone . '",
-				      "Title":"Title",
-				      "chatHistory":"' . json_encode($data->chathistory) . '",
-				      "callbackInfo":"' . $data->callback . '",
-				      "chatStatus":"' . $data->status . '",
-				      "chatBotSummary":"",
-				      "tonality": "' . $data->tonality . '"
-				   }
-				}';
+$params = '{  
+"requestWrapper":{  
+"requestNumber":"' . $data->session_id . '",
+"FirstName":"FirstName",
+"LastName":"' . $data->name . '",
+"Email":"' . $data->email . '",
+"PhoneNumber":"' . $data->phone . '",
+"Title":"Title",
+"chatHistory":' . json_encode($data->chathistory) . ',
+"callbackInfo":"' . $data->callback . '",
+"chatStatus":"' . $data->status . '",
+"chatBotSummary":"' . (isset($data->summary) ? $data->summary: "") . '",
+"tonality": "' . (isset($data->tonality) ? $data->tonality : "") . '",
+"endTime":"' . $data->endTime . '",
+"startTime":"' . $data->startTime . '"
+}
+}';
+				
+			/*	$params = '{
+"requestWrapper":{
+  
+   "tonality":"chattonality",
+   "Title":"mr",
+   "requestNumber":"requestNumber",
+   "PhoneNumber":"121344444",
+   "LastName":"lastName",
+   "FirstName":"Firsname",
+   "Email":"testa@madeup.co",
+   "chatStatus":"HandOver",
+   "chatHistory":[  
+      {  
+         "Type":"Q",
+         "sequenceNumber":"1",
+         "message":"What is my name "
+      }
+   ],
+   "chatBotSummary":"chatbotSummary",
+   "callbackInfo":"callbackInfo"
+}
+}';*/
+				
 				$con->setPostfields($params);
 
 				$header = array("Authorization: OAuth $token",
@@ -181,13 +207,70 @@ if (isset($data) && count($data) > 0) {
 			
 			} else {
 			
-				$result = array('status' => 'ok', 'agent' => false);
+				$result = array('status' => 'ok', 'response' => $response, 'agent' => false);
 				echo json_encode($result);	
 			}
 			
 		
 			break;
 
+		case 'liveagent_check':
+			
+			$con = new connector();
+			$con->setEndpoint(LIVEAGENT_REST_URL . "/System/Messages");
+			$con->setRequestMethod('GET');
+			
+			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'], 
+				            "X-LIVEAGENT-API-VERSION: 40",
+							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+			$con->setRequestHeader($header);
+			
+			$response = $con->sendRequest();
+			$result = json_decode($response['result']);
+			
+
+			if ($result != '') {
+				
+				$oResponse = $result;
+				
+				if (isset($oResponse->messages) && count($oResponse->messages) > 0) {
+					
+					$resp = array();
+					foreach ($oResponse->messages as $key => $value) {
+						
+						if ($value->type == 'ChatMessage') {
+								
+							$resp[] = $value->message->text;
+							
+						}
+						if ($value->type == 'ChatEnded') {
+								
+							$result = array('text' => '','chat' => 'stop');
+							header ('Content-Type: application/json');
+							echo json_encode($result);
+							die();
+						}
+						
+					}
+					
+					$result = array('text' => $resp);
+					header ('Content-Type: application/json');
+					echo json_encode($result);
+					
+				} else {
+					$result = array('text' => '');
+					header ('Content-Type: application/json');
+					echo json_encode($result);
+				}
+			
+			} else {
+				$result = array('text' => '');
+				header ('Content-Type: application/json');
+				echo json_encode($result);
+			}
+
+		
+			break;
 
 	}
 	
