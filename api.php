@@ -240,7 +240,7 @@ $params = '{
 				$con->setRequestHeader($header);
 				
 				$response = $con->sendRequest();
-
+/*
 				foreach ($data->history as $key => $value) {
 					// send message
 					
@@ -262,11 +262,12 @@ $params = '{
 				
 					$response = $con->sendRequest();
 					
-					$result = array('status' => 'ok', 'agent' => true);
-					echo json_encode($result);	
+					
 					
 				}
-			
+*/
+  				$result = array('status' => 'ok', 'agent' => true);
+				echo json_encode($result);	
 			
 			} else {
 			
