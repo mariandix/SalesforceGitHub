@@ -228,8 +228,8 @@ $params = '{
 				$con->setPostfields($params);
 				
 				$response = $con->sendRequest();
-				
-				
+			
+/*					
 				$con = new connector();
 				$con->setEndpoint(LIVEAGENT_REST_URL . "/System/Messages");
 				$con->setRequestMethod('GET');
@@ -240,6 +240,7 @@ $params = '{
 				$con->setRequestHeader($header);
 				
 				$response = $con->sendRequest();
+*/				
 /*
 				foreach ($data->history as $key => $value) {
 					// send message

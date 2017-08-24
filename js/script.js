@@ -441,7 +441,7 @@ console.log(response.data);
                         '<div class="text text-r">' +
                         '<p>' + text + '</p>' + 
                         '</div>' +
-                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:20px;" src="'+agentAvatar+'" /></div>' +
+                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:20px;" src="'+agent.avatar+'" /></div>' +
                         '</li>';
 		
 		return control_agent;
