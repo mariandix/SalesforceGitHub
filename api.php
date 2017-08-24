@@ -339,6 +339,82 @@ $params = '{
 		
 			break;
 
+		case 'liveagent_talk' :
+			
+			$con = new connector();
+			$con->setEndpoint(LIVEAGENT_REST_URL . "/System/Messages");
+			$con->setRequestMethod('GET');
+			
+			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'], 
+				            "X-LIVEAGENT-API-VERSION: 40",
+							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+			$con->setRequestHeader($header);
+			
+			$response = $con->sendRequest();
+			$result = json_decode($response['result']);
+			
+			$con = new connector();
+			$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChatMessage");
+			$con->setRequestMethod('POST');
+			
+			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'],
+				            "X-LIVEAGENT-API-VERSION: 40",
+							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+			$con->setRequestHeader($header);
+		
+
+			$params = '{
+				"text": "' . $data->text . '"
+			}'; 
+			
+			$con->setPostfields($params);
+		
+			$response = $con->sendRequest();
+
+			if ($result != '') {
+				
+				$oResponse = $result;
+				
+				if (isset($oResponse->messages) && count($oResponse->messages) > 0) {
+					
+					$resp = array();
+					foreach ($oResponse->messages as $key => $value) {
+						
+						if ($value->type == 'ChatMessage') {
+								
+							$resp[] = $value->message->text;
+							
+						}
+						if ($value->type == 'ChatEnded') {
+								
+							$result = array('text' => '','chat' => 'stop');
+							header ('Content-Type: application/json');
+							echo json_encode($result);
+							die();
+						}
+						
+					}
+					
+					$result = array('text' => $resp);
+					header ('Content-Type: application/json');
+					echo json_encode($result);
+					
+				} else {
+					$result = array('text' => '');
+					header ('Content-Type: application/json');
+					echo json_encode($result);
+				}
+			
+			} else {
+				$result = array('text' => '');
+				header ('Content-Type: application/json');
+				echo json_encode($result);
+			}
+			
+			
+			break;
+
+
 	}
 	
 	
