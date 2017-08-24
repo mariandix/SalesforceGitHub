@@ -247,7 +247,7 @@ console.log(response.data);
 					$('.chatbutton').hide();
 					$('.livechatbutton').show();
 
-					$scope.timer = setTimeout(function() {$scope.readLiveMessage();}, 10000);
+				//	$scope.timer = setTimeout(function() {$scope.readLiveMessage();}, 10000);
 					
 				} else {
 					
@@ -361,7 +361,7 @@ console.log(response.data);
 				
 			});
 		
-		setTimeout(function() {$scope.readLiveMessage();}, 10000);
+		//setTimeout(function() {$scope.readLiveMessage();}, 10000);
 	}	
 	
 	
