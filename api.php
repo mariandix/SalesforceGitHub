@@ -217,12 +217,14 @@ $params = '{
 				"buttonId": "' . BUTTON_ID . '", 
 				"sessionId": "' . $_SESSION['sId'] . '", 
 				"visitorName": "' . $data->name . '", 
-				"prechatDetails": [{label: "chathistory", value: "' . implode(';', $data->history) . '", displayToAgent: true, transcriptFields: ["XXX"] }],  
+				"prechatDetails": [{label: "chathistory", value: "", displayToAgent: true, transcriptFields: ["XXX"] }],  
 				"prechatEntities": [], 
 				"receiveQueueUpdates": true, 
 				"isPost": true 
 				}';
-
+				
+				//' . implode(';', $data->history) . '
+				
 				$con->setPostfields($params);
 				
 				$response = $con->sendRequest();
