@@ -232,7 +232,7 @@ $params = '{
             }
          ],
          "transcriptFields":[
-            "LastName__c"
+            "LastName"
          ],
          "displayToAgent":true
       },
@@ -246,7 +246,21 @@ $params = '{
             }
          ],
          "transcriptFields":[
-            "Email__c"
+            "Email"
+         ],
+         "displayToAgent":true
+      },
+      {
+         "label":"Phone",
+         "value":"030-23456",
+         "entityMaps":[
+            {
+               "entityName":"contact",
+               "fieldName":"Phone"
+            }
+         ],
+         "transcriptFields":[
+            "Phone"
          ],
          "displayToAgent":true
       }],  
@@ -260,16 +274,16 @@ $params = '{
              {
                "fieldName":"LastName",
                "label":"LastName",
-               "doFind":true,
-               "isExactMatch":true,
-               "doCreate":true
+               "doFind":false,
+               "isExactMatch":false,
+               "doCreate":false
             },
             {
-               "fieldName":"FirstName",
-               "label":"FirstName",
-               "doFind":true,
-               "isExactMatch":true,
-               "doCreate":true
+               "fieldName":"Phone",
+               "label":"Phone",
+               "doFind":false,
+               "isExactMatch":false,
+               "doCreate":false
             },
             {
                "fieldName":"Email",
