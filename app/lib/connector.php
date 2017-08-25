@@ -72,6 +72,8 @@ class connector {
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 		curl_setopt($ch, CURLOPT_VERBOSE, 1);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15);
+		
 		
 		if ($this->getRequestHeader() != '') {
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $this->getRequestHeader());
