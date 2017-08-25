@@ -247,7 +247,7 @@ console.log(response.data);
 					$('.chatbutton').hide();
 					$('.livechatbutton').show();
 
-					$scope.timer = setInterval(function() {$scope.readLiveMessage();}, 10000);
+					$scope.timer = setInterval(function() {$scope.readLiveMessage();}, 2000);
 					
 				} else {
 					
@@ -356,7 +356,7 @@ console.log(response.data);
 						$('#survey-view').show();
 					}, 5000);
 				} else {
-					$scope.timer = setInterval(function() {$scope.readLiveMessage();}, 10000);
+					$scope.timer = setInterval(function() {$scope.readLiveMessage();}, 2000);
 				}
 				
 			}, function error(response){
