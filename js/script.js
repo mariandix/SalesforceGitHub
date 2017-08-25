@@ -236,7 +236,8 @@ console.log(response.data);
 			}
 			}).then(function success(response) {
 				
-				console.log(response);
+console.log('connect live agent');				
+console.log(response.data);
 				
 				var agent = response.data['agent'];
 
@@ -269,11 +270,13 @@ console.log(response.data);
 	$scope.sendLiveMessage = function () {
 		
 		if ($scope.message != '') {
-
+			
 			$('.chat-messages').find('ul').append($scope.entryCustomer($scope.message));
 			$('.chat-input .input').val('');
 			var message = $scope.message;
 			$scope.message = '';
+			
+			clearInterval($scope.timer);
 			
 			$http({
 				method: 'POST',
@@ -288,7 +291,8 @@ console.log(response.data);
 					var text = response.data['text'];
 					var chat = response.data['chat'];
 					
-					console.log(text); 
+console.log('send live message');				
+console.log(response.data);
 					if (text != '' && text != undefined) {
 						
 						$.each(text, function(key, value) {
@@ -297,11 +301,15 @@ console.log(response.data);
 						});
 					
 					}
+					
+					$scope.timer = setInterval(function() {$scope.readLiveMessage();}, 2000);
 					if (chat == 'stop') {
 						
 						$('.livechatbutton').hide();
 
 						$('.chat-messages').find('ul').append($scope.entryAgent('Chat is ended'));
+						
+						clearInterval($scope.timer);
 						
 						setTimeout(function(){
 							$('#chat-view').hide();
@@ -336,7 +344,8 @@ console.log(response.data);
 				var text = response.data['text'];
 				var chat = response.data['chat'];
 				
-				console.log(text); 
+console.log('liveagent check');				
+console.log(response.data);
 				if (text != '' && text != undefined) {
 
 					$.each(text, function(key, value) {
