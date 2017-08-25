@@ -224,7 +224,7 @@ $params = '{
 				"screenResolution": "1900x1080", 
 				"prechatDetails": [{
          "label":"LastName",
-         "value":"Thomas",
+         "value":"' . $data->name . '",
          "entityMaps":[
             {
                "entityName":"contact",
