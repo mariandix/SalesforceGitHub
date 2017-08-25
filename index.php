@@ -16,7 +16,7 @@
 	<script src="js/script.js" type="text/javascript"></script>
 	<link href="css/style.css" media="all" rel="stylesheet" />
 </head>
-<body ng-app="chat-bot" ng-controller="chat">
+<body ng-app="chat-bot" ng-controller="chat" id="chat-bot">
 	<div class="header">
 		<img src="img/1502890870.png" width="200">
 	</div>
@@ -48,6 +48,7 @@
 					<button ng-click="sendMessage()" class="chatbutton">Send Message</button>
 					<button ng-click="sendLiveMessage()" class="livechatbutton" style="display:none">Send Message</button>
 				</div>
+				<button ng-click="endChat()" class="endChat">X</button>
 			</div>
 		</div>
 		

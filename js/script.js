@@ -18,9 +18,11 @@ var chatBot = angular.module('chat-bot', ['base64']);
 chatBot.controller('chat', function ($scope, $http, $base64) {
 
 	$scope.sessionid = '';
-	$scope.stopChating = false;
+	$scope.congesysStop = false;
+	$scope.chatStop = false;
 	$scope.messageCount = 0;
 	$scope.timer;
+	$scope.inputTimer;
 	
 	$scope.open_chat = function () {
 		
@@ -154,6 +156,7 @@ console.log(response.data);
 					} else if (status == 'chat-topic-finished') {
 						
 						savedData.chatstatus = status;
+						$scope.chatStop = true;
 						
 						$scope.stop_cognesys_chat(true);
 						
@@ -170,6 +173,13 @@ console.log(response.data);
 						
 						$('.chat-messages').find('ul').append($scope.entryChatbot(text));
 					}
+					
+					var objDiv = $(".chat-messages ul");
+					console.log(objDiv.height());
+					console.log(objDiv.prop("scrollHeight"));
+					
+					objDiv.animate({ scrollTop: objDiv[0].scrollHeight }, 1000);
+
 					
 				}, function error(response){
 					
@@ -190,7 +200,9 @@ console.log(response.data);
 	}	
 	
 	$scope.stop_cognesys_chat = function (saveCustomerData) {
-
+		
+		$scope.congesysStop = true;
+		
 		$http({
 			method: 'POST',
 			url: 'api.php',
@@ -225,11 +237,21 @@ console.log(response.data);
 	// live agent beginn
 	
 	$scope.connectLiveAgent = function () {
-	
+
 		$http({
 			method: 'POST',
 			url: 'api.php',
-			data: {'type': 'liveagent_init', 'history': savedData.history, 'name': savedData.name, 'email': savedData.email, 'phone': savedData.phone},
+			data: {
+				'type': 'liveagent_init', 
+				'history': savedData.history, 
+				'name': savedData.name, 
+				'email': savedData.email, 
+				'phone': savedData.phone,
+				'userAgent': navigator.userAgent,
+				'language': navigator.language,
+				'width': window.innerWidth,
+				'height': window.innerHeight
+			},
 			headers: {
 			    'Accept':'application/json',
 			    'Content-Type':'application/json'
@@ -309,6 +331,7 @@ console.log(response.data);
 
 						$('.chat-messages').find('ul').append($scope.entryAgent('Chat is ended'));
 						
+						$scope.chatStop = true;
 						clearInterval($scope.timer);
 						
 						setTimeout(function(){
@@ -356,6 +379,7 @@ console.log(response.data);
 				}
 				if (chat == 'stop') {
 					
+					$scope.chatStop = true;
 					$('.livechatbutton').hide();
 						
 					$('.chat-messages').find('ul').append($scope.entryAgent('Chat is ended'));
@@ -365,7 +389,9 @@ console.log(response.data);
 						$('#survey-view').show();
 					}, 5000);
 				} else {
-					$scope.timer = setInterval(function() {$scope.readLiveMessage();}, 2000);
+					if (!$scope.chatStop) {
+						$scope.timer = setInterval(function() {$scope.readLiveMessage();}, 2000);
+					}
 				}
 				
 			}, function error(response){
@@ -373,7 +399,28 @@ console.log(response.data);
 			});
 
 	}	
-	
+
+	$scope.liveagent_stop = function() {
+		
+		$http({
+			method: 'POST',
+			url: 'api.php',
+			data: {
+				'type': 'liveagent_stop'
+			},
+			headers: {
+			    'Accept':'application/json',
+			    'Content-Type':'application/json'
+			}
+			}).then(function success(response) {
+				
+console.log('stop live agent');				
+console.log(response.data);
+				$scope.chatStop = true;
+			}, function error(response){
+				
+			});
+	}	
 	
 	// live agent end
 	
@@ -394,6 +441,8 @@ console.log(response.data);
 				'tonality': savedData.tonality,
 				'chathistory': savedData.history,
 				'summary': savedData.summary,
+				'endTime': savedData.endTime,
+				'startTime': savedData.startTime
 			},
 			headers: {
 			    'Accept':'application/json',
@@ -415,6 +464,44 @@ console.log(response.data);
 		
 		$('#callback-view').hide();
 		$('#survey-view').show();
+		
+	}
+	
+	$scope.endChat = function () {
+		
+		if (confirm("Chat beenden?")) {
+			
+			$scope.endChatOnUnload();
+			
+		}
+		
+	}
+	
+	$scope.endChatOnUnload = function () {
+			
+		if ($scope.sessionid == '') {
+			// first view - no chat to stop
+			// do nothing
+			console.log('end do nothing');
+		} else if (!$scope.congesysStop) {
+			
+			savedData.chatstatus = 'Aborted';
+			$scope.stop_cognesys_chat(true);
+			
+			console.log('end stop cognesys');
+		} else {
+			
+			$scope.chatStop = true;
+			clearInterval($scope.timer);
+
+			$scope.liveagent_stop();
+			console.log('end stop live agent');
+		}
+		
+		setTimeout(function(){
+			$('#chat-view').hide();
+			$('#survey-view').show();
+		}, 2000);
 		
 	}
 	
@@ -459,3 +546,28 @@ console.log(response.data);
 	}		
 
 });
+/*
+window.onbeforeunload = function (event) {
+    var message = 'Wollen Sie den Chat verlassen?';
+    console.log('beforeunload');
+    if (typeof event == 'undefined') {
+        event = window.event;
+    }
+    if (event) {
+        event.returnValue = message;
+    }
+    console.log('beforeunload2');
+    
+    return message;
+};
+window.onunload = function () {
+	console.log('unload');
+	$.ajax({
+     type: 'POST',
+     async: false,
+     url: 'api.php'
+   });
+   angular.element(document.getElementById('chat-bot')).scope().endChatOnUnload();
+}
+*/
+

@@ -213,98 +213,97 @@ $params = '{
 				
 				$subParams = '';
 				
-				$params = '{
-				"organizationId": "' . ORG_ID . '", 
-				"deploymentId": "' . DEPLOYMENT_ID . '", 
-				"buttonId": "' . BUTTON_ID . '", 
-				"sessionId": "' . $_SESSION['sId'] . '", 
-				"visitorName": "' . $data->name . '", 
-				"userAgent": "Lynx/2.8.8", 
-				"language": "de-DE", 
-				"screenResolution": "1900x1080", 
-				"prechatDetails": [{
-         "label":"LastName",
-         "value":"' . $data->name . '",
-         "entityMaps":[
-            {
-               "entityName":"contact",
-               "fieldName":"LastName"
-            }
-         ],
-         "transcriptFields":[
-            "LastName"
-         ],
+$params = '{
+"organizationId": "' . ORG_ID . '", 
+"deploymentId": "' . DEPLOYMENT_ID . '", 
+"buttonId": "' . BUTTON_ID . '", 
+"sessionId": "' . $_SESSION['sId'] . '", 
+"visitorName": "' . $data->name . '", 
+"userAgent": "' . $data->userAgent . '", 
+"language": "' . $data->language . '", 
+"screenResolution": "' . $data->width . 'x' . $data->height . '", 
+"prechatDetails": [
+	{
+		"label":"LastName",
+		"value":"' . $data->name . '",
+		"entityMaps":[
+        	{
+           		"entityName":"contact",
+           		"fieldName":"LastName"
+        	}
+     	],
+     	"transcriptFields":[
+        	"LastName"
+     	],
          "displayToAgent":true
-      },
-      {
-         "label":"Email",
-         "value":"test@sfdctest.com",
-         "entityMaps":[
+	},
+    {
+		"label":"Email",
+		"value":"' . $data->email . '",
+		"entityMaps":[
             {
                "entityName":"contact",
                "fieldName":"Email"
             }
-         ],
-         "transcriptFields":[
-            "Email"
-         ],
-         "displayToAgent":true
-      },
-      {
-         "label":"Phone",
-         "value":"030-23456",
-         "entityMaps":[
-            {
-               "entityName":"contact",
-               "fieldName":"Phone"
+		],
+        "transcriptFields":[
+        	"Email"
+		],
+        "displayToAgent":true
+	},
+    {
+		"label":"Phone",
+		"value":"' . $data->phone . '",
+		"entityMaps":[
+        	{
+            	"entityName":"contact",
+            	"fieldName":"Phone"
             }
-         ],
-         "transcriptFields":[
-            "Phone"
-         ],
-         "displayToAgent":true
-      }],  
-				"prechatEntities": [{
-         "entityName":"Contact",         
-         "saveToTranscript":"contact",
-         "linkToEntityName":"Case",
-         "linkToEntityField":"ContactId",
-         "entityFieldsMaps":[
-           
-             {
-               "fieldName":"LastName",
-               "label":"LastName",
-               "doFind":false,
-               "isExactMatch":false,
-               "doCreate":false
+		],
+        "transcriptFields":[
+        	"Phone"
+		],
+        "displayToAgent":true
+	}
+],  
+"prechatEntities": [
+	{
+		"entityName":"Contact",         
+		"saveToTranscript":"contact",
+		"linkToEntityName":"Case",
+		"linkToEntityField":"ContactId",
+		"entityFieldsMaps":[
+			{
+			   	"fieldName":"LastName",
+			   	"label":"LastName",
+			   	"doFind":false,
+			   	"isExactMatch":false,
+			   	"doCreate":false
             },
             {
-               "fieldName":"Phone",
-               "label":"Phone",
-               "doFind":false,
-               "isExactMatch":false,
-               "doCreate":false
+			   	"fieldName":"Phone",
+			   	"label":"Phone",
+			   	"doFind":false,
+			   	"isExactMatch":false,
+			   	"doCreate":false
             },
             {
-               "fieldName":"Email",
-               "label":"Email",
-               "doFind":true,
-               "isExactMatch":true,
-               "doCreate":true
-            }
-                       
-         ]
-      }], 
-				"receiveQueueUpdates": true, 
-				"isPost": true 
-				}';
-				
-				//' . implode(';', $data->history) . '
-				
+               	"fieldName":"Email",
+               	"label":"Email",
+               	"doFind":true,
+               	"isExactMatch":true,
+               	"doCreate":true
+            }           
+		]
+	}
+], 
+"receiveQueueUpdates": true, 
+"isPost": true 
+}';
+
 				$con->setPostfields($params);
 				
 				$response = $con->sendRequest();
-			
 					
 				$con = new connector();
 				$con->setEndpoint(LIVEAGENT_REST_URL . "/System/Messages");
@@ -332,7 +331,7 @@ $params = '{
 				
 
 					$params = '{
-						"text": "' . $value->Type . ': ' . $value->message . '"
+						"text": "' . (($value->Type == 'Q') ? 'Customer':'ChatBot') . ': ' . $value->message . '"
 					}'; 
 					
 					$con->setPostfields($params);
@@ -393,18 +392,18 @@ $params = '{
 						
 					}
 					
-					$result = array('text' => $resp);
+					$result = array('text' => $resp, 'result' => $result);
 					header ('Content-Type: application/json');
 					echo json_encode($result);
 					
 				} else {
-					$result = array('text' => '');
+					$result = array('text' => '', 'result' => $result);
 					header ('Content-Type: application/json');
 					echo json_encode($result);
 				}
 			
 			} else {
-				$result = array('text' => '');
+				$result = array('text' => '', 'result' => $result);
 				header ('Content-Type: application/json');
 				echo json_encode($result);
 			}
@@ -487,7 +486,28 @@ $params = '{
 			
 			break;
 
-
+		case 'liveagent_stop' :
+			
+			$con = new connector();
+			$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChatEnd");
+			$con->setRequestMethod('POST');
+			
+			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'],
+				            "X-LIVEAGENT-API-VERSION: 40",
+							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+			$con->setRequestHeader($header);
+			
+			$params = '{reason: "client"}'; 
+			
+			$con->setPostfields($params);
+		
+			$response = $con->sendRequest();
+			
+			$result = array('response' => $response);
+			header ('Content-Type: application/json');
+			echo json_encode($result);
+			
+			break;
 	}
 	
 	
