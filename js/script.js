@@ -229,7 +229,7 @@ console.log(response.data);
 		$http({
 			method: 'POST',
 			url: 'api.php',
-			data: {'type': 'liveagent_init', 'history': savedData.history, 'name': savedData.name},
+			data: {'type': 'liveagent_init', 'history': savedData.history, 'name': savedData.name, 'email': savedData.email, 'phone': savedData.phone},
 			headers: {
 			    'Accept':'application/json',
 			    'Content-Type':'application/json'
@@ -400,7 +400,8 @@ console.log(response.data);
 			    'Content-Type':'application/json'
 			}
 			}).then(function success(response) {
-				console.log(response);
+console.log('save data');				
+console.log(response.data);
 			}, function error(response){
 				console.log(response);
 			});

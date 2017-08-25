@@ -211,6 +211,8 @@ $params = '{
 								"X-LIVEAGENT-SEQUENCE : 1");
 				$con->setRequestHeader($header);
 				
+				$subParams = '';
+				
 				$params = '{
 				"organizationId": "' . ORG_ID . '", 
 				"deploymentId": "' . DEPLOYMENT_ID . '", 
@@ -220,8 +222,65 @@ $params = '{
 				"userAgent": "Lynx/2.8.8", 
 				"language": "de-DE", 
 				"screenResolution": "1900x1080", 
-				"prechatDetails": [{label: "chathistory", value: "", displayToAgent: true, transcriptFields: ["XXX"] }],  
-				"prechatEntities": [], 
+				"prechatDetails": [{
+         "label":"LastName",
+         "value":"Thomas",
+         "entityMaps":[
+            {
+               "entityName":"contact",
+               "fieldName":"LastName"
+            }
+         ],
+         "transcriptFields":[
+            "LastName__c"
+         ],
+         "displayToAgent":true
+      },
+      {
+         "label":"Email",
+         "value":"test@sfdctest.com",
+         "entityMaps":[
+            {
+               "entityName":"contact",
+               "fieldName":"Email"
+            }
+         ],
+         "transcriptFields":[
+            "Email__c"
+         ],
+         "displayToAgent":true
+      }],  
+				"prechatEntities": [{
+         "entityName":"Contact",         
+         "saveToTranscript":"contact",
+         "linkToEntityName":"Case",
+         "linkToEntityField":"ContactId",
+         "entityFieldsMaps":[
+           
+             {
+               "fieldName":"LastName",
+               "label":"LastName",
+               "doFind":true,
+               "isExactMatch":true,
+               "doCreate":true
+            },
+            {
+               "fieldName":"FirstName",
+               "label":"FirstName",
+               "doFind":true,
+               "isExactMatch":true,
+               "doCreate":true
+            },
+            {
+               "fieldName":"Email",
+               "label":"Email",
+               "doFind":true,
+               "isExactMatch":true,
+               "doCreate":true
+            }
+                       
+         ]
+      }], 
 				"receiveQueueUpdates": true, 
 				"isPost": true 
 				}';
