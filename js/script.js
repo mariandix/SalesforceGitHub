@@ -15,14 +15,15 @@ var savedData = [];
 
 var chatBot = angular.module('chat-bot', ['base64']);
 
-chatBot.controller('chat', function ($scope, $http, $base64) {
+chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 
 	$scope.sessionid = '';
 	$scope.congesysStop = false;
 	$scope.chatStop = false;
-	$scope.messageCount = 0;
+	$scope.messageCount = 1;
 	$scope.timer;
 	$scope.inputTimer;
+	$scope.fullMessage = '';
 	
 	$scope.open_chat = function () {
 		
@@ -93,7 +94,38 @@ console.log(response.data['result']);
 					$('#chat-view').show();
 					
 					$('.chat-messages').find('ul').append($scope.entryChatbot('Hallo<br>Wie kann ich Ihnen helfen?'));
-			
+
+					$('.input').keypress(function(event) {
+						var oldTimer = ($scope.inputTimer != undefined);
+						clearTimeout($scope.inputTimer);
+						
+						if (event.which == 13) {
+							
+							if ($scope.message != '' && $scope.message != undefined) {
+								savedData.history.push({'sequenceNumber':$scope.messageCount, 'Type': 'Q', 'message': $scope.message});
+								
+								$scope.fullMessage = $scope.fullMessage + " " + $scope.message;
+								
+								$('.chat-messages').find('ul').append($scope.entryCustomer($scope.message));
+								$('.chat-input .input').val('');
+								
+								console.log('enter');
+								
+								$scope.inputTimer = setTimeout(function(){
+									$scope.sendFullMessage();
+								}, 2000);
+							}
+						} else {
+							
+							if (oldTimer) {
+								$scope.inputTimer = setTimeout(function(){
+									$scope.sendFullMessage();
+								}, 3000);
+							}
+						}
+						
+					});
+
 				} else {
 					
 					$('#login-view').hide();
@@ -110,18 +142,80 @@ console.log(response.data['result']);
 				$scope.saveCustomerData();
 				
 			});
-					
+			
 	}	
+	
+	$scope.sendFullMessage = function () {
+		
+		clearTimeout($scope.inputTimer);
+		$http({
+			method: 'POST',
+			url: 'api.php',
+			data: {'type': 'cognesys_talk', 'session_id': $scope.sessionid, 'text': $scope.fullMessage, 'sequence': $scope.messageCount },
+			headers: {
+			    'Accept':'application/json',
+			    'Content-Type':'application/json'
+			}
+			}).then(function success(response) {
+				
+				var resp = JSON.parse(response.data['result'].result);
+console.log('talk full');					
+console.log(response.data);					
+					var text = resp['text'];
+				var status = resp['status'];
+				var cnt = resp['sequence-id'];
+				savedData.summary = resp['summary'];
+				
+				savedData.history.push({'sequenceNumber':resp['sequence-id'],'Type': 'A', 'message': resp['text']});
+				
+				if (status == 'handover') {
+					
+					savedData.chatstatus = status;
+					
+					$('.chat-messages').find('ul').append($scope.entryChatbot(text));
+					
+					$scope.stop_cognesys_chat(false);
+					$scope.connectLiveAgent();
+
+				} else if (status == 'chat-topic-finished') {
+					
+					savedData.chatstatus = status;
+					$scope.chatStop = true;
+					
+					$scope.stop_cognesys_chat(true);
+					
+					$('.chat-messages').find('ul').append($scope.entryChatbot(text));
+					$('.chat-messages').find('ul').append($scope.entryChatbot('Chat wurde beendet. Vielen Dank und einen schönen Tag.'));
+					
+					setTimeout(function(){
+						$('#chat-view').hide();
+						$('#survey-view').show();
+					}, 7500);
+					
+				} else {
+					
+					$('.chat-messages').find('ul').append($scope.entryChatbot(text));
+				}
+				
+			}, function error(response){
+				
+			});
+				
+		$scope.messageCount++;
+		
+		$scope.fullMessage = '';
+	}
 	
 	$scope.sendMessage = function () {
 		
 		if ($scope.message != '' && $scope.message != undefined) {
-			$scope.messageCount++;
+			
+			clearTimeout($scope.inputTimer);
 			savedData.history.push({'sequenceNumber':$scope.messageCount, 'Type': 'Q', 'message': $scope.message});
 			
 			$('.chat-messages').find('ul').append($scope.entryCustomer($scope.message));
 			$('.chat-input .input').val('');
-			var message = $scope.message;
+			var message = $scope.fullMessage + " " + $scope.message;
 			$scope.message = '';
 			
 			$http({
@@ -174,31 +268,14 @@ console.log(response.data);
 						$('.chat-messages').find('ul').append($scope.entryChatbot(text));
 					}
 					
-					var objDiv = $(".chat-messages ul");
-					console.log(objDiv.height());
-					console.log(objDiv.prop("scrollHeight"));
-					
-					objDiv.animate({ scrollTop: objDiv[0].scrollHeight }, 1000);
-
-					
 				}, function error(response){
 					
 				});
-		
+				
+		$scope.messageCount++;
 		}
 	}	
-	
-	$scope.showCustomerMessage = function (text) {
-		
-		if (text != '' && text != undefined) {
-			
-			$('.chat-messages').find('ul').append($scope.entryCustomer(text));
-			$('.chat-input .input').val('');
-			
-		
-		}
-	}	
-	
+
 	$scope.stop_cognesys_chat = function (saveCustomerData) {
 		
 		$scope.congesysStop = true;
@@ -217,7 +294,7 @@ console.log(response.data);
 				var resp = JSON.parse(response.data['result'].result);
 				console.log(resp);
 				savedData.tonality = resp.tonality;
-				savedData.summary = resp.summary;
+				//savedData.summary = resp.summary;
 				savedData.endTime = resp.timestamp;
 				savedData.startTime = resp.started;
 				
@@ -344,7 +421,6 @@ console.log(response.data);
 				}, function error(response){
 					
 				});
-
 			
 		}
 		
@@ -546,6 +622,7 @@ console.log(response.data);
 	}		
 
 });
+
 /*
 window.onbeforeunload = function (event) {
     var message = 'Wollen Sie den Chat verlassen?';

@@ -228,7 +228,7 @@ $params = '{
 		"value":"' . $data->name . '",
 		"entityMaps":[
         	{
-           		"entityName":"contact",
+           		"entityName":"Contact",
            		"fieldName":"LastName"
         	}
      	],
@@ -242,7 +242,7 @@ $params = '{
 		"value":"' . $data->email . '",
 		"entityMaps":[
             {
-               "entityName":"contact",
+               "entityName":"Contact",
                "fieldName":"Email"
             }
 		],
@@ -256,7 +256,7 @@ $params = '{
 		"value":"' . $data->phone . '",
 		"entityMaps":[
         	{
-            	"entityName":"contact",
+            	"entityName":"Contact",
             	"fieldName":"Phone"
             }
 		],
@@ -397,13 +397,13 @@ $params = '{
 					echo json_encode($result);
 					
 				} else {
-					$result = array('text' => '', 'result' => $result);
+					$result = array('text' => '', 'result' => $result, 'resp' => 'no-msg');
 					header ('Content-Type: application/json');
 					echo json_encode($result);
 				}
 			
 			} else {
-				$result = array('text' => '', 'result' => $result);
+				$result = array('text' => '', 'result' => $result, 'resp' => 'no-resp');
 				header ('Content-Type: application/json');
 				echo json_encode($result);
 			}
