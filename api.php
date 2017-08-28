@@ -116,9 +116,7 @@ $params = '{
 "callbackInfo":"' . $data->callback . '",
 "chatStatus":"' . $data->status . '",
 "chatBotSummary":"' . (isset($data->summary) ? $data->summary: "") . '",
-"tonality": "' . (isset($data->tonality) ? $data->tonality : "") . '",
-"endTime":"' . $data->endTime . '",
-"startTime":"' . $data->startTime . '"
+"tonality": "' . (isset($data->tonality) ? $data->tonality : "") . '"
 }
 }';
 				

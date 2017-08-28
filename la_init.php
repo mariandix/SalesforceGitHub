@@ -100,7 +100,7 @@ $params = '{
 "prechatEntities": [{
 	"entityName":"Contact", 
 	"showOnCreate":true,        
-	"saveToTranscript":"contact",
+	"saveToTranscript":"Contact",
 	"linkToEntityName":null,
 	"linkToEntityField":"ContactId",
 	"entityFieldsMaps":[{
