@@ -98,7 +98,8 @@ $params = '{
 		        "displayToAgent":true
 			}],  
 "prechatEntities": [{
-	"entityName":"Contact",         
+	"entityName":"Contact", 
+	"showOnCreate":true,        
 	"saveToTranscript":"contact",
 	"linkToEntityName":"Case",
 	"linkToEntityField":"ContactId",
