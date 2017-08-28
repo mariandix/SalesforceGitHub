@@ -268,9 +268,10 @@ $params = '{
 ],  
 "prechatEntities": [
 	{
-		"entityName":"Contact",         
+		"entityName":"Contact",  
+		"showOnCreate":true,          
 		"saveToTranscript":"contact",
-		"linkToEntityName":"Case",
+		"linkToEntityName":null,
 		"linkToEntityField":"ContactId",
 		"entityFieldsMaps":[
 			{
@@ -278,14 +279,14 @@ $params = '{
 			   	"label":"LastName",
 			   	"doFind":false,
 			   	"isExactMatch":false,
-			   	"doCreate":false
+			   	"doCreate":true
             },
             {
 			   	"fieldName":"Phone",
 			   	"label":"Phone",
 			   	"doFind":false,
 			   	"isExactMatch":false,
-			   	"doCreate":false
+			   	"doCreate":true
             },
             {
                	"fieldName":"Email",
