@@ -101,21 +101,21 @@ $params = '{
 	"entityName":"Contact", 
 	"showOnCreate":true,        
 	"saveToTranscript":"contact",
-	"linkToEntityName":"Contact",
+	"linkToEntityName":null,
 	"linkToEntityField":"ContactId",
 	"entityFieldsMaps":[{
 		   	"fieldName":"LastName",
 		   	"label":"LastName",
 		   	"doFind":false,
 		   	"isExactMatch":false,
-		   	"doCreate":false
+		   	"doCreate":true
 	    },
 	    {
 		   	"fieldName":"Phone",
 		   	"label":"Phone",
 		   	"doFind":false,
 		   	"isExactMatch":false,
-		   	"doCreate":false
+		   	"doCreate":true
 	    },
 	    {
 	       	"fieldName":"Email",
