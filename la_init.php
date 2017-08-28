@@ -101,7 +101,7 @@ $params = '{
 	"entityName":"Contact", 
 	"showOnCreate":true,        
 	"saveToTranscript":"contact",
-	"linkToEntityName":"Case",
+	"linkToEntityName":"Contact",
 	"linkToEntityField":"ContactId",
 	"entityFieldsMaps":[{
 		   	"fieldName":"LastName",
