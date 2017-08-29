@@ -352,7 +352,7 @@ console.log(response.data);
 					$('.chatbutton').hide();
 					$('.livechatbutton').show();
 
-					$scope.timer = setInterval(function() {$scope.readLiveMessage();}, 2000);
+					$scope.timer = setTimeout(function() {$scope.readLiveMessage();}, 2000);
 					
 					$('.input').keypress(function(event) {
 						var oldTimer = ($scope.inputTimer != undefined);
@@ -410,7 +410,7 @@ console.log(response.data);
 			var message = $scope.fullMessage + " " + $scope.message;
 			$scope.message = '';
 			
-			clearInterval($scope.timer);
+			clearTimeout($scope.timer);
 			
 			$http({
 				method: 'POST',
@@ -436,7 +436,7 @@ console.log(response.data);
 					
 					}
 					
-					$scope.timer = setInterval(function() {$scope.readLiveMessage();}, 2000);
+					$scope.timer = setTimeout(function() {$scope.readLiveMessage();}, 2000);
 					if (chat == 'stop') {
 						
 						$('.livechatbutton').hide();
@@ -444,7 +444,7 @@ console.log(response.data);
 						$('.chat-messages').find('ul').append($scope.entryAgent('Chat is ended'));
 						
 						$scope.chatStop = true;
-						clearInterval($scope.timer);
+						clearTimeout($scope.timer);
 						
 						setTimeout(function(){
 							$('#chat-view').hide();
@@ -489,7 +489,7 @@ console.log(response.data);
 					
 					}
 					
-					$scope.timer = setInterval(function() {$scope.readLiveMessage();}, 2000);
+					$scope.timer = setTimeout(function() {$scope.readLiveMessage();}, 2000);
 					if (chat == 'stop') {
 						
 						$('.livechatbutton').hide();
@@ -497,7 +497,7 @@ console.log(response.data);
 						$('.chat-messages').find('ul').append($scope.entryAgent('Chat is ended'));
 						
 						$scope.chatStop = true;
-						clearInterval($scope.timer);
+						clearTimeout($scope.timer);
 						
 						setTimeout(function(){
 							$('#chat-view').hide();
@@ -514,7 +514,7 @@ console.log(response.data);
 	
 	$scope.readLiveMessage = function() {
 		
-		clearInterval($scope.timer);
+		clearTimeout($scope.timer);
 		$http({
 			method: 'POST',
 			url: 'api.php',
@@ -551,7 +551,7 @@ console.log(response.data);
 					}, 5000);
 				} else {
 					if (!$scope.chatStop) {
-						$scope.timer = setInterval(function() {$scope.readLiveMessage();}, 2000);
+						$scope.timer = setTimeout(function() {$scope.readLiveMessage();}, 2000);
 					}
 				}
 				
@@ -653,7 +653,7 @@ console.log(response.data);
 		} else {
 			
 			$scope.chatStop = true;
-			clearInterval($scope.timer);
+			clearTimeout($scope.timer);
 
 			$scope.liveagent_stop();
 			console.log('end stop live agent');
