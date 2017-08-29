@@ -353,7 +353,7 @@ $params = '{
 				
 
 					$params = '{
-						"text": "' . (($value->Type == 'Q') ? 'Customer':'ChatBot') . ': ' . $value->message . '"
+						"text": "' . (($value->Type == 'Q') ? $data->name:'ChatBot') . ': ' . $value->message . '"
 					}'; 
 					
 					$con->setPostfields($params);
