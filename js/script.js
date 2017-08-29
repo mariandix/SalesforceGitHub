@@ -273,6 +273,7 @@ console.log(response.data);
 				});
 				
 		$scope.messageCount++;
+		$scope.fullMessage = '';
 		}
 	}	
 
@@ -455,7 +456,7 @@ console.log(response.data);
 				}, function error(response){
 					
 				});
-			
+			$scope.fullMessage = '';
 		}
 		
 	}
@@ -508,6 +509,7 @@ console.log(response.data);
 				}, function error(response){
 					
 				});
+		$scope.fullMessage = '';
 	}
 	
 	$scope.readLiveMessage = function() {
