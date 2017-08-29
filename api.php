@@ -510,7 +510,6 @@ $params = '{
 	}
 	
 	
-	
 } else {
 	
 	echo json_encode(array('status' => 'empty vars'));

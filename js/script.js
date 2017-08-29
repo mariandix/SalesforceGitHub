@@ -10,7 +10,7 @@ var agent = {};
 agent.avatar = "https://cdn4.iconfinder.com/data/icons/user-avatar-flat-icons/512/User_Avatar-26-512.png";
 
 var REGEX_EMAIL = /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/;
-
+var REGEX_EMAIL = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;    
 var savedData = [];	
 
 var chatBot = angular.module('chat-bot', ['base64']);
@@ -33,12 +33,12 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 		$('input[type="email"]').removeClass('error');
 		$('.error_msg').hide();
 		
-		if ($scope.email != undefined && !reg.test($scope.email)) {
-            
-            error = true;
-        } else if ($scope.email == undefined) {
+		if ($scope.email == undefined) {
         	
         	savedData.email = Math.random()+'test@test.de';
+        } else if (reg.test($scope.email)) {
+            console.log('sdfdsf');
+            error = true;
         } else {
         	
             savedData.email = $scope.email;
@@ -641,10 +641,10 @@ window.onunload = function () {
 	console.log('unload');
 	$.ajax({
      type: 'POST',
-     async: false,
+     data: {unload: true},
      url: 'api.php'
    });
-   angular.element(document.getElementById('chat-bot')).scope().endChatOnUnload();
-}
-*/
+ //  angular.element(document.getElementById('chat-bot')).scope().endChatOnUnload();
+}*/
+
 
