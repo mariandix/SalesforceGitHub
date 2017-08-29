@@ -355,7 +355,7 @@ console.log(response.data);
 					$scope.saveCustomerData();
 					
 					$('#chat-view').hide();
-					$('#survey-view').show();
+					$('#callback-view').show();
 					
 				}
 				
