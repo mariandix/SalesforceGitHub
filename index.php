@@ -28,7 +28,7 @@
 	        	<label>Name</label>
 	            <input type="text" size="30" ng-model="name"><br>
 	            <label>Email</label>
-	            <input type="email" size="30" ng-model="email"><br>
+	            <input type="text" size="30" ng-model="email"><br>
 	            <label>Phone</label>
 	            <input type="text" size="30" ng-model="phone"><br>
 	            

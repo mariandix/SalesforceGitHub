@@ -172,9 +172,9 @@ $params = '{
 				            "X-LIVEAGENT-API-VERSION: 40");
 			$con->setRequestHeader($header);
 			
-			$response = $con->sendRequest();
+			$response_session = $con->sendRequest();
 			
-			$result = json_decode($response['result']);
+			$result = json_decode($response_session['result']);
 			
 			$_SESSION['affinityToken'] = $result->affinityToken;
 			$_SESSION['key'] = $result->key;
@@ -198,6 +198,9 @@ $params = '{
 			
 			if (isset($result->messages[0]->type) && $result->messages[0]->type == 'Availability' && 
 				isset($result->messages[0]->message->results[0]->isAvailable) && $result->messages[0]->message->results[0]->isAvailable == true) {
+
+
+
 				
 				$con = new connector();
 				$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChasitorInit");
@@ -296,13 +299,33 @@ $params = '{
 		]
 	}
 ], 
-"receiveQueueUpdates": true, 
+"receiveQueueUpdates": false, 
 "isPost": true 
 }';
 
 				$con->setPostfields($params);
 				
-				$response = $con->sendRequest();
+				$response_chatinit = $con->sendRequest();
+
+//
+
+			$con = new connector();
+			$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/QueueUpdate");
+			$con->setRequestMethod('POST');
+			
+			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'],
+				            "X-LIVEAGENT-API-VERSION: 40",
+							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+			$con->setRequestHeader($header);
+			
+			$params = '{reason: "client"}'; 
+			
+			$con->setPostfields($params);
+		
+			$response_queue = $con->sendRequest();
+
+
+//
 					
 				$con = new connector();
 				$con->setEndpoint(LIVEAGENT_REST_URL . "/System/Messages");
@@ -340,7 +363,7 @@ $params = '{
 
 
 
-  				$result = array('status' => 'ok', 'response' => $response, 'agent' => true);
+  				$result = array('status' => 'ok', 'response' => $response, 'response_queue' => $response_queue, 'response_chatinit' => $response_chatinit, 'response_session' => $response_session, 'agent' => true);
 				echo json_encode($result);	
 			
 			} else {
@@ -391,18 +414,18 @@ $params = '{
 						
 					}
 					
-					$result = array('text' => $resp, 'result' => $result);
+					$result = array('text' => $resp, 'result' => $result, 'response' => $response);
 					header ('Content-Type: application/json');
 					echo json_encode($result);
 					
 				} else {
-					$result = array('text' => '', 'result' => $result, 'resp' => 'no-msg');
+					$result = array('text' => '', 'result' => $result, 'resp' => 'no-msg', 'response' => $response);
 					header ('Content-Type: application/json');
 					echo json_encode($result);
 				}
 			
 			} else {
-				$result = array('text' => '', 'result' => $result, 'resp' => 'no-resp');
+				$result = array('text' => '', 'result' => $result, 'resp' => 'no-resp', 'response' => $response);
 				header ('Content-Type: application/json');
 				echo json_encode($result);
 			}
@@ -488,7 +511,7 @@ $params = '{
 		case 'liveagent_stop' :
 			
 			$con = new connector();
-			$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChatEnd");
+			$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/QueueUpdate");
 			$con->setRequestMethod('POST');
 			
 			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'],

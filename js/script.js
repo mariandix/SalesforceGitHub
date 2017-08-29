@@ -34,10 +34,10 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 		$('.error_msg').hide();
 		
 		if ($scope.email == undefined) {
-        	
+
         	savedData.email = Math.random()+'test@test.de';
-        } else if (reg.test($scope.email)) {
-            console.log('sdfdsf');
+        } else if (!reg.test($scope.email)) {
+
             error = true;
         } else {
         	
@@ -67,7 +67,7 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 			$scope.start_cognesys_chat();
 		} else {
 			
-			$('input[type="email"]').addClass('error');
+			$('input[ng-model="email"]').addClass('error');
 			$('.error_msg').show();
 		}
 
@@ -104,7 +104,7 @@ console.log(response.data['result']);
 							if ($scope.message != '' && $scope.message != undefined) {
 								savedData.history.push({'sequenceNumber':$scope.messageCount, 'Type': 'Q', 'message': $scope.message});
 								
-								$scope.fullMessage = $scope.fullMessage + " " + $scope.message;
+								$scope.fullMessage = $scope.fullMessage + " " + $scope.message + "\n";
 								
 								$('.chat-messages').find('ul').append($scope.entryCustomer($scope.message));
 								$('.chat-input .input').val('');
@@ -301,6 +301,10 @@ console.log(response.data);
 				if (saveCustomerData) {
 					$scope.saveCustomerData();
 				}
+				
+				$('.input').unbind('keypress');
+				$scope.inputTimer = undefined;
+				$scope.fullMessage = '';
 
 			}, function error(response){
 				
@@ -349,6 +353,36 @@ console.log(response.data);
 
 					$scope.timer = setInterval(function() {$scope.readLiveMessage();}, 2000);
 					
+					$('.input').keypress(function(event) {
+						var oldTimer = ($scope.inputTimer != undefined);
+						clearTimeout($scope.inputTimer);
+						
+						if (event.which == 13) {
+							
+							if ($scope.message != '' && $scope.message != undefined) {
+
+								$scope.fullMessage = $scope.fullMessage + " " + $scope.message + '\n';
+								
+								$('.chat-messages').find('ul').append($scope.entryCustomer($scope.message));
+								$('.chat-input .input').val('');
+								
+								console.log('enter');
+								
+								$scope.inputTimer = setTimeout(function(){
+									$scope.sendFullLiveMessage();
+								}, 2000);
+							}
+						} else {
+							
+							if (oldTimer) {
+								$scope.inputTimer = setTimeout(function(){
+									$scope.sendFullLiveMessage();
+								}, 3000);
+							}
+						}
+						
+					});
+					
 				} else {
 					
 					savedData.status = 'Live Agent n/a';
@@ -372,7 +406,7 @@ console.log(response.data);
 			
 			$('.chat-messages').find('ul').append($scope.entryCustomer($scope.message));
 			$('.chat-input .input').val('');
-			var message = $scope.message;
+			var message = $scope.fullMessage + " " + $scope.message;
 			$scope.message = '';
 			
 			clearInterval($scope.timer);
@@ -425,7 +459,56 @@ console.log(response.data);
 		}
 		
 	}
+	
+	$scope.sendFullLiveMessage = function () {	
+	
+		clearTimeout($scope.inputTimer);
+		
+		$http({
+				method: 'POST',
+				url: 'api.php',
+				data: {'type' : 'liveagent_talk', 'text': $scope.fullMessage},
+				headers: {
+				    'Accept':'application/json',
+				    'Content-Type':'application/json'
+				}
+				}).then(function success(response) {
+					
+					var text = response.data['text'];
+					var chat = response.data['chat'];
+					
+console.log('send full live message');				
+console.log(response.data);
+					if (text != '' && text != undefined) {
+						
+						$.each(text, function(key, value) {
 
+							$('.chat-messages').find('ul').append($scope.entryAgent(value));
+						});
+					
+					}
+					
+					$scope.timer = setInterval(function() {$scope.readLiveMessage();}, 2000);
+					if (chat == 'stop') {
+						
+						$('.livechatbutton').hide();
+
+						$('.chat-messages').find('ul').append($scope.entryAgent('Chat is ended'));
+						
+						$scope.chatStop = true;
+						clearInterval($scope.timer);
+						
+						setTimeout(function(){
+							$('#chat-view').hide();
+							$('#survey-view').show();
+						}, 5000);
+	
+					}
+	
+				}, function error(response){
+					
+				});
+	}
 	
 	$scope.readLiveMessage = function() {
 		
