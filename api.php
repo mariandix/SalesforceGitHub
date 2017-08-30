@@ -123,7 +123,7 @@ $params = '{
 "tonality": "' . (isset($data->tonality) ? $data->tonality : "") . '",
 "chatStartTime": "' . (isset($data->startTime) ? $data->startTime : "") . '",
 "chatEndTime": "' . (isset($data->endTime) ? $data->endTime : "") . '",
-"jsonStringBody": "' . implode(',', $_SESSION['chatbot']) . '" 
+"jsonStringBody": [' . implode(',', $_SESSION['chatbot']) . '] 
 }
 }';
 				
