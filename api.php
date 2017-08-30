@@ -23,6 +23,8 @@ if (isset($data) && count($data) > 0) {
 			
 			$data = (array)json_decode($response['result']);
 					
+			$_SESSION['chatbot'] = array();		
+					
 			if (is_array($data) && isset($data['session-id']) && $data['session-id'] != '') {
 				
 				echo json_encode(array('status' => 'ok', 'result' => $response));
@@ -51,7 +53,9 @@ if (isset($data) && count($data) > 0) {
 
 			$response = $con->sendRequest();
 			
-			echo json_encode(array('status' => 'ok', 'params' => $params, 'result' => $response));
+			$_SESSION['chatbot'][] = $response['result'];
+			
+			echo json_encode(array('status' => 'ok', 'params' => $params, 'result' => $response, 'chatbot' => $_SESSION['chatbot']));
 			die();
 
 			break;
@@ -116,7 +120,10 @@ $params = '{
 "callbackInfo":"' . $data->callback . '",
 "chatStatus":"' . $data->status . '",
 "chatBotSummary":"' . (isset($data->summary) ? $data->summary: "") . '",
-"tonality": "' . (isset($data->tonality) ? $data->tonality : "") . '"
+"tonality": "' . (isset($data->tonality) ? $data->tonality : "") . '",
+"chatStartTime": "' . (isset($data->startTime) ? $data->startTime : "") . '",
+"chatEndTime": "' . (isset($data->endTime) ? $data->endTime : "") . '",
+"jsonStringBody": "' . implode(',', $_SESSION['chatbot']) . '" 
 }
 }';
 				
