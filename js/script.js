@@ -15,6 +15,7 @@ var savedData = [];
 var chatBot = angular.module('chat-bot', ['base64']);
 
 var messageQueue = '';
+var activeChatEndEvent = '';
 
 chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 
@@ -25,7 +26,7 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 	$scope.timer;
 	$scope.inputTimer;
 	$scope.fullMessage = '';
-	$scope.messageQueue = '';
+	$scope.messageQueue = 'none';
 	
 	$scope.open_chat = function () {
 		
@@ -78,6 +79,8 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 	// cognesys beginn
 	$scope.start_cognesys_chat = function () {
 		
+		activeChatEndEvent = 'sendCustomerData';
+		
 		$http({
 			method: 'POST',
 			url: 'api.php',
@@ -89,7 +92,7 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 				
 				if (response.data['status'] == 'ok') {
 					var resp = JSON.parse(response.data['result'].result);
-					$scope.sessionid = resp['session-id'];
+					savedData.sessionid = $scope.sessionid = resp['session-id'];
 console.log('start');					
 console.log(response.data['result']);
 					$('#login-view').hide();
@@ -321,7 +324,9 @@ console.log(response.data);
 	// live agent beginn
 	
 	$scope.connectLiveAgent = function () {
-
+		
+		activeChatEndEvent = 'none';
+		
 		$http({
 			method: 'POST',
 			url: 'api.php',
@@ -348,6 +353,8 @@ console.log(response.data);
 				var agent = response.data['agent'];
 
 				if (agent) {
+					
+					activeChatEndEvent = 'liveagent_stop';
 					
 					$('.chat-messages').find('ul').append($scope.entryAgent('Connect with Live-Agent<br />How can I help you'));
 					
@@ -420,7 +427,7 @@ console.log(response.data);
 			    'Content-Type':'application/json'
 			}
 			}).then(function success(response) {
-				$scope.messageQueue = '';
+				messageQueue = '';
 				
 				var text = response.data['text'];
 				var chat = response.data['chat'];
@@ -482,170 +489,6 @@ console.log(response.data);
 		console.log('slm mq ' + messageQueue);
 	}	
 	
-	
-	
-/*
-	$scope.sendLiveMessage = function () {
-		
-		if ($scope.message != '') {
-			
-			$('.chat-messages').find('ul').append($scope.entryCustomer($scope.message));
-			$('.chat-input .input').val('');
-			var message = $scope.fullMessage + " " + $scope.message;
-			$scope.message = '';
-			
-			clearTimeout($scope.timer);
-			
-			$http({
-				method: 'POST',
-				url: 'api.php',
-				data: {'type' : 'liveagent_talk', 'text': message},
-				headers: {
-				    'Accept':'application/json',
-				    'Content-Type':'application/json'
-				}
-				}).then(function success(response) {
-					
-					var text = response.data['text'];
-					var chat = response.data['chat'];
-					
-console.log('send live message');				
-console.log(response.data);
-					if (text != '' && text != undefined) {
-						
-						$.each(text, function(key, value) {
-
-							$('.chat-messages').find('ul').append($scope.entryAgent(value));
-						});
-					
-					}
-					
-					$scope.timer = setTimeout(function() {$scope.readLiveMessage();}, 5000);
-					if (chat == 'stop') {
-						
-						$('.livechatbutton').hide();
-
-						$('.chat-messages').find('ul').append($scope.entryAgent('Chat is ended'));
-						
-						$scope.chatStop = true;
-						clearTimeout($scope.timer);
-						
-						setTimeout(function(){
-							$('#chat-view').hide();
-							$('#survey-view').show();
-						}, 5000);
-	
-					}
-	
-				}, function error(response){
-					
-				});
-			$scope.fullMessage = '';
-		}
-		
-	}
-	
-	$scope.sendFullLiveMessage = function () {	
-	
-		clearTimeout($scope.inputTimer);
-		
-		$http({
-				method: 'POST',
-				url: 'api.php',
-				data: {'type' : 'liveagent_talk', 'text': $scope.fullMessage},
-				headers: {
-				    'Accept':'application/json',
-				    'Content-Type':'application/json'
-				}
-				}).then(function success(response) {
-					
-					var text = response.data['text'];
-					var chat = response.data['chat'];
-					
-console.log('send full live message');				
-console.log(response.data);
-					if (text != '' && text != undefined) {
-						
-						$.each(text, function(key, value) {
-
-							$('.chat-messages').find('ul').append($scope.entryAgent(value));
-						});
-					
-					}
-					
-					$scope.timer = setTimeout(function() {$scope.readLiveMessage();}, 5000);
-					if (chat == 'stop') {
-						
-						$('.livechatbutton').hide();
-
-						$('.chat-messages').find('ul').append($scope.entryAgent('Chat is ended'));
-						
-						$scope.chatStop = true;
-						clearTimeout($scope.timer);
-						
-						setTimeout(function(){
-							$('#chat-view').hide();
-							$('#survey-view').show();
-						}, 5000);
-	
-					}
-	
-				}, function error(response){
-					
-				});
-		$scope.fullMessage = '';
-	}
-	
-	$scope.readLiveMessage = function() {
-		
-		clearTimeout($scope.timer);
-		$http({
-			method: 'POST',
-			url: 'api.php',
-			data: {'type': 'liveagent_check'},
-			headers: {
-			    'Accept':'application/json',
-			    'Content-Type':'application/json'
-			}
-			}).then(function success(response) {
-				
-				var text = response.data['text'];
-				var chat = response.data['chat'];
-				
-console.log('liveagent check');				
-console.log(response.data);
-				if (text != '' && text != undefined) {
-
-					$.each(text, function(key, value) {
-						
-						$('.chat-messages').find('ul').append($scope.entryAgent(value));
-					});
-				
-				}
-				if (chat == 'stop') {
-					
-					$scope.chatStop = true;
-					$('.livechatbutton').hide();
-						
-					$('.chat-messages').find('ul').append($scope.entryAgent('Chat is ended'));
-					
-					setTimeout(function(){
-						$('#chat-view').hide();
-						$('#survey-view').show();
-					}, 5000);
-				} else {
-					if (!$scope.chatStop) {
-						$scope.timer = setTimeout(function() {$scope.readLiveMessage();}, 5000);
-					}
-				}
-				
-			}, function error(response){
-				
-			});
-
-	}	
-*/
-
 	$scope.liveagent_stop = function() {
 		
 		$http({
@@ -793,28 +636,40 @@ console.log(response.data);
 
 });
 
-/*
+
 window.onbeforeunload = function (event) {
-    var message = 'Wollen Sie den Chat verlassen?';
-    console.log('beforeunload');
-    if (typeof event == 'undefined') {
-        event = window.event;
-    }
-    if (event) {
-        event.returnValue = message;
-    }
+
     console.log('beforeunload2');
-    
-    return message;
+	/*$.ajax({
+     type: 'POST',
+     data: {beforeunload: true},
+     url: 'api.php'
+   });
+    */
+
 };
 window.onunload = function () {
 	console.log('unload');
+	
 	$.ajax({
      type: 'POST',
-     data: {unload: true},
+     data: {
+		'type': activeChat, 
+		'session_id': savedData.sessionid, 
+		'email': savedData.email, 
+		'name': savedData.name, 
+		'phone': savedData.phone, 
+		'callback': savedData.callback, 
+		'status': savedData.chatstatus,
+		'tonality': savedData.tonality,
+		'chathistory': savedData.history,
+		'summary': savedData.summary,
+		'endTime': savedData.endTime,
+		'startTime': savedData.startTime
+	},
      url: 'api.php'
    });
- //  angular.element(document.getElementById('chat-bot')).scope().endChatOnUnload();
-}*/
+
+}
 
 
