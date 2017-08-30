@@ -9,11 +9,12 @@ you.avatar = "https://cdn4.iconfinder.com/data/icons/free-large-android-icons/51
 var agent = {};
 agent.avatar = "https://cdn4.iconfinder.com/data/icons/user-avatar-flat-icons/512/User_Avatar-26-512.png";
 
-var REGEX_EMAIL = /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/;
 var REGEX_EMAIL = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;    
 var savedData = [];	
 
 var chatBot = angular.module('chat-bot', ['base64']);
+
+var messageQueue = '';
 
 chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 
@@ -24,6 +25,7 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 	$scope.timer;
 	$scope.inputTimer;
 	$scope.fullMessage = '';
+	$scope.messageQueue = '';
 	
 	$scope.open_chat = function () {
 		
@@ -352,7 +354,7 @@ console.log(response.data);
 					$('.chatbutton').hide();
 					$('.livechatbutton').show();
 
-					$scope.timer = setTimeout(function() {$scope.readLiveMessage();}, 2000);
+					$scope.timer = setTimeout(function() {$scope.sendAndCheckMessages();}, 2000);
 					
 					$('.input').keypress(function(event) {
 						var oldTimer = ($scope.inputTimer != undefined);
@@ -363,21 +365,23 @@ console.log(response.data);
 							if ($scope.message != '' && $scope.message != undefined) {
 
 								$scope.fullMessage = $scope.fullMessage + " " + $scope.message + '\n';
-								
+
 								$('.chat-messages').find('ul').append($scope.entryCustomer($scope.message));
 								$('.chat-input .input').val('');
+								$scope.message = '';
 								
 								console.log('enter');
+								console.log($scope.fullMessage);
 								
 								$scope.inputTimer = setTimeout(function(){
-									$scope.sendFullLiveMessage();
+									$scope.createFullLiveMessage($scope.fullMessage);
 								}, 2000);
 							}
 						} else {
 							
 							if (oldTimer) {
 								$scope.inputTimer = setTimeout(function(){
-									$scope.sendFullLiveMessage();
+									$scope.createFullLiveMessage($scope.fullMessage);
 								}, 3000);
 							}
 						}
@@ -400,7 +404,87 @@ console.log(response.data);
 			});
 	
 	}
+	
+	$scope.sendAndCheckMessages = function() {
+		
+		console.log('Q ' + messageQueue);
+		console.log('F ' + $scope.fullMessage);
+		console.log('M ' + $scope.message);
+		
+		$http({
+			method: 'POST',
+			url: 'api.php',
+			data: {'type' : 'liveagent_checkandtalk', 'text': messageQueue},
+			headers: {
+			    'Accept':'application/json',
+			    'Content-Type':'application/json'
+			}
+			}).then(function success(response) {
+				$scope.messageQueue = '';
+				
+				var text = response.data['text'];
+				var chat = response.data['chat'];
+					
+console.log('send check and talk');				
+console.log(response.data);
+				if (text != '' && text != undefined) {
+					
+					$.each(text, function(key, value) {
 
+						$('.chat-messages').find('ul').append($scope.entryAgent(value));
+					});
+				
+				}
+				
+				if (chat == 'stop') {
+
+					$('.livechatbutton').hide();
+
+					$('.chat-messages').find('ul').append($scope.entryAgent('Chat is ended'));
+					
+					$scope.chatStop = true;
+					clearTimeout($scope.timer);
+					
+					setTimeout(function(){
+						$('#chat-view').hide();
+						$('#survey-view').show();
+					}, 5000);
+					
+				} else {
+					
+					$scope.timer = setTimeout(function() {$scope.sendAndCheckMessages();}, 2000);
+				}
+
+			}, function error(response){
+				
+			});
+			
+	}
+	
+	$scope.createFullLiveMessage = function(fullMessage) {
+		console.log('change message to queue');
+		messageQueue = fullMessage;
+		console.log('cf ' + fullMessage);
+		//$scope.fullMessage = '';
+	}
+	
+	$scope.sendLiveMessage = function () {
+		
+		if ($scope.message != '') {
+		
+			$('.chat-messages').find('ul').append($scope.entryCustomer($scope.message));
+			$('.chat-input .input').val('');
+			
+			messageQueue = messageQueue + " " + $scope.fullMessage + " " + $scope.message + '\n';
+			//$scope.message = '';
+			//$scope.fullMessage = '';
+		}
+		console.log('slm mq ' + messageQueue);
+	}	
+	
+	
+	
+/*
 	$scope.sendLiveMessage = function () {
 		
 		if ($scope.message != '') {
@@ -436,7 +520,7 @@ console.log(response.data);
 					
 					}
 					
-					$scope.timer = setTimeout(function() {$scope.readLiveMessage();}, 2000);
+					$scope.timer = setTimeout(function() {$scope.readLiveMessage();}, 5000);
 					if (chat == 'stop') {
 						
 						$('.livechatbutton').hide();
@@ -489,7 +573,7 @@ console.log(response.data);
 					
 					}
 					
-					$scope.timer = setTimeout(function() {$scope.readLiveMessage();}, 2000);
+					$scope.timer = setTimeout(function() {$scope.readLiveMessage();}, 5000);
 					if (chat == 'stop') {
 						
 						$('.livechatbutton').hide();
@@ -551,7 +635,7 @@ console.log(response.data);
 					}, 5000);
 				} else {
 					if (!$scope.chatStop) {
-						$scope.timer = setTimeout(function() {$scope.readLiveMessage();}, 2000);
+						$scope.timer = setTimeout(function() {$scope.readLiveMessage();}, 5000);
 					}
 				}
 				
@@ -560,6 +644,7 @@ console.log(response.data);
 			});
 
 	}	
+*/
 
 	$scope.liveagent_stop = function() {
 		
