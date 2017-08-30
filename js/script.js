@@ -668,7 +668,9 @@ window.onunload = function () {
 		'startTime': savedData.startTime
 	},
      url: 'api.php'
-   });
+   }).done(function(data) {
+	  console.log(data);
+	});
 
 }
 
