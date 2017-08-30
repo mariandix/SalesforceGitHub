@@ -653,6 +653,7 @@ window.onunload = function () {
 	
 	$.ajax({
      type: 'POST',
+     async: false,
      data: {
 		'type': activeChatEndEvent, 
 		'session_id': savedData.sessionid, 
