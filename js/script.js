@@ -654,7 +654,7 @@ window.onunload = function () {
 	$.ajax({
      type: 'POST',
      data: {
-		'type': activeChat, 
+		'type': activeChatEndEvent, 
 		'session_id': savedData.sessionid, 
 		'email': savedData.email, 
 		'name': savedData.name, 
