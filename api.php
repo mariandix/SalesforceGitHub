@@ -122,7 +122,8 @@ $params = '{
 "chatBotSummary":"' . (isset($data->summary) ? $data->summary: "") . '",
 "tonality": "' . (isset($data->tonality) ? $data->tonality : "") . '",
 "chatStartTime": "' . (isset($data->startTime) ? $data->startTime : "") . '",
-"chatEndTime": "' . (isset($data->endTime) ? $data->endTime : "") . '"
+"chatEndTime": "' . (isset($data->endTime) ? $data->endTime : "") . '", 
+"jsonStringBody": "' . addslashes(implode(',', $_SESSION['chatbot'])) . '" 
 }
 }';
 
