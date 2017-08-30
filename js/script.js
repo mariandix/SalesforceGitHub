@@ -15,7 +15,7 @@ var savedData = [];
 var chatBot = angular.module('chat-bot', ['base64']);
 
 var messageQueue = '';
-var activeChatEndEvent = '';
+var activeChatEndEvent = 'none';
 
 chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 
@@ -26,7 +26,7 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 	$scope.timer;
 	$scope.inputTimer;
 	$scope.fullMessage = '';
-	$scope.messageQueue = 'none';
+	$scope.messageQueue = '';
 	
 	$scope.open_chat = function () {
 		
