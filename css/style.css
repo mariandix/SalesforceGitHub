@@ -130,7 +130,6 @@ label {
 .container .form-control {
 	border-radius: 0px;
 	border: 1px solid #e8e8e8;
-	max-width: 463px;
 }
 .container .form-control:focus {
 	box-shadow: none;

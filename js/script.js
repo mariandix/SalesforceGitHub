@@ -16,6 +16,7 @@ var chatBot = angular.module('chat-bot', ['base64']);
 
 var messageQueue = '';
 var activeChatEndEvent = 'none';
+var sendOnUnload = true;
 
 chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 
@@ -408,7 +409,7 @@ console.log(response.data);
 					
 				} else {
 					
-					savedData.status = 'Live Agent n/a';
+					savedData.chatstatus = 'Live Agent n/a';
 					//$scope.saveCustomerData();
 					
 					$('#chat-view').hide();
@@ -561,6 +562,8 @@ console.log(response.data);
 	
 	$scope.sendCallBackRequest =  function () {
 		
+		sendOnUnload = false;
+		
 		savedData.callback = $scope.callbackphone;
 		
 		$scope.saveCustomerData();
@@ -572,33 +575,37 @@ console.log(response.data);
 	
 	$scope.endChat = function () {
 		
-		if (confirm("Chat beenden?")) {
-			
-			$scope.endChatOnUnload();
-			
+		if (sendOnUnload) {
+			if (confirm("Chat beenden?")) {
+				
+				$scope.endChatOnUnload();
+				
+			}
 		}
 		
 	}
 	
 	$scope.endChatOnUnload = function () {
-			
-		if ($scope.sessionid == '') {
-			// first view - no chat to stop
-			// do nothing
-			console.log('end do nothing');
-		} else if (!$scope.congesysStop) {
-			
-			savedData.chatstatus = 'Aborted';
-			$scope.stop_cognesys_chat(true);
-			
-			console.log('end stop cognesys');
-		} else {
-			
-			$scope.chatStop = true;
-			clearTimeout($scope.timer);
-
-			$scope.liveagent_stop();
-			console.log('end stop live agent');
+		
+		if (sendOnUnload) {	
+			if ($scope.sessionid == '') {
+				// first view - no chat to stop
+				// do nothing
+				console.log('end do nothing');
+			} else if (!$scope.congesysStop) {
+				
+				savedData.chatstatus = 'Aborted';
+				$scope.stop_cognesys_chat(true);
+				
+				console.log('end stop cognesys');
+			} else {
+				
+				$scope.chatStop = true;
+				clearTimeout($scope.timer);
+	
+				$scope.liveagent_stop();
+				console.log('end stop live agent');
+			}
 		}
 		
 		setTimeout(function(){
