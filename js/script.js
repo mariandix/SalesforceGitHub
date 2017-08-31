@@ -409,7 +409,7 @@ console.log(response.data);
 					
 				} else {
 					
-					savedData.chatstatus = 'Live Agent n/a';
+					savedData.chatstatus = 'Live Agent Not Available';
 					//$scope.saveCustomerData();
 					
 					$('#chat-view').hide();
