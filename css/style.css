@@ -57,6 +57,9 @@ label {
 .bottomClose:hover {
 	color: #d40511;
 }
+.container .form-group input.form-control.error {
+	border: 1px solid #d40511;
+}
 .wrap {
 	position: relative;
 	height: 100%;
