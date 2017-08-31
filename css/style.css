@@ -1,13 +1,14 @@
 html, body
 {
     height: 100%;
-   
+	font-family: "Frutiger Neue LT W06",Verdana,sans-serif;
 }
 #chat-bot {
 	background: linear-gradient(to bottom, #e9e1d4, #f9f4ee) no-repeat fixed;
 }
 h1 {
 	font-size: 22px;
+	color: #323232;
 }
 p, label {
 	font-size: 14px;
@@ -34,6 +35,13 @@ p, label {
 .btn-default {
     color: #d40511;
     background: #fff;
+}
+.btn-block {
+    justify-content: center;
+    padding: .5rem 1.5rem;
+}
+.mt-20 {
+	margin-top: 20px;
 }
 .wrap {
 	position: relative;

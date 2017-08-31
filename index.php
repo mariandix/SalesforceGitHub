@@ -47,24 +47,28 @@
 						<p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-xs-12">
+				<div class="row mt-20">
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+					    	<label for="firstnameinput">Vorname</label>
+					    	<input type="text" class="form-control" id="firstnameinput" ng-model="firstname">
+					  	</div>
+					</div>  
+					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
 					    	<label for="nameinput">Name</label>
 					    	<input type="text" class="form-control" id="nameinput" ng-model="name">
 					  	</div>
-					</div>  
+					</div>
 				</div>
 				<div class="row">	
-					<div class="col-xs-12">
+					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
 					    	<label for="emailinput">Email</label>
 					    	<input type="text" class="form-control" id="emailinput" ng-model="email">
 					  	</div>  	
 					</div>  	
-				</div>
-				<div class="row">
-					<div class="col-xs-12">
+					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
 					    	<label for="phoneinput">Telefonnummer</label>
 					    	<input type="text" class="form-control" id="phoneinput" ng-model="phone">
@@ -74,7 +78,7 @@
 			   	<div class="row">
 					<div class="col-xs-12">
 						<div class="form-group">
-					    	<button class="openChat btn btn-default" ng-click="open_chat()">Start Chat</button>
+					    	<a class="openChat btn btn-default btn-block" ng-click="open_chat()">Start Chat</a>
 					  	</div> 	
 			        </div>
 			    </div>	            
