@@ -1,24 +1,177 @@
+html, body
+{
+    height: 100%;
+	font-family: "Frutiger Neue LT W06",Verdana,sans-serif;
+}
+#chat-bot {
+	background: linear-gradient(to bottom, #e9e1d4, #f9f4ee) no-repeat fixed;
+}
+h1 {
+	font-size: 22px;
+	color: #323232;
+}
+p, label {
+	font-size: 14px;
+	color: #323232;
+	font-weight: normal;
+}
+label {
+	margin-bottom: 10px;
+}
+.btn {
+	display: inline-flex;
+    align-items: center;
+    padding: .5rem 3.8rem;
+    border: 2px solid #d1d1d1;
+    border-radius: 0;
+    cursor: pointer;
+    outline: 0;
+    font-weight: 500;
+    white-space: normal;
+    transition: color 200ms,background-color 200ms,border-color 200ms;
+}
+.btn:hover {
+    color: #d40511;
+    background-color: #fff;
+    border-color: #d40511;
+}
+.btn-default {
+    color: #d40511;
+    background: #fff;
+}
+.btn-block {
+    justify-content: center;
+    padding: .5rem 1.5rem;
+}
+.mt-20 {
+	margin-top: 20px;
+}
+.bottomClose {
+    color: #d40511;
+    font-size: 14px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 50px 0px 20px;
+}
+.bottomClose:hover {
+	color: #d40511;
+}
+.wrap {
+	position: relative;
+	height: 100%;
+}
+.headbg {
+	position: absolute;;
+	background: linear-gradient(to bottom, #ffcc0f, #ffcd0e) no-repeat ;
+	height: 96px;
+	width: 100%;
+	z-index: 1;
+}
+.headbg:after {
+    background: rgba(0, 0, 0, 0) url("../img/wrap_stroke.png") repeat fixed 0 0;
+    content: "";
+    display: inline-block;
+    height: 4px;
+    position: absolute;
+    top: 92px;
+    width: 100%;
+}
+.container {
+	min-height: 100%;
+	box-shadow: 11px 0 15px -12px rgba(0, 0, 0, 0.8), -12px 0 8px -12px rgba(0, 0, 0, 0.8);
+	z-index: 999;
+	position: relative;
+	background: #fff;
+}
+.container .header {
+	background: linear-gradient(to bottom, #ffcc0f, #ffcd0e) no-repeat ;
+	height: 93px;
+	width: 100%;
+	z-index: 1;
+	padding: 0px;
+}
+.header:after {
+    background: rgba(0, 0, 0, 0) url("../img/header_stroke.png") repeat fixed 0 0;
+    content: "";
+    display: inline-block;
+    height: 6px;
+    position: absolute;
+    top: 87px;
+    width: calc(100% + 12px);
+    margin-left: -6px;
+}
+.container .header .logo {
+	background: url('../img/logo_dhl_kundensupport.png') no-repeat;
+	height: 45px;
+	width: 171px;
+	margin: 30px 0px 0px 50px;
+}
+.container .header .endChat {
+	background: url('../img/btn_chat_beenden_sprite.png') no-repeat;
+	width: 117px;
+	height: 24px;
+	cursor: pointer;
+	position: absolute;
+	top: 43px;
+	right: 50px;
+}
+.container .header .endChat:hover {
+	background-position-y: -25px;
+}
+#login-view,
+#callback-view,
+#survey-view {
+	margin: 45px 50px 0px 50px;
+}
+.container .form-control {
+	border-radius: 0px;
+	border: 1px solid #e8e8e8;
+	max-width: 463px;
+}
+.container .form-control:focus {
+	box-shadow: none;
+}
+.container .form-group .openChat {
+	width: 100%;
+	max-width:463px;
+	margin-top: 15px;
+}
 
-  	#chat,
-  	#livechat {
-  		max-width: 500px;
-  		width: 100%;
-  		height:450px;
-  		border: 1px #000 solid;
-  		position: relative;
-  	}
-  	.chat-messages,
-  	.livechat-messages{
-  		height:400px;
-  		overflow-x: scroll;
-  		position: relative;
-  	}
-  	
-.endChat {
-	position:absolute;
-	top: 20px;
-	right: 20px;
-}  	
+@media (max-width: 768px) {
+	.header:after {
+	    width: 100%;
+	    margin-left: 0px;
+	}
+
+	#login-view,
+	#callback-view,
+	#survey-view {
+		margin: 15px 10px 0px 10px;
+	}
+}
+
+@media (max-width: 480px) {
+	.endChat {
+		display:none;
+	}
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) { 
+    .container .header .logo {
+		background: url('../img/logo_dhl_kundensupport@x2.png');
+		background-size: 171px 45px;
+	}
+	.container .header .endChat {
+		background: url('../img/btn_chat_beenden_sprite@x2.png') no-repeat;
+		background-size: 117px 49px;
+	}
+	.container .header .endChat:hover {
+		background-position-y: -25px;
+	}
+}
+/*
+
 .mytext{
     border:0;padding:10px;background:whitesmoke;
 }
@@ -98,16 +251,16 @@ ul {
 input:focus{
     outline: none;
 }
-::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+::-webkit-input-placeholder { 
     color: #d4d4d4;
 }
-::-moz-placeholder { /* Firefox 19+ */
+::-moz-placeholder { 
     color: #d4d4d4;
 }
-:-ms-input-placeholder { /* IE 10+ */
+:-ms-input-placeholder { 
     color: #d4d4d4;
 }
-:-moz-placeholder { /* Firefox 18- */
+:-moz-placeholder { 
     color: #d4d4d4;
 }
 
@@ -128,16 +281,7 @@ input[type="email"] {
 	line-height: 30px;
 	margin-bottom: 10px;
 } 
-.wrap {
-	width: 500px;
-	margin: 0 auto;
-}
-#login-view button {
-	line-height:30px;
-	width: 191px;
-	margin-left: 100px;
-	margin-top: 10px;
-}
+
 .chatbutton,
 .livechatbutton {
 	line-height:30px;
