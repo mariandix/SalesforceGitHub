@@ -35,10 +35,10 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 		var error = false;
 		var reg = REGEX_EMAIL;
 		
-		$('input[type="email"]').removeClass('error');
+		$('input[ng-model="email"]').removeClass('error');
 		$('.error_msg').hide();
 		
-		if ($scope.email == undefined) {
+		if ($scope.email == undefined || $scope.email == '') {
 
         	savedData.email = Math.random()+'test@test.de';
         } else if (!reg.test($scope.email)) {
