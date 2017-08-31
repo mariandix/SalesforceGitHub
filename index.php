@@ -36,10 +36,11 @@
 			<div class="row">
 				<div class="header col-xs-12">
 					<div class="logo"></div>
-					<div class="endChat hidden-xs" ng-click="endChat()"></div>
+					<div class="endChat" ng-click="endChat()"></div>
 				</div>
 			</div>
-			<div id="login-view">
+
+			<div id="login-view" style="display: block;">
 				<div class="row">
 					<div class="col-xs-12">
 						<h1>Willkommen beim DHL Kundensupport</h1>
@@ -76,7 +77,7 @@
 			        </div>
 			    </div>	
 			   	<div class="row">
-					<div class="col-xs-12">
+					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
 					    	<a class="openChat btn btn-default btn-block" ng-click="open_chat()">Start Chat</a>
 					  	</div> 	
@@ -103,7 +104,7 @@
 			<div id="survey-view" style="display: none;">
 				<div class="row">
 					<div class="col-xs-12">
-						<h1>Vielen Dank</h1>
+						<h1>Vielen Dank, wir freuen uns, wenn wir Ihnen helfen konnten.</h1>
 						<p>Bitte bewerten Sie noch kurz unseren neuen Service.</p>
 					</div>
 				</div>
@@ -123,19 +124,44 @@
 						<td><img src="https://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png"></td>
 					</tr>
 				</table>
+				
+				
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+					    	<a href="#" class="openChat btn btn-default btn-block">Feedback senden</a>
+					  	</div> 
+					</div>
+				</div>
 			</div>
 			
 			<div id="callback-view" style="display: none;">
 				<div class="row">
 					<div class="col-xs-12">
 						<h1>Derzeit ist kein Live-Agent verfügbar.</h1>
-						<p>Bitte geben Sie nachfolgend Ihre Telefonnummer ein, damit wir Sie zeitnah zurückrufen können.</p>
+						<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
 					</div>
 				</div>
-				
-				<input type="text" name="phone" ng-model="callbackphone" value="" size="30"> <button ng-click="sendCallBackRequest()">Rückrufwunsch senden</button>
+				<div class="row mt-20">
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+					    	<label for="phone">Bitte geben Sie nachfolgend Ihr Anliegen und Ihre Telefonnummer zur Kontaktaufnahme ein:</label>
+					    	<textarea rows="6" type="text" class="form-control" name="phone" id="phone" ng-model="callbackphone"></textarea>
+					  	</div>
+					</div>  
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+					    	<a class="openChat btn btn-default btn-block" ng-click="sendCallBackRequest()">Rückrufwunsch senden</a>
+					  	</div> 	
+			        </div>
+			    </div>	
 			</div>
-
+			
+			<div class="bottomClose">
+				<a ng-click="endChat()" class="bottomClose">Dieses Fenster schließen</a>
+			</div>
 		</div>
 	</div>
 

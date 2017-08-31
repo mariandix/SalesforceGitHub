@@ -15,6 +15,9 @@ p, label {
 	color: #323232;
 	font-weight: normal;
 }
+label {
+	margin-bottom: 10px;
+}
 .btn {
 	display: inline-flex;
     align-items: center;
@@ -42,6 +45,17 @@ p, label {
 }
 .mt-20 {
 	margin-top: 20px;
+}
+.bottomClose {
+    color: #d40511;
+    font-size: 14px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 50px 0px 20px;
+}
+.bottomClose:hover {
+	color: #d40511;
 }
 .wrap {
 	position: relative;
@@ -125,10 +139,21 @@ p, label {
 }
 
 @media (max-width: 768px) {
+	.header:after {
+	    width: 100%;
+	    margin-left: 0px;
+	}
+
 	#login-view,
 	#callback-view,
 	#survey-view {
 		margin: 15px 10px 0px 10px;
+	}
+}
+
+@media (max-width: 480px) {
+	.endChat {
+		display:none;
 	}
 }
 

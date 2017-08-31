@@ -97,6 +97,7 @@ console.log('start');
 console.log(response.data['result']);
 					$('#login-view').hide();
 					$('#chat-view').show();
+					$('.bottomClose').hide();
 					
 					$('.chat-messages').find('ul').append($scope.entryChatbot('Hallo<br>Wie kann ich Ihnen helfen?'));
 
@@ -194,6 +195,7 @@ console.log(response.data);
 					
 					setTimeout(function(){
 						$('#chat-view').hide();
+						$('.bottomClose').show();
 						$('#survey-view').show();
 					}, 7500);
 					
@@ -264,6 +266,7 @@ console.log(response.data);
 						
 						setTimeout(function(){
 							$('#chat-view').hide();
+							$('.bottomClose').show();
 							$('#survey-view').show();
 						}, 7500);
 						
@@ -401,6 +404,7 @@ console.log(response.data);
 					$scope.saveCustomerData();
 					
 					$('#chat-view').hide();
+					$('.bottomClose').show();
 					$('#callback-view').show();
 					
 				}
@@ -454,6 +458,7 @@ console.log(response.data);
 					
 					setTimeout(function(){
 						$('#chat-view').hide();
+						$('.bottomClose').show();
 						$('#survey-view').show();
 					}, 5000);
 					
@@ -589,6 +594,7 @@ console.log(response.data);
 		
 		setTimeout(function(){
 			$('#chat-view').hide();
+			$('.bottomClose').show();
 			$('#survey-view').show();
 		}, 2000);
 		
