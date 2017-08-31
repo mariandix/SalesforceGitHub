@@ -74,7 +74,7 @@
 			   	<div class="row">
 					<div class="col-xs-12">
 						<div class="form-group">
-					    	<button class="openChat" ng-click="open_chat()">Start Chat</button>
+					    	<button class="openChat btn btn-default" ng-click="open_chat()">Start Chat</button>
 					  	</div> 	
 			        </div>
 			    </div>	            

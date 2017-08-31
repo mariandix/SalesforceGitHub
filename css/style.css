@@ -1,12 +1,39 @@
 html, body
 {
     height: 100%;
-    overflow: hidden;
+   
 }
 #chat-bot {
-	
 	background: linear-gradient(to bottom, #e9e1d4, #f9f4ee) no-repeat fixed;
-	
+}
+h1 {
+	font-size: 22px;
+}
+p, label {
+	font-size: 14px;
+	color: #323232;
+	font-weight: normal;
+}
+.btn {
+	display: inline-flex;
+    align-items: center;
+    padding: .5rem 3.8rem;
+    border: 2px solid #d1d1d1;
+    border-radius: 0;
+    cursor: pointer;
+    outline: 0;
+    font-weight: 500;
+    white-space: normal;
+    transition: color 200ms,background-color 200ms,border-color 200ms;
+}
+.btn:hover {
+    color: #d40511;
+    background-color: #fff;
+    border-color: #d40511;
+}
+.btn-default {
+    color: #d40511;
+    background: #fff;
 }
 .wrap {
 	position: relative;
@@ -84,26 +111,30 @@ html, body
 	box-shadow: none;
 }
 .container .form-group .openChat {
-	background: url('../img/btn_start_chat.png') no-repeat;
-	width: 463px;
-	height: 42px;
-	text-indent: -9999px;
-	border: 0px;
-}
-.container .form-group .openChat:hover {
-	background-position-y: -42px;
+	width: 100%;
+	max-width:463px;
+	margin-top: 15px;
 }
 
+@media (max-width: 768px) {
+	#login-view,
+	#callback-view,
+	#survey-view {
+		margin: 15px 10px 0px 10px;
+	}
+}
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) { 
     .container .header .logo {
-		background: url('../img/logo_dhl_kundensupport@2x.png');
+		background: url('../img/logo_dhl_kundensupport@x2.png');
+		background-size: 171px 45px;
 	}
 	.container .header .endChat {
-		background: url('../img/btn_chat_beenden_sprite@2x.png') no-repeat;
+		background: url('../img/btn_chat_beenden_sprite@x2.png') no-repeat;
+		background-size: 117px 49px;
 	}
 	.container .header .endChat:hover {
-		background-position-y: -50px;
+		background-position-y: -25px;
 	}
 }
 /*
