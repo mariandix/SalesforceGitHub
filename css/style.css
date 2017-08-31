@@ -213,15 +213,22 @@ label {
 }
 
 .avatar{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    width:25%;
-    float:left;
-    padding-right:10px;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    padding-right: 10px;
+    position: absolute;
+    right: 20px;
 }
-.macro{
-    margin-top:5px;width:85%;border-radius:5px;padding:5px;display:flex;padding-bottom: 10px;
+.macro {
+	margin-top: 10px;
+    margin-left: 10px;
+    width: calc(95% - 20px);
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+    padding-bottom: 15px;
 }
 .msj-rta{
     background:whitesmoke;
@@ -262,7 +269,7 @@ ul {
     border-color: whitesmoke transparent transparent transparent;
 }
 .text{
-    width:75%;display:flex;flex-direction:column;
+    width:100%;display:flex;flex-direction:column;
 }
 .text > p:first-of-type{
     width:100%;margin-top:0;margin-bottom:auto;line-height: 13px;font-size: 12px;
