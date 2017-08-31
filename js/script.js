@@ -50,7 +50,12 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 		if ($scope.name != undefined) {
 			savedData.name = $scope.name;
 		} else {
-			savedData.name = 'Max_Mustermann';
+			savedData.name = 'Mustermann';
+		}
+		if ($scope.firstname != undefined) {
+			savedData.firstname = $scope.firstname;
+		} else {
+			savedData.firstname = 'Max';
 		}
 		if ($scope.phone != undefined) {
 			savedData.phone = $scope.phone;
@@ -337,6 +342,7 @@ console.log(response.data);
 				'type': 'liveagent_init', 
 				'history': savedData.history, 
 				'name': savedData.name, 
+				'firstname': savedData.firstname,
 				'email': savedData.email, 
 				'phone': savedData.phone,
 				'userAgent': navigator.userAgent,
@@ -529,6 +535,7 @@ console.log(response.data);
 				'session_id': $scope.sessionid, 
 				'email': savedData.email, 
 				'name': savedData.name, 
+				'firstname': savedData.firstname,
 				'phone': savedData.phone, 
 				'callback': savedData.callback, 
 				'status': savedData.chatstatus,
@@ -665,6 +672,7 @@ window.onunload = function () {
 		'session_id': savedData.sessionid, 
 		'email': savedData.email, 
 		'name': savedData.name, 
+		'firstname': savedData.firstname,
 		'phone': savedData.phone, 
 		'callback': savedData.callback, 
 		'status': savedData.chatstatus,

@@ -111,7 +111,7 @@ if (isset($data) && count($data) > 0) {
 $params = '{  
 "requestWrapper":{  
 "requestNumber":"' . $data->session_id . '",
-"FirstName":"FirstName",
+"FirstName":"' . $data->firstname . '",
 "LastName":"' . $data->name . '",
 "Email":"' . $data->email . '",
 "PhoneNumber":"' . $data->phone . '",
@@ -126,33 +126,6 @@ $params = '{
 "jsonStringBody": "' . addslashes(implode(',', $_SESSION['chatbot'])) . '" 
 }
 }';
-
-// , "jsonStringBody": "' . implode(',', $_SESSION['chatbot']) . '" 
-	
-	
-				
-			/*	$params = '{
-"requestWrapper":{
-  
-   "tonality":"chattonality",
-   "Title":"mr",
-   "requestNumber":"requestNumber",
-   "PhoneNumber":"121344444",
-   "LastName":"lastName",
-   "FirstName":"Firsname",
-   "Email":"testa@madeup.co",
-   "chatStatus":"HandOver",
-   "chatHistory":[  
-      {  
-         "Type":"Q",
-         "sequenceNumber":"1",
-         "message":"What is my name "
-      }
-   ],
-   "chatBotSummary":"chatbotSummary",
-   "callbackInfo":"callbackInfo"
-}
-}';*/
 				
 				$con->setPostfields($params);
 
@@ -230,14 +203,14 @@ $params = '{
 "deploymentId": "' . DEPLOYMENT_ID . '", 
 "buttonId": "' . BUTTON_ID . '", 
 "sessionId": "' . $_SESSION['sId'] . '", 
-"visitorName": "' . $data->name . '", 
+"visitorName": "' . $data->firstname . ' ' . $data->name . '", 
 "userAgent": "' . $data->userAgent . '", 
 "language": "' . $data->language . '", 
 "screenResolution": "' . $data->width . 'x' . $data->height . '", 
 "prechatDetails": [
 	{
 		"label":"LastName",
-		"value":"' . $data->name . '",
+		"value":"' . $data->firstname . ' ' . $data->name . '",
 		"entityMaps":[
         	{
            		"entityName":"Contact",
@@ -672,7 +645,7 @@ $params = '{
 $params = '{  
 "requestWrapper":{  
 "requestNumber":"' . $_POST['session_id'] . '",
-"FirstName":"FirstName",
+"FirstName":"' . $_POST['firstname'] . '",
 "LastName":"' . $_POST['name'] . '",
 "Email":"' . $_POST['email'] . '",
 "PhoneNumber":"' . $_POST['phone'] . '",
