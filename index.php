@@ -132,7 +132,7 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
-					    	<a href="#" class="openChat btn btn-default btn-block">Feedback senden</a>
+					    	<a href="#" class="sendFeedback btn btn-default btn-block">Feedback senden</a>
 					  	</div> 
 					</div>
 				</div>
@@ -156,7 +156,7 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
-					    	<a class="openChat btn btn-default btn-block" ng-click="sendCallBackRequest()">Rückrufwunsch senden</a>
+					    	<a class="callbackBtn btn btn-default btn-block" ng-click="sendCallBackRequest()">Rückrufwunsch senden</a>
 					  	</div> 	
 			        </div>
 			    </div>	
