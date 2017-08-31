@@ -30,6 +30,8 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 	
 	$scope.open_chat = function () {
 		
+		$('.openChat').attr('disabled', true);
+		
 		var error = false;
 		var reg = REGEX_EMAIL;
 		
@@ -74,7 +76,7 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 				
 			$scope.start_cognesys_chat();
 		} else {
-			
+			$('.openChat').attr('disabled', false);
 			$('input[ng-model="email"]').addClass('error');
 			$('.error_msg').show();
 		}

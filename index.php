@@ -89,15 +89,18 @@
 				<div id="chat">
 					<div class="chat-messages">
 						<ul>
-							
+
 						</ul>
 					</div>
-					<div class="chat-input">
-						<input class="input" type="text" ng-model="message" size="30">
-						<button ng-click="sendMessage()" class="chatbutton">Send Message</button>
-						<button ng-click="sendLiveMessage()" class="livechatbutton" style="display:none">Send Message</button>
+					<div class="row">
+						<div class="chat-input">
+							<div class="form-group">
+								<input class="input form-control" placeholder="Nachricht hier eingeben" type="text" ng-model="message">
+								<a class="btn btn-default btn-block chatbutton" ng-click="sendMessage()">Senden</a>
+								<a class="btn btn-default btn-block livechatbutton" ng-click="sendLiveMessage()" style="display:none;">Senden</a>
+							</div>
+						</div>
 					</div>
-					<button ng-click="endChat()" class="endChat">X</button>
 				</div>
 			</div>
 			
@@ -159,7 +162,7 @@
 			    </div>	
 			</div>
 			
-			<div class="bottomClose">
+			<div class="bottomClose" style="display:block;">
 				<a ng-click="endChat()" class="bottomClose">Dieses Fenster schließen</a>
 			</div>
 		</div>

@@ -137,7 +137,36 @@ label {
 	max-width:463px;
 	margin-top: 15px;
 }
-
+#chat-view {
+	height: calc(100% - 114px);
+	position: relative;
+}
+#chat-view .chat-input {
+	position:absolute;
+	height: 40px;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+	/*border: 1px solid #d40511;*/
+}
+#chat-view .chat-messages {
+	border: 1px solid #e8e8e8;
+	overflow-y: scroll;
+	overflow-x: hidden;
+    margin-top: 15px;
+    height: calc(100% - 50px);
+}
+#chat-view .chat-input .form-control.input {
+	width: 100%;
+	max-width: calc(100% - 110px);
+	margin: 2px 0px 0px 2px;
+}
+#chat-view .chat-input .form-group .btn {
+	position:absolute;
+	right: 2px;
+	top: 2px;
+	max-width: 100px;
+}
 @media (max-width: 768px) {
 	.header:after {
 	    width: 100%;
