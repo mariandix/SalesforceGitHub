@@ -398,7 +398,7 @@ console.log(response.data);
 				} else {
 					
 					savedData.status = 'Live Agent n/a';
-					$scope.saveCustomerData();
+					//$scope.saveCustomerData();
 					
 					$('#chat-view').hide();
 					$('#callback-view').show();
