@@ -430,7 +430,8 @@ console.log(response.data);
 		console.log('Q ' + messageQueue);
 		console.log('F ' + $scope.fullMessage);
 		console.log('M ' + $scope.message);
-		
+
+		var oldMQ = messageQueue;
 		$http({
 			method: 'POST',
 			url: 'api.php',
@@ -440,8 +441,9 @@ console.log(response.data);
 			    'Content-Type':'application/json'
 			}
 			}).then(function success(response) {
-				messageQueue = '';
-				
+
+				messageQueue = messageQueue.substr(oldMQ.length);
+
 				var text = response.data['text'];
 				var chat = response.data['chat'];
 					
@@ -476,8 +478,11 @@ console.log(response.data);
 					$scope.timer = setTimeout(function() {$scope.sendAndCheckMessages();}, 2000);
 				}
 
-			}, function error(response){
-				
+			}, function error(response, status, error){
+				console.log(response);
+				console.log(status);
+				console.log(error);
+				$scope.timer = setTimeout(function() {$scope.sendAndCheckMessages();}, 2000);
 			});
 			
 	}
@@ -486,7 +491,7 @@ console.log(response.data);
 		console.log('change message to queue');
 		messageQueue = fullMessage;
 		console.log('cf ' + fullMessage);
-		//$scope.fullMessage = '';
+		$scope.fullMessage = '';
 	}
 	
 	$scope.sendLiveMessage = function () {
@@ -497,8 +502,8 @@ console.log(response.data);
 			$('.chat-input .input').val('');
 			
 			messageQueue = messageQueue + " " + $scope.fullMessage + " " + $scope.message + '\n';
-			//$scope.message = '';
-			//$scope.fullMessage = '';
+			$scope.message = '';
+			$scope.fullMessage = '';
 		}
 		console.log('slm mq ' + messageQueue);
 	}	
@@ -672,7 +677,7 @@ window.onbeforeunload = function (event) {
 };
 window.onunload = function () {
 	console.log('unload');
-	
+	/*
 	$.ajax({
      type: 'POST',
      async: false,
@@ -695,7 +700,7 @@ window.onunload = function () {
    }).done(function(data) {
 	  console.log(data);
 	});
-
+*/
 }
 
 

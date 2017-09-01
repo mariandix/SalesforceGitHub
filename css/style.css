@@ -212,7 +212,16 @@ label {
 	}
 }
 
-.avatar{
+.msj .avatar{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    padding-right: 10px;
+    position: absolute;
+    left: 20px;
+}
+.msj-rta .avatar{
 	display: flex;
     justify-content: center;
     align-items: center;
@@ -224,6 +233,7 @@ label {
 .macro {
 	margin-top: 10px;
     margin-left: 10px;
+    margin-right: 10px;
     width: calc(100% - 100px);
     border-radius: 5px;
     padding: 5px;

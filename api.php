@@ -475,18 +475,6 @@ $params = '{
 		
 		case 'liveagent_checkandtalk' :
 			
-			$con = new connector();
-			$con->setEndpoint(LIVEAGENT_REST_URL . "/System/Messages");
-			$con->setRequestMethod('GET');
-			
-			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'], 
-				            "X-LIVEAGENT-API-VERSION: 40",
-							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
-			$con->setRequestHeader($header);
-			
-			$response = $con->sendRequest();
-			$result = json_decode($response['result']);
-
 			if (isset($data->text) && $data->text != '') {
 				$con = new connector();
 				$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChatMessage");
@@ -505,7 +493,20 @@ $params = '{
 				$con->setPostfields($params);
 			
 				$response = $con->sendRequest();
+
 			}
+			
+			$con = new connector();
+			$con->setEndpoint(LIVEAGENT_REST_URL . "/System/Messages");
+			$con->setRequestMethod('GET');
+			
+			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'], 
+				            "X-LIVEAGENT-API-VERSION: 40",
+							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+			$con->setRequestHeader($header);
+
+			$response = $con->sendRequest();
+			$result = json_decode($response['result']);
 			
 			if ($result != '') {
 				
