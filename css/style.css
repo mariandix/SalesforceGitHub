@@ -4,7 +4,7 @@ html, body
 	font-family: "FrutigerLTW01-55Roman",Verdana,sans-serif;
 }
 #chat-bot {
-	background: linear-gradient(to bottom, #e9e1d4, #f9f4ee) no-repeat fixed;
+	background: #F5F5F5;
 }
 h1 {
 	font-size: 22px;
@@ -66,44 +66,25 @@ label {
 }
 .headbg {
 	position: absolute;;
-	background: linear-gradient(to bottom, #ffcc0f, #ffcd0e) no-repeat ;
+	background: linear-gradient(to bottom, #ffcc0f 50%, #ffcd0e 25%, #fff) no-repeat ;
 	height: 96px;
 	width: 100%;
 	z-index: 1;
 }
-.headbg:after {
-    background: rgba(0, 0, 0, 0) url("../img/wrap_stroke.png") repeat fixed 0 0;
-    content: "";
-    display: inline-block;
-    height: 4px;
-    position: absolute;
-    top: 92px;
-    width: 100%;
-}
 .container {
 	min-height: 100%;
-	box-shadow: 11px 0 15px -12px rgba(0, 0, 0, 0.8), -12px 0 8px -12px rgba(0, 0, 0, 0.8);
 	z-index: 999;
 	position: relative;
-	background: #fff;
+	background: #F5F5F5;
 }
 .container .header {
-	background: linear-gradient(to bottom, #ffcc0f, #ffcd0e) no-repeat ;
-	height: 93px;
+	background: linear-gradient(to bottom, #ffcc0f 50%, #ffcd0e 25%, #fff) no-repeat ;
+	height: 96px;
 	width: 100%;
 	z-index: 1;
 	padding: 0px;
 }
-.header:after {
-    background: rgba(0, 0, 0, 0) url("../img/header_stroke.png") repeat fixed 0 0;
-    content: "";
-    display: inline-block;
-    height: 6px;
-    position: absolute;
-    top: 87px;
-    width: calc(100% + 12px);
-    margin-left: -6px;
-}
+
 .container .header .logo {
 	background: url('../img/Group_logo.png') no-repeat;
 	height: 46px;
