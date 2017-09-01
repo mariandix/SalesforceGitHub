@@ -138,6 +138,7 @@ label {
     margin-top: 15px;
     height: calc(100vh - 170px);
     position: relative;
+    background-color: #fff;
 }
 #chat-view .chat-messages ul {
     width:100%;
