@@ -65,6 +65,11 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 		} else {
 			savedData.phone = '03012345678';
 		}
+		if ($scope.salutation != undefined) {
+			savedData.salutation = $scope.salutation;
+		} else {
+			savedData.salutation = 'Keine Anrede';
+		}
 
 		if (!error) {
 			savedData.history = [];
@@ -348,6 +353,7 @@ console.log(response.data);
 				'firstname': savedData.firstname,
 				'email': savedData.email, 
 				'phone': savedData.phone,
+				'salutation': savedData.salutation,
 				'userAgent': navigator.userAgent,
 				'language': navigator.language,
 				'width': window.innerWidth,
@@ -545,6 +551,7 @@ console.log(response.data);
 				'name': savedData.name, 
 				'firstname': savedData.firstname,
 				'phone': savedData.phone, 
+				'salutation': savedData.salutation,
 				'callback': savedData.callback, 
 				'status': savedData.chatstatus,
 				'tonality': savedData.tonality,
@@ -624,11 +631,11 @@ console.log(response.data);
 	$scope.entryChatbot = function(text) {
 		
 		control_chatbot = '<li style="width:100%;">' +
-	                        '<div class="msj-rta macro">' +
+	                        '<div class="msj macro">' +
+	                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:20px;" src="'+you.avatar+'" /></div>' +
 	                        '<div class="text text-r">' +
 	                        '<p>'+text+'</p>' +
 	                        '</div>' +
-	                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:20px;" src="'+you.avatar+'" /></div>' +
 	                        '</li>';
 		
 		return control_chatbot;
@@ -637,11 +644,11 @@ console.log(response.data);
 	$scope.entryCustomer = function(text) {
 		
 		control_customer = '<li style="width:100%">' +
-	                        '<div class="msj macro">' +
-	                        '<div class="avatar"><img class="img-circle" style="width:20px;" src="'+ me.avatar +'" /></div>' +
+	                        '<div class="msj-rta macro">' +
 	                        '<div class="text text-l">' +
 	                        '<p>'+ text +'</p>' +
 	                        '</div>' +
+	                        '<div class="avatar"><img class="img-circle" style="width:20px;" src="'+ me.avatar +'" /></div>' +
 	                        '</div>' +
 	                        '</li>';
 		
@@ -651,11 +658,11 @@ console.log(response.data);
 	$scope.entryAgent = function(text) {
 		
 		control_agent = '<li style="width:100%;">' +
-                        '<div class="msj-rta macro">' +
+                        '<div class="msj macro">' +
+                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:20px;" src="'+agent.avatar+'" /></div>' +
                         '<div class="text text-r">' +
                         '<p>' + text + '</p>' + 
                         '</div>' +
-                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:20px;" src="'+agent.avatar+'" /></div>' +
                         '</li>';
 		
 		return control_agent;
@@ -677,7 +684,7 @@ window.onbeforeunload = function (event) {
 };
 window.onunload = function () {
 	console.log('unload');
-	/*
+	
 	$.ajax({
      type: 'POST',
      async: false,
@@ -688,6 +695,7 @@ window.onunload = function () {
 		'name': savedData.name, 
 		'firstname': savedData.firstname,
 		'phone': savedData.phone, 
+		'salutation': savedData.salutation,
 		'callback': savedData.callback, 
 		'status': savedData.chatstatus,
 		'tonality': savedData.tonality,
@@ -700,7 +708,7 @@ window.onunload = function () {
    }).done(function(data) {
 	  console.log(data);
 	});
-*/
+
 }
 
 

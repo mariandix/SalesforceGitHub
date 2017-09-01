@@ -49,7 +49,6 @@ label {
 .bottomClose {
     color: #d40511;
     font-size: 14px;
-    display: block;
     width: 100%;
     text-align: center;
     margin: 50px 0px 20px;
@@ -139,7 +138,7 @@ label {
 	margin-top: 15px;
 }
 #chat-view {
-	height: calc(100% - 114px);
+	height: calc(100vh - 120px);
 	position: relative;
 }
 #chat-view .chat-input {
@@ -155,7 +154,7 @@ label {
 	overflow-y: scroll;
 	overflow-x: hidden;
     margin-top: 15px;
-    height: calc(100% - 50px);
+    height: calc(100vh - 170px);
     position: relative;
 }
 #chat-view .chat-messages ul {
@@ -241,10 +240,10 @@ label {
     padding-bottom: 15px;
 }
 .msj-rta{
-    background:whitesmoke;
+    background:#f5f5f5;
 }
 .msj{
-    float:left;background:white;
+    float:right;background:#fff5D1;
 }
 ul {
     width:340px;
@@ -265,7 +264,7 @@ ul {
     position:relative;
     border-style: solid;
     border-width: 0 13px 13px 0;
-    border-color: transparent #ffffff transparent transparent;
+    border-color: transparent #fff5D1 transparent transparent;
 }
 .msj-rta:after{
     width: 0;
@@ -276,7 +275,7 @@ ul {
     position:relative;
     border-style: solid;
     border-width: 13px 13px 0 0;
-    border-color: whitesmoke transparent transparent transparent;
+    border-color: #f5f5f5 transparent transparent transparent;
 }
 .text{
     width:100%;display:flex;flex-direction:column;
@@ -294,123 +293,54 @@ ul {
     float:right;padding-left:10px;
 }
 
-/*
-
-.mytext{
-    border:0;padding:10px;background:whitesmoke;
+.form-radio.form-radio .input-dummy, .form-checkbox.form-radio .input-dummy {
+    border-radius: 100%;
 }
-.text{
-    width:75%;display:flex;flex-direction:column;
+.form-radio .input-dummy, .form-checkbox .input-dummy {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #e8e8e8;
+    cursor: pointer;
+    display: inline-flex;
+    height: 2.2rem;
+    left: 0;
+    position: absolute;
+    top: 1px;
+    width: 2.2rem;
 }
-.text > p:first-of-type{
-    width:100%;margin-top:0;margin-bottom:auto;line-height: 13px;font-size: 12px;
+.radio label, .checkbox label {
+    cursor: pointer;
+    font-weight: normal;
+    margin-bottom: 0;
+    min-height: 27px;
+    padding-left: 20px;
 }
-.text > p:last-of-type{
-    width:100%;text-align:right;color:black;margin-bottom:-7px;margin-top:auto;
-}
-.text-l{
-    float:left;padding-right:10px;
-}
-.text-r{
-    float:right;padding-left:10px;
-}
-.avatar{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    width:25%;
-    float:left;
-    padding-right:10px;
-}
-.macro{
-    margin-top:5px;width:85%;border-radius:5px;padding:5px;display:flex;padding-bottom: 10px;
-}
-.msj-rta{
-    float:right;background:whitesmoke;
-}
-.msj{
-    float:left;background:white;
-}
-.frame{
-    background:#e0e0de;
-    height:450px;
-    overflow:hidden;
-    padding:0;
-}
-.frame > div:last-of-type{
-    position:absolute;bottom:5px;width:100%;display:flex;
-}
-ul {
-    width:340px;
-    list-style-type: none;
-    padding:18px;
-    position:relative;
-    display:flex;
-    flex-direction: column;
-	position: absolute;
-    bottom: 0;
-}
-.msj:before{
-    width: 0;
-    height: 0;
-    content:"";
-    top:-5px;
-    left:-14px;
-    position:relative;
-    border-style: solid;
-    border-width: 0 13px 13px 0;
-    border-color: transparent #ffffff transparent transparent;
-}
-.msj-rta:after{
-    width: 0;
-    height: 0;
-    content:"";
-    top:-5px;
-    left:14px;
-    position:relative;
-    border-style: solid;
-    border-width: 13px 13px 0 0;
-    border-color: whitesmoke transparent transparent transparent;
-}
-input:focus{
-    outline: none;
-}
-::-webkit-input-placeholder { 
-    color: #d4d4d4;
-}
-::-moz-placeholder { 
-    color: #d4d4d4;
-}
-:-ms-input-placeholder { 
-    color: #d4d4d4;
-}
-:-moz-placeholder { 
-    color: #d4d4d4;
+.form-radio label, .form-checkbox label {
+    margin: 0;
+    padding-left: 3rem;
 }
 
-input.error {
-	border: 1px solid red;
+label, .label {
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 14px;
+    font-weight: 400;
 }
-.error_msg {
-	color: red;
+.form-radio .input-dummy .icon, .form-checkbox .input-dummy .icon {
+    display: none;
+    justify-content: center;
+    position: relative;
+    top: -2px;
 }
-label{
-	line-height:30px;
-	width: 100px;
-	display: block;
-	float: left;
-} 
-input[type="text"],
-input[type="email"] {
-	line-height: 30px;
-	margin-bottom: 10px;
-} 
-
-.chatbutton,
-.livechatbutton {
-	line-height:30px;
-	width: 191px;
+input[type="radio"]:checked + .input-dummy .icon, input[type="checkbox"]:checked + .input-dummy .icon {
+    display: flex;
 }
-.chat-input input {
-	margin-left: 7px;
+ .form-radio.form-radio .input-dummy .icon, .form-checkbox.form-radio .input-dummy .icon {
+    background-color: #d40511;
+    border-radius: 100%;
+    height: 0.6rem;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 0.6rem;
 }

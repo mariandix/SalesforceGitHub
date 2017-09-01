@@ -50,6 +50,35 @@
 				</div>
 				<div class="row mt-20">
 					<div class="col-xs-12 col-sm-6">
+						<div  style="float: left; width: 80px">
+						<div class="form-group radio">
+					    	<div class="form-radio">
+								<label>
+									<input name="salutation" value="Herr" type="radio" ng-model="salutation">
+									<span class="input-dummy">
+										<span class="icon"></span>
+									</span>
+									Herr
+								</label>
+							</div>
+						</div></div>
+						<div style="float: left;">
+						<div class="form-group radio">
+							<div class="form-radio">
+								<label>
+									<input name="salutation" value="Frau" type="radio" ng-model="salutation">
+									<span class="input-dummy">
+										<span class="icon"></span>
+									</span>
+									Frau
+								</label>
+							</div>
+					  	</div>
+					  	</div>
+					</div>  
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
 					    	<label for="firstnameinput">Vorname</label>
 					    	<input type="text" class="form-control" id="firstnameinput" ng-model="firstname">
