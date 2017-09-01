@@ -1,13 +1,13 @@
 
 
 var me = {};
-me.avatar = "https://freeiconshop.com/wp-content/uploads/edd/person-flat.png";
+me.avatar = "img/icon_user_avatar_klein.png";
 
 var you = {};
-you.avatar = "https://cdn4.iconfinder.com/data/icons/free-large-android-icons/512/Android.png";
+you.avatar = "img/icon_dhl_chatbot_avatar_klein.png";
 
 var agent = {};
-agent.avatar = "https://cdn4.iconfinder.com/data/icons/user-avatar-flat-icons/512/User_Avatar-26-512.png";
+agent.avatar = "img/icon_dhl_avatarklein.png";
 
 var REGEX_EMAIL = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;    
 var savedData = [];	
@@ -110,6 +110,7 @@ console.log('start');
 console.log(response.data['result']);
 					$('#login-view').hide();
 					$('#chat-view').show();
+					$('.endChat').show();
 					$('.bottomClose').hide();
 					
 					$('.chat-messages').find('ul').append($scope.entryChatbot('Hallo<br>Wie kann ich Ihnen helfen?'));
@@ -208,6 +209,7 @@ console.log(response.data);
 					
 					setTimeout(function(){
 						$('#chat-view').hide();
+						$('.endChat').hide();
 						$('.bottomClose').show();
 						$('#survey-view').show();
 					}, 7500);
@@ -279,6 +281,7 @@ console.log(response.data);
 						
 						setTimeout(function(){
 							$('#chat-view').hide();
+							$('.endChat').hide();
 							$('.bottomClose').show();
 							$('#survey-view').show();
 						}, 7500);
@@ -419,6 +422,7 @@ console.log(response.data);
 					//$scope.saveCustomerData();
 					
 					$('#chat-view').hide();
+					$('.endChat').hide();
 					$('.bottomClose').show();
 					$('#callback-view').show();
 					
@@ -475,6 +479,7 @@ console.log(response.data);
 					
 					setTimeout(function(){
 						$('#chat-view').hide();
+						$('.endChat').hide();
 						$('.bottomClose').show();
 						$('#survey-view').show();
 					}, 5000);
@@ -622,6 +627,7 @@ console.log(response.data);
 		
 		setTimeout(function(){
 			$('#chat-view').hide();
+			$('.endChat').hide();
 			$('.bottomClose').show();
 			$('#survey-view').show();
 		}, 2000);
@@ -632,7 +638,7 @@ console.log(response.data);
 		
 		control_chatbot = '<li style="width:100%;">' +
 	                        '<div class="msj macro">' +
-	                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:20px;" src="'+you.avatar+'" /></div>' +
+	                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:36px;" src="'+you.avatar+'" /></div>' +
 	                        '<div class="text text-r">' +
 	                        '<p>'+text+'</p>' +
 	                        '</div>' +
@@ -648,7 +654,7 @@ console.log(response.data);
 	                        '<div class="text text-l">' +
 	                        '<p>'+ text +'</p>' +
 	                        '</div>' +
-	                        '<div class="avatar"><img class="img-circle" style="width:20px;" src="'+ me.avatar +'" /></div>' +
+	                        '<div class="avatar"><img class="img-circle" style="width:36px;" src="'+ me.avatar +'" /></div>' +
 	                        '</div>' +
 	                        '</li>';
 		
@@ -659,7 +665,7 @@ console.log(response.data);
 		
 		control_agent = '<li style="width:100%;">' +
                         '<div class="msj macro">' +
-                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:20px;" src="'+agent.avatar+'" /></div>' +
+                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:36px;" src="'+agent.avatar+'" /></div>' +
                         '<div class="text text-r">' +
                         '<p>' + text + '</p>' + 
                         '</div>' +

@@ -36,7 +36,7 @@
 			<div class="row">
 				<div class="header col-xs-12">
 					<div class="logo"></div>
-					<div class="endChat" ng-click="endChat()"></div>
+					<div class="endChat" ng-click="endChat()" style="display:none"></div>
 				</div>
 			</div>
 
