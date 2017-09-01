@@ -222,6 +222,20 @@ $params = '{
      	],
          "displayToAgent":true
 	},
+	{
+		"label":"Title",
+		"value":"' . $data->salutation . '",
+		"entityMaps":[
+        	{
+           		"entityName":"Contact",
+           		"fieldName":"Title"
+        	}
+     	],
+     	"transcriptFields":[
+        	"Title"
+     	],
+         "displayToAgent":true
+	},
     {
 		"label":"Email",
 		"value":"' . $data->email . '",
@@ -262,6 +276,13 @@ $params = '{
 			{
 			   	"fieldName":"LastName",
 			   	"label":"LastName",
+			   	"doFind":false,
+			   	"isExactMatch":false,
+			   	"doCreate":true
+            },
+            {
+			   	"fieldName":"Title",
+			   	"label":"Title",
 			   	"doFind":false,
 			   	"isExactMatch":false,
 			   	"doCreate":true
