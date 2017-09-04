@@ -119,7 +119,7 @@ $params = '{
 "chatHistory":' . json_encode($data->chathistory) . ',
 "callbackInfo":"' . $data->callback . '",
 "chatStatus":"' . $data->status . '",
-"chatBotSummary":"' . (isset($data->summary) ? $data->summary: "") . '",
+"chatBotSummary":"",
 "tonality": "' . (isset($data->tonality) ? $data->tonality : "") . '",
 "chatStartTime": "' . (isset($data->startTime) ? $data->startTime : "") . '",
 "chatEndTime": "' . (isset($data->endTime) ? $data->endTime : "") . '", 
