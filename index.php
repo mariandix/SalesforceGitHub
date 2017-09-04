@@ -1,5 +1,6 @@
 <?php
 
+include('app/lang/de_DE.php');
 
 
 
@@ -8,7 +9,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>DHL - ChatBot</title>
+	<title><?php echo $html_title; ?></title>
 	
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-route.min.js"></script>  
@@ -23,6 +24,9 @@
 	
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		
+		
+		
 		
 	<script src="js/script.js" type="text/javascript"></script>
 	<link href="css/fonts.css" media="all" rel="stylesheet" />
@@ -43,9 +47,8 @@
 			<div id="login-view" style="display: block;">
 				<div class="row">
 					<div class="col-xs-12">
-						<h1>Willkommen beim DHL Kundensupport</h1>
-						<p>damit wir auch lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-						<p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+						<h1><?php echo $login_view_welcome; ?></h1>
+						<?php echo $login_view_welcome_text; ?>
 					</div>
 				</div>
 				<div class="row mt-20">
@@ -58,7 +61,7 @@
 										<span class="input-dummy">
 											<span class="icon"></span>
 										</span>
-										Herr
+										<?php echo $login_view_salutation_mr; ?>
 									</label>
 								</div>
 							</div>
@@ -71,7 +74,7 @@
 										<span class="input-dummy">
 											<span class="icon"></span>
 										</span>
-										Frau
+										<?php echo $login_view_salutation_mrs; ?>
 									</label>
 								</div>
 						  	</div>
@@ -81,13 +84,13 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
-					    	<label for="firstnameinput">Vorname</label>
+					    	<label for="firstnameinput"><?php echo $login_view_firstname; ?></label>
 					    	<input type="text" class="form-control" id="firstnameinput" ng-model="firstname">
 					  	</div>
 					</div>  
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
-					    	<label for="nameinput">Name</label>
+					    	<label for="nameinput"><?php echo $login_view_lastname; ?></label>
 					    	<input type="text" class="form-control" id="nameinput" ng-model="name">
 					  	</div>
 					</div>
@@ -95,13 +98,13 @@
 				<div class="row">	
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
-					    	<label for="emailinput">Email</label>
+					    	<label for="emailinput"><?php echo $login_view_email; ?></label>
 					    	<input type="text" class="form-control" id="emailinput" ng-model="email">
 					  	</div>  	
 					</div>  	
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
-					    	<label for="phoneinput">Telefonnummer</label>
+					    	<label for="phoneinput"><?php echo $login_view_phone; ?></label>
 					    	<input type="text" class="form-control" id="phoneinput" ng-model="phone">
 					  	</div> 	
 			        </div>
@@ -109,7 +112,7 @@
 			   	<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
-					    	<a class="openChat btn btn-default btn-block" ng-click="open_chat()">Start Chat</a>
+					    	<a class="openChat btn btn-default btn-block" ng-click="open_chat()"><?php echo $login_view_btn_start_chat; ?></a>
 					  	</div> 	
 			        </div>
 			    </div>	            
@@ -126,8 +129,8 @@
 						<div class="chat-input">
 							<div class="form-group">
 								<input class="input form-control" placeholder="Nachricht hier eingeben" type="text" ng-model="message">
-								<a class="btn btn-default btn-block chatbutton" ng-click="sendMessage()">Senden</a>
-								<a class="btn btn-default btn-block livechatbutton" ng-click="sendLiveMessage()" style="display:none;">Senden</a>
+								<a class="btn btn-default btn-block chatbutton" ng-click="sendMessage()"><?php echo $chat_view_btn_send; ?></a>
+								<a class="btn btn-default btn-block livechatbutton" ng-click="sendLiveMessage()" style="display:none;"><?php echo $chat_view_btn_send; ?></a>
 							</div>
 						</div>
 					</div>
@@ -137,19 +140,19 @@
 			<div id="survey-view" style="display: none;">
 				<div class="row">
 					<div class="col-xs-12">
-						<h1>Vielen Dank, wir freuen uns, wenn wir Ihnen helfen konnten.</h1>
-						<p>Bitte bewerten Sie noch kurz unseren neuen Service.</p>
+						<h1><?php echo $survey_view_headline; ?></h1>
+						<p><?php echo $survey_view_subline; ?></p>
 					</div>
 				</div>
 				
 				<div class="row border-yellow">
 					<div class="col-xs-12">
-						<h2>Wie zufrieden waren Sie mit unserem neuen Service?</h2>
+						<h2><?php echo $survey_view_rating_headline; ?></h2>
 					</div>
 					<div class="col-xs-12">
 						<ul>
 							<li>
-								<span>Nicht sehr<br />zufrieden</span>
+								<span><?php echo $survey_view_rating_not_satisfied; ?></span>
 							</li>
 							<li class="star">
 								<span>1</span>
@@ -217,7 +220,7 @@
 								</div>
 							</li>
 							<li>
-								<span>Sehr zufrieden</span>
+								<span><?php echo $survey_view_rating_satisfied; ?></span>
 							</li>
 						</ul>
 					</div>
@@ -225,7 +228,7 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
-					    	<a href="#" class="sendFeedback btn btn-default btn-block">Feedback senden</a>
+					    	<a href="#" class="sendFeedback btn btn-default btn-block"><?php echo $survey_view_btn_send_feedback; ?></a>
 					  	</div> 
 					</div>
 				</div>
@@ -234,14 +237,14 @@
 			<div id="callback-view" style="display: none;">
 				<div class="row">
 					<div class="col-xs-12">
-						<h1>Derzeit ist kein Live-Agent verfügbar.</h1>
-						<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+						<h1><?php echo $callback_view_headline; ?></h1>
+						<p><?php echo $callback_view_subline; ?></p>
 					</div>
 				</div>
 				<div class="row mt-20">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
-					    	<label for="phone">Bitte geben Sie nachfolgend Ihr Anliegen und Ihre Telefonnummer zur Kontaktaufnahme ein:</label>
+					    	<label for="phone"><?php echo $callback_view_textarea_headline; ?></label>
 					    	<textarea rows="6" type="text" class="form-control" name="phone" id="phone" ng-model="callbackphone"></textarea>
 					  	</div>
 					</div>  
@@ -249,14 +252,14 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
-					    	<a class="callbackBtn btn btn-default btn-block" ng-click="sendCallBackRequest()">Rückrufwunsch senden</a>
+					    	<a class="callbackBtn btn btn-default btn-block" ng-click="sendCallBackRequest()"><?php echo $callback_view_btn_callback_request; ?></a>
 					  	</div> 	
 			        </div>
 			    </div>	
 			</div>
 			
 			<div class="bottomClose" style="display:block;">
-				<a ng-click="endChat()" class="bottomClose">Dieses Fenster schließen</a>
+				<a ng-click="endChat()" class="bottomClose"><?php echo $general_btn_close_window; ?></a>
 			</div>
 		</div>
 	</div>
