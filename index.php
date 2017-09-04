@@ -40,7 +40,7 @@
 				</div>
 			</div>
 
-			<div id="login-view" style="display: block;">
+			<div id="login-view" style="display: none;">
 				<div class="row">
 					<div class="col-xs-12">
 						<h1>Willkommen beim DHL Kundensupport</h1>
@@ -51,29 +51,30 @@
 				<div class="row mt-20">
 					<div class="col-xs-12 col-sm-6">
 						<div  style="float: left; width: 80px">
-						<div class="form-group radio">
-					    	<div class="form-radio">
-								<label>
-									<input name="salutation" value="Herr" type="radio" ng-model="salutation">
-									<span class="input-dummy">
-										<span class="icon"></span>
-									</span>
-									Herr
-								</label>
+							<div class="form-group radio">
+						    	<div class="form-radio">
+									<label>
+										<input name="salutation" value="Herr" type="radio" ng-model="salutation">
+										<span class="input-dummy">
+											<span class="icon"></span>
+										</span>
+										Herr
+									</label>
+								</div>
 							</div>
-						</div></div>
+						</div>
 						<div style="float: left;">
-						<div class="form-group radio">
-							<div class="form-radio">
-								<label>
-									<input name="salutation" value="Frau" type="radio" ng-model="salutation">
-									<span class="input-dummy">
-										<span class="icon"></span>
-									</span>
-									Frau
-								</label>
-							</div>
-					  	</div>
+							<div class="form-group radio">
+								<div class="form-radio">
+									<label>
+										<input name="salutation" value="Frau" type="radio" ng-model="salutation">
+										<span class="input-dummy">
+											<span class="icon"></span>
+										</span>
+										Frau
+									</label>
+								</div>
+						  	</div>
 					  	</div>
 					</div>  
 				</div>
@@ -133,31 +134,94 @@
 				</div>
 			</div>
 			
-			<div id="survey-view" style="display: none;">
+			<div id="survey-view" style="display: block;">
 				<div class="row">
 					<div class="col-xs-12">
 						<h1>Vielen Dank, wir freuen uns, wenn wir Ihnen helfen konnten.</h1>
 						<p>Bitte bewerten Sie noch kurz unseren neuen Service.</p>
 					</div>
 				</div>
-				<table>
-					<tr>
-						<td>1</td>
-						<td>2</td>
-						<td>3</td>
-						<td>4</td>
-						<td>5</td>
-					</tr>
-					<tr>
-						<td><img src="https://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png"></td>
-						<td><img src="https://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png"></td>
-						<td><img src="https://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png"></td>
-						<td><img src="https://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png"></td>
-						<td><img src="https://cdn2.iconfinder.com/data/icons/diagona/icon/16/031.png"></td>
-					</tr>
-				</table>
 				
-				
+				<div class="row border-yellow">
+					<div class="col-xs-12">
+						<h2>Wie zufrieden waren Sie mit unserem neuen Service?</h2>
+					</div>
+					<div class="col-xs-12">
+						<ul>
+							<li>
+								<span>Nicht sehr<br />zufrieden</span>
+							</li>
+							<li class="star">
+								<span>1</span>
+								<div class="form-group radio">
+							    	<div class="form-radio">
+										<label>
+											<input name="tars" value="1" type="radio">
+											<span class="input-dummy">
+												<span class="icon"></span>
+											</span>
+										</label>
+									</div>
+								</div>
+							</li>
+							<li class="star">
+								<span>2</span>
+								<div class="form-group radio">
+							    	<div class="form-radio">
+										<label>
+											<input name="tars" value="2" type="radio">
+											<span class="input-dummy">
+												<span class="icon"></span>
+											</span>
+										</label>
+									</div>
+								</div>
+							</li>
+							<li class="star">
+								<span>3</span>
+								<div class="form-group radio">
+							    	<div class="form-radio">
+										<label>
+											<input name="tars" value="3" type="radio">
+											<span class="input-dummy">
+												<span class="icon"></span>
+											</span>
+										</label>
+									</div>
+								</div>
+							</li>
+							<li class="star">
+								<span>4</span>
+								<div class="form-group radio">
+							    	<div class="form-radio">
+										<label>
+											<input name="tars" value="4" type="radio">
+											<span class="input-dummy">
+												<span class="icon"></span>
+											</span>
+										</label>
+									</div>
+								</div>
+							</li>
+							<li class="star">
+								<span>5</span>
+								<div class="form-group radio">
+							    	<div class="form-radio">
+										<label>
+											<input name="tars" value="5" type="radio">
+											<span class="input-dummy">
+												<span class="icon"></span>
+											</span>
+										</label>
+									</div>
+								</div>
+							</li>
+							<li>
+								<span>Sehr zufrieden</span>
+							</li>
+						</ul>
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">

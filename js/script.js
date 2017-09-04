@@ -259,7 +259,7 @@ console.log(response.data);
 					savedData.summary = resp['summary'];
 					
 					savedData.history.push({'sequenceNumber':resp['sequence-id'],'Type': 'A', 'message': resp['text']});
-					status = 'chat-topic-finished';
+
 					if (status == 'handover') {
 						
 						savedData.chatstatus = status;
@@ -284,7 +284,7 @@ console.log(response.data);
 							$('.endChat').hide();
 							$('.bottomClose').show();
 							$('#survey-view').show();
-						}, 17500);
+						}, 7500);
 						
 					} else {
 						
@@ -690,7 +690,7 @@ window.onbeforeunload = function (event) {
 };
 window.onunload = function () {
 	console.log('unload');
-	
+	/*
 	$.ajax({
      type: 'POST',
      async: false,
@@ -714,7 +714,7 @@ window.onunload = function () {
    }).done(function(data) {
 	  console.log(data);
 	});
-
+*/
 }
 
 
