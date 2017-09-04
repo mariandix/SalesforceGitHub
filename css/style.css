@@ -168,6 +168,7 @@ label {
 	right: 2px;
 	top: 2px;
 	max-width: 100px;
+	margin-top: 0px;
 }
 @media (max-width: 768px) {
 	.header:after {
