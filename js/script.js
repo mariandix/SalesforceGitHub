@@ -421,11 +421,19 @@ console.log(response.data);
 					savedData.chatstatus = 'Live Agent Not Available';
 					//$scope.saveCustomerData();
 					
+					$('.chat-messages').find('ul').append($scope.entryAgent('Leider sind derzeit alle Live-Agents in Kundengesprächen. Sie können uns einen Rückrufwunsch senden! Bitte klicken Sie dazu <a class="inside-link">hier</a>'));
+					
+					$('.inside-link').bind('click', function(e) {
+						
+						$scope.showCallbackForm();
+					});
+					
+					/*
 					$('#chat-view').hide();
 					$('.endChat').hide();
 					$('.bottomClose').show();
 					$('#callback-view').show();
-					
+					*/
 				}
 				
 
@@ -575,6 +583,14 @@ console.log(response.data);
 			}, function error(response){
 				console.log(response);
 			});
+	}
+	
+	$scope.showCallbackForm = function () {
+		
+		$('#chat-view').hide();
+		$('.endChat').hide();
+		$('.bottomClose').show();
+		$('#callback-view').show();
 	}
 	
 	$scope.sendCallBackRequest =  function () {

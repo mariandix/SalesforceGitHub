@@ -155,6 +155,9 @@ label {
 	position: absolute;
     top: 0;
 }
+#chat-view .chat-messages a.inside-link {
+	cursor: pointer;
+}
 #chat-view .chat-input .form-control.input {
 	width: 100%;
 	max-width: calc(100% - 110px);

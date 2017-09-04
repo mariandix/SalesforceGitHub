@@ -40,7 +40,7 @@
 				</div>
 			</div>
 
-			<div id="login-view" style="display: none;">
+			<div id="login-view" style="display: block;">
 				<div class="row">
 					<div class="col-xs-12">
 						<h1>Willkommen beim DHL Kundensupport</h1>
@@ -134,7 +134,7 @@
 				</div>
 			</div>
 			
-			<div id="survey-view" style="display: block;">
+			<div id="survey-view" style="display: none;">
 				<div class="row">
 					<div class="col-xs-12">
 						<h1>Vielen Dank, wir freuen uns, wenn wir Ihnen helfen konnten.</h1>
