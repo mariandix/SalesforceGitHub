@@ -114,7 +114,8 @@ console.log(response.data['result']);
 					$('.bottomClose').hide();
 					
 					$('.chat-messages').find('ul').append($scope.entryChatbot('Hallo<br>Wie kann ich Ihnen helfen?'));
-
+					$scope.chatScrollDown();
+  		
 					$('.input').keypress(function(event) {
 						var oldTimer = ($scope.inputTimer != undefined);
 						clearTimeout($scope.inputTimer);
@@ -127,6 +128,7 @@ console.log(response.data['result']);
 								$scope.fullMessage = $scope.fullMessage + " " + $scope.message + "\n";
 								
 								$('.chat-messages').find('ul').append($scope.entryCustomer($scope.message));
+								$scope.chatScrollDown();
 								$('.chat-input .input').val('');
 								
 								console.log('enter');
@@ -193,6 +195,7 @@ console.log(response.data);
 					savedData.chatstatus = status;
 					
 					$('.chat-messages').find('ul').append($scope.entryChatbot(text));
+					$scope.chatScrollDown();
 					
 					$scope.stop_cognesys_chat(false);
 					$scope.connectLiveAgent();
@@ -205,18 +208,21 @@ console.log(response.data);
 					$scope.stop_cognesys_chat(true);
 					
 					$('.chat-messages').find('ul').append($scope.entryChatbot(text));
+					$scope.chatScrollDown();
 					$('.chat-messages').find('ul').append($scope.entryChatbot('Chat wurde beendet. Vielen Dank und einen schönen Tag.'));
+					$scope.chatScrollDown();
+					$('.chat-messages').find('ul').append($scope.entryChatbot('Nachfolgend können Sie noch unseren neuen Service bewerten. Bitte klicken Sie dazu <a class="inside-link-survey">hier</a>'));
+					$scope.chatScrollDown();
 					
-					setTimeout(function(){
-						$('#chat-view').hide();
-						$('.endChat').hide();
-						$('.bottomClose').show();
-						$('#survey-view').show();
-					}, 7500);
+					$('.inside-link-survey').bind('click', function(e) {
+						
+						$scope.showSurveyPage();
+					});
 					
 				} else {
 					
 					$('.chat-messages').find('ul').append($scope.entryChatbot(text));
+					$scope.chatScrollDown();
 				}
 				
 			}, function error(response){
@@ -236,6 +242,7 @@ console.log(response.data);
 			savedData.history.push({'sequenceNumber':$scope.messageCount, 'Type': 'Q', 'message': $scope.message});
 			
 			$('.chat-messages').find('ul').append($scope.entryCustomer($scope.message));
+			$scope.chatScrollDown();
 			$('.chat-input .input').val('');
 			var message = $scope.fullMessage + " " + $scope.message;
 			$scope.message = '';
@@ -265,6 +272,7 @@ console.log(response.data);
 						savedData.chatstatus = status;
 						
 						$('.chat-messages').find('ul').append($scope.entryChatbot(text));
+						$scope.chatScrollDown();
 						
 						$scope.stop_cognesys_chat(false);
 						$scope.connectLiveAgent();
@@ -277,19 +285,22 @@ console.log(response.data);
 						$scope.stop_cognesys_chat(true);
 						
 						$('.chat-messages').find('ul').append($scope.entryChatbot(text));
+						$scope.chatScrollDown();
 						$('.chat-messages').find('ul').append($scope.entryChatbot('Chat wurde beendet. Vielen Dank und einen schönen Tag.'));
+						$scope.chatScrollDown();
+						$('.chat-messages').find('ul').append($scope.entryChatbot('Nachfolgend können Sie noch unseren neuen Service bewerten. Bitte klicken Sie dazu <a class="inside-link-survey">hier</a>'));
+						$scope.chatScrollDown();
 						
-						setTimeout(function(){
-							$('#chat-view').hide();
-							$('.endChat').hide();
-							$('.bottomClose').show();
-							$('#survey-view').show();
-						}, 7500);
+						$('.inside-link-survey').bind('click', function(e) {
+							
+							$scope.showSurveyPage();
+						});
 						
 					} else {
 						
 						
 						$('.chat-messages').find('ul').append($scope.entryChatbot(text));
+						$scope.chatScrollDown();
 					}
 					
 				}, function error(response){
@@ -378,6 +389,7 @@ console.log(response.data);
 					activeChatEndEvent = 'liveagent_stop';
 					
 					$('.chat-messages').find('ul').append($scope.entryAgent('Connect with Live-Agent<br />How can I help you'));
+					$scope.chatScrollDown();
 					
 					$('.chatbutton').hide();
 					$('.livechatbutton').show();
@@ -395,6 +407,7 @@ console.log(response.data);
 								$scope.fullMessage = $scope.fullMessage + " " + $scope.message + '\n';
 
 								$('.chat-messages').find('ul').append($scope.entryCustomer($scope.message));
+								$scope.chatScrollDown();
 								$('.chat-input .input').val('');
 								$scope.message = '';
 								
@@ -422,18 +435,12 @@ console.log(response.data);
 					//$scope.saveCustomerData();
 					
 					$('.chat-messages').find('ul').append($scope.entryAgent('Leider sind derzeit alle Live-Agents in Kundengesprächen. Sie können uns einen Rückrufwunsch senden! Bitte klicken Sie dazu <a class="inside-link">hier</a>'));
+					$scope.chatScrollDown();
 					
 					$('.inside-link').bind('click', function(e) {
 						
 						$scope.showCallbackForm();
 					});
-					
-					/*
-					$('#chat-view').hide();
-					$('.endChat').hide();
-					$('.bottomClose').show();
-					$('#callback-view').show();
-					*/
 				}
 				
 
@@ -472,6 +479,7 @@ console.log(response.data);
 					$.each(text, function(key, value) {
 
 						$('.chat-messages').find('ul').append($scope.entryAgent(value));
+						$scope.chatScrollDown();
 					});
 				
 				}
@@ -481,6 +489,7 @@ console.log(response.data);
 					$('.livechatbutton').hide();
 
 					$('.chat-messages').find('ul').append($scope.entryAgent('Chat is ended'));
+					$scope.chatScrollDown();
 					
 					$scope.chatStop = true;
 					clearTimeout($scope.timer);
@@ -518,6 +527,7 @@ console.log(response.data);
 		if ($scope.message != '') {
 		
 			$('.chat-messages').find('ul').append($scope.entryCustomer($scope.message));
+			$scope.chatScrollDown();
 			$('.chat-input .input').val('');
 			
 			messageQueue = messageQueue + " " + $scope.fullMessage + " " + $scope.message + '\n';
@@ -593,6 +603,14 @@ console.log(response.data);
 		$('#callback-view').show();
 	}
 	
+	$scope.showSurveyPage = function () {
+		
+		$('#chat-view').hide();
+		$('.endChat').hide();
+		$('.bottomClose').show();
+		$('#survey-view').show();
+	}
+	
 	$scope.sendCallBackRequest =  function () {
 		
 		sendOnUnload = false;
@@ -659,7 +677,7 @@ console.log(response.data);
 	                        '<p>'+text+'</p>' +
 	                        '</div>' +
 	                        '</li>';
-		
+
 		return control_chatbot;
 	} 
 	
@@ -688,7 +706,12 @@ console.log(response.data);
                         '</li>';
 		
 		return control_agent;
-	}		
+	}	
+	
+	$scope.chatScrollDown = function() {
+		var elem = document.getElementById('chat-messages');
+		elem.scrollTop = elem.scrollHeight;
+	}	
 
 });
 
@@ -732,5 +755,3 @@ window.onunload = function () {
 	});
 */
 }
-
-

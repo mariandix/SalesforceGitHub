@@ -117,7 +117,7 @@
 			
 			<div id="chat-view" style="display: none;">
 				<div id="chat">
-					<div class="chat-messages">
+					<div id="chat-messages" class="chat-messages">
 						<ul>
 
 						</ul>
