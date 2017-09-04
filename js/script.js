@@ -199,7 +199,7 @@ console.log(response.data);
 
 				} else if (status == 'chat-topic-finished') {
 					
-					savedData.chatstatus = status;
+					savedData.chatstatus = 'ChatResolved';
 					$scope.chatStop = true;
 					
 					$scope.stop_cognesys_chat(true);
@@ -259,7 +259,7 @@ console.log(response.data);
 					savedData.summary = resp['summary'];
 					
 					savedData.history.push({'sequenceNumber':resp['sequence-id'],'Type': 'A', 'message': resp['text']});
-					
+					status = 'chat-topic-finished';
 					if (status == 'handover') {
 						
 						savedData.chatstatus = status;
@@ -271,7 +271,7 @@ console.log(response.data);
 
 					} else if (status == 'chat-topic-finished') {
 						
-						savedData.chatstatus = status;
+						savedData.chatstatus = 'ChatResolved';
 						$scope.chatStop = true;
 						
 						$scope.stop_cognesys_chat(true);
@@ -284,7 +284,7 @@ console.log(response.data);
 							$('.endChat').hide();
 							$('.bottomClose').show();
 							$('#survey-view').show();
-						}, 7500);
+						}, 17500);
 						
 					} else {
 						
