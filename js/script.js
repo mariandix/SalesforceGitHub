@@ -53,22 +53,22 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 		if ($scope.name != undefined) {
 			savedData.name = $scope.name;
 		} else {
-			savedData.name = 'Mustermann';
+			savedData.name = default_lastname;
 		}
 		if ($scope.firstname != undefined) {
 			savedData.firstname = $scope.firstname;
 		} else {
-			savedData.firstname = 'Max';
+			savedData.firstname = default_firstname;
 		}
 		if ($scope.phone != undefined) {
 			savedData.phone = $scope.phone;
 		} else {
-			savedData.phone = '03012345678';
+			savedData.phone = default_phone;
 		}
 		if ($scope.salutation != undefined) {
 			savedData.salutation = $scope.salutation;
 		} else {
-			savedData.salutation = 'Keine Anrede';
+			savedData.salutation = default_salutation;
 		}
 
 		if (!error) {
@@ -113,7 +113,7 @@ console.log(response.data['result']);
 					$('.endChat').show();
 					$('.bottomClose').hide();
 					
-					$('.chat-messages').find('ul').append($scope.entryChatbot('Hallo<br>Wie kann ich Ihnen helfen?'));
+					$('.chat-messages').find('ul').append($scope.entryChatbot(cognesys_welcome_message));
 					$scope.chatScrollDown();
   		
 					$('.input').keypress(function(event) {
@@ -209,9 +209,9 @@ console.log(response.data);
 					
 					$('.chat-messages').find('ul').append($scope.entryChatbot(text));
 					$scope.chatScrollDown();
-					$('.chat-messages').find('ul').append($scope.entryChatbot('Chat wurde beendet. Vielen Dank und einen schönen Tag.'));
+					$('.chat-messages').find('ul').append($scope.entryChatbot(cognesys_chat_end_message));
 					$scope.chatScrollDown();
-					$('.chat-messages').find('ul').append($scope.entryChatbot('Nachfolgend können Sie noch unseren neuen Service bewerten. Bitte klicken Sie dazu <a class="inside-link-survey">hier</a>'));
+					$('.chat-messages').find('ul').append($scope.entryChatbot(cognesys_chat_end_goodbye_message));
 					$scope.chatScrollDown();
 					
 					$('.inside-link-survey').bind('click', function(e) {
@@ -286,9 +286,9 @@ console.log(response.data);
 						
 						$('.chat-messages').find('ul').append($scope.entryChatbot(text));
 						$scope.chatScrollDown();
-						$('.chat-messages').find('ul').append($scope.entryChatbot('Chat wurde beendet. Vielen Dank und einen schönen Tag.'));
+						$('.chat-messages').find('ul').append($scope.entryChatbot(cognesys_chat_end_message));
 						$scope.chatScrollDown();
-						$('.chat-messages').find('ul').append($scope.entryChatbot('Nachfolgend können Sie noch unseren neuen Service bewerten. Bitte klicken Sie dazu <a class="inside-link-survey">hier</a>'));
+						$('.chat-messages').find('ul').append($scope.entryChatbot(cognesys_chat_end_goodbye_message));
 						$scope.chatScrollDown();
 						
 						$('.inside-link-survey').bind('click', function(e) {
@@ -388,7 +388,7 @@ console.log(response.data);
 					
 					activeChatEndEvent = 'liveagent_stop';
 					
-					$('.chat-messages').find('ul').append($scope.entryAgent('Connect with Live-Agent<br />How can I help you'));
+					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_connect));
 					$scope.chatScrollDown();
 					
 					$('.chatbutton').hide();
@@ -434,7 +434,7 @@ console.log(response.data);
 					savedData.chatstatus = 'Live Agent Not Available';
 					//$scope.saveCustomerData();
 					
-					$('.chat-messages').find('ul').append($scope.entryAgent('Leider sind derzeit alle Live-Agents in Kundengesprächen. Sie können uns einen Rückrufwunsch senden! Bitte klicken Sie dazu <a class="inside-link">hier</a>'));
+					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_not_available));
 					$scope.chatScrollDown();
 					
 					$('.inside-link').bind('click', function(e) {
@@ -488,7 +488,7 @@ console.log(response.data);
 
 					$('.livechatbutton').hide();
 
-					$('.chat-messages').find('ul').append($scope.entryAgent('Chat is ended'));
+					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_chat_ended));
 					$scope.chatScrollDown();
 					
 					$scope.chatStop = true;

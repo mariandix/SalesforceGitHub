@@ -2,9 +2,6 @@
 
 include('app/lang/de_DE.php');
 
-
-
-
 ?>
 <html lang="en">
 <head>
@@ -25,8 +22,7 @@ include('app/lang/de_DE.php');
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		
-		
-		
+	<?php createJsTranslate(); ?>	
 		
 	<script src="js/script.js" type="text/javascript"></script>
 	<link href="css/fonts.css" media="all" rel="stylesheet" />
