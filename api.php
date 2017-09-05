@@ -183,9 +183,6 @@ $params = '{
 			if (isset($result->messages[0]->type) && $result->messages[0]->type == 'Availability' && 
 				isset($result->messages[0]->message->results[0]->isAvailable) && $result->messages[0]->message->results[0]->isAvailable == true) {
 
-
-
-				
 				$con = new connector();
 				$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChasitorInit");
 				$con->setRequestMethod('POST');
@@ -312,6 +309,8 @@ $params = '{
 				
 				$response_chatinit = $con->sendRequest();
 					
+		/*			
+					
 				$con = new connector();
 				$con->setEndpoint(LIVEAGENT_REST_URL . "/System/Messages");
 				$con->setRequestMethod('GET');
@@ -346,9 +345,9 @@ $params = '{
 					$response = $con->sendRequest();
 				}
 
+*/
 
-
-  				$result = array('status' => 'ok', 'response' => $response, 'response_chatinit' => $response_chatinit, 'response_session' => $response_session, 'agent' => true);
+  				$result = array('status' => 'ok', 'response_chatinit' => $response_chatinit, 'response_session' => $response_session, 'agent' => true);
 				echo json_encode($result);	
 			
 			} else {
@@ -384,6 +383,44 @@ $params = '{
 					$resp = array();
 					foreach ($oResponse->messages as $key => $value) {
 						
+						if ($value->type == 'ChatEstablished') {
+							
+							foreach ($data->history as $key => $value) {
+								// send message
+								
+								$con = new connector();
+								$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChatMessage");
+								$con->setRequestMethod('POST');
+								
+								$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'],
+									            "X-LIVEAGENT-API-VERSION: 40",
+												"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+								$con->setRequestHeader($header);
+							
+			
+								$params = '{
+									"text": "' . (($value->Type == 'Q') ? $data->name:'ChatBot') . ': ' . $value->message . '"
+								}'; 
+								
+								$con->setPostfields($params);
+							
+								$response = $con->sendRequest();
+							}
+								
+							$result = array('text' => '','chat' => 'established');
+							header ('Content-Type: application/json');
+							echo json_encode($result);
+							die();
+							
+						}
+						if ($value->type == 'ChatRequestFail') {
+								
+							$result = array('text' => '','chat' => 'requestfail');
+							header ('Content-Type: application/json');
+							echo json_encode($result);
+							die();
+							
+						}
 						if ($value->type == 'ChatMessage') {
 								
 							$resp[] = $value->message->text;
