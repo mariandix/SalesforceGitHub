@@ -392,6 +392,75 @@ console.log(response.data);
 					$scope.chatScrollDown();
 					
 					$('.chatbutton').hide();
+					
+					$scope.timer = setTimeout($scope.checkAgentStatus(), 1000);
+					
+				} else {
+					
+					savedData.chatstatus = 'Live Agent Not Available';
+					//$scope.saveCustomerData();
+					
+					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_not_available));
+					$scope.chatScrollDown();
+					
+					$('.inside-link').bind('click', function(e) {
+						
+						$scope.showCallbackForm();
+					});
+				}
+				
+
+			}, function error(response){
+				
+			});
+	
+	}
+	
+	$scope.checkAgentStatus = function() {
+	
+	console.log('liveagent_check');
+		$http({
+			method: 'POST',
+			url: 'api.php',
+			data: {
+				'type': 'liveagent_check', 
+				'history': savedData.history,
+				'name' : savedData.name
+			},
+			headers: {
+			    'Accept':'application/json',
+			    'Content-Type':'application/json'
+			}
+			}).then(function success(response) {
+	
+				var chat = response.data['chat'];
+				console.log(response);
+				if (chat == 'requestfail') {
+					
+					savedData.chatstatus = 'Live Agent Not Available';
+					
+					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_not_available));
+					$scope.chatScrollDown();
+					
+					$('.inside-link').bind('click', function(e) {
+						
+						$scope.showCallbackForm();
+					});
+				} else if (chat == 'requestsuccess') {	
+					
+					$scope.timer = setTimeout($scope.checkAgentStatus(), 1000);
+				
+				
+				} else if (chat == 'no-resp') {	
+					
+					$scope.timer = setTimeout($scope.checkAgentStatus(), 1000);
+				
+					
+				} else if (chat == 'established') {
+					
+					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_connect_with));
+					$scope.chatScrollDown();
+					
 					$('.livechatbutton').show();
 
 					$scope.timer = setTimeout(function() {$scope.sendAndCheckMessages();}, 2000);
@@ -431,23 +500,14 @@ console.log(response.data);
 					
 				} else {
 					
-					savedData.chatstatus = 'Live Agent Not Available';
-					//$scope.saveCustomerData();
-					
-					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_not_available));
-					$scope.chatScrollDown();
-					
-					$('.inside-link').bind('click', function(e) {
-						
-						$scope.showCallbackForm();
-					});
 				}
 				
-
+	
 			}, function error(response){
 				
+				
+				
 			});
-	
 	}
 	
 	$scope.sendAndCheckMessages = function() {
