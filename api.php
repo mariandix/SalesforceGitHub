@@ -421,6 +421,14 @@ $params = '{
 							die();
 							
 						}
+						if ($value->type == 'ChatRequestSuccess') {
+								
+							$result = array('text' => '','chat' => 'requestsuccess');
+							header ('Content-Type: application/json');
+							echo json_encode($result);
+							die();
+							
+						}
 						if ($value->type == 'ChatMessage') {
 								
 							$resp[] = $value->message->text;
@@ -447,7 +455,7 @@ $params = '{
 				}
 			
 			} else {
-				$result = array('text' => '', 'result' => $result, 'resp' => 'no-resp', 'response' => $response);
+				$result = array('text' => '', 'result' => $result, 'chat' => 'no-resp', 'response' => $response);
 				header ('Content-Type: application/json');
 				echo json_encode($result);
 			}

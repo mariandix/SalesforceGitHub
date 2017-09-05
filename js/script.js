@@ -418,12 +418,14 @@ console.log(response.data);
 	
 	$scope.checkAgentStatus = function() {
 	
+	console.log('liveagent_check');
 		$http({
 			method: 'POST',
 			url: 'api.php',
 			data: {
 				'type': 'liveagent_check', 
-				'history': savedData.history
+				'history': savedData.history,
+				'name' : savedData.name
 			},
 			headers: {
 			    'Accept':'application/json',
@@ -432,7 +434,7 @@ console.log(response.data);
 			}).then(function success(response) {
 	
 				var chat = response.data['chat'];
-				
+				console.log(response);
 				if (chat == 'requestfail') {
 					
 					savedData.chatstatus = 'Live Agent Not Available';
@@ -444,6 +446,16 @@ console.log(response.data);
 						
 						$scope.showCallbackForm();
 					});
+				} else if (chat == 'requestsuccess') {	
+					
+					$scope.timer = setTimeout($scope.checkAgentStatus(), 1000);
+				
+				
+				} else if (chat == 'no-resp') {	
+					
+					$scope.timer = setTimeout($scope.checkAgentStatus(), 1000);
+				
+					
 				} else if (chat == 'established') {
 					
 					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_connect_with));
