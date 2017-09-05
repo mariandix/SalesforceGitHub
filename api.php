@@ -308,44 +308,6 @@ $params = '{
 				$con->setPostfields($params);
 				
 				$response_chatinit = $con->sendRequest();
-					
-		/*			
-					
-				$con = new connector();
-				$con->setEndpoint(LIVEAGENT_REST_URL . "/System/Messages");
-				$con->setRequestMethod('GET');
-				
-				$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'], 
-					            "X-LIVEAGENT-API-VERSION: 40",
-								"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
-				$con->setRequestHeader($header);
-				
-				$response = $con->sendRequest();
-				
-
-				foreach ($data->history as $key => $value) {
-					// send message
-					
-					$con = new connector();
-					$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChatMessage");
-					$con->setRequestMethod('POST');
-					
-					$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'],
-						            "X-LIVEAGENT-API-VERSION: 40",
-									"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
-					$con->setRequestHeader($header);
-				
-
-					$params = '{
-						"text": "' . (($value->Type == 'Q') ? $data->name:'ChatBot') . ': ' . $value->message . '"
-					}'; 
-					
-					$con->setPostfields($params);
-				
-					$response = $con->sendRequest();
-				}
-
-*/
 
   				$result = array('status' => 'ok', 'response_chatinit' => $response_chatinit, 'response_session' => $response_session, 'agent' => true);
 				echo json_encode($result);	
@@ -581,6 +543,7 @@ $params = '{
 				if (isset($oResponse->messages) && count($oResponse->messages) > 0) {
 					
 					$resp = array();
+					$typing = false;
 					foreach ($oResponse->messages as $key => $value) {
 						
 						if ($value->type == 'ChatMessage') {
@@ -588,9 +551,27 @@ $params = '{
 							$resp[] = $value->message->text;
 							
 						}
+						if ($value->type == 'AgentTyping') {
+								
+							$typing = true;
+							
+						}
+						if ($value->type == 'AgentNotTyping') {
+								
+							$typing = false;
+							
+						}
 						if ($value->type == 'ChatEnded') {
 								
-							$result = array('text' => '','chat' => 'stop');
+							$result = array('text' => $resp,'chat' => 'stop');
+							header ('Content-Type: application/json');
+							echo json_encode($result);
+							die();
+						}
+						
+						if ($value->type == 'AgentDisconnect') {
+								
+							$result = array('text' => $resp,'chat' => 'disconnect');
 							header ('Content-Type: application/json');
 							echo json_encode($result);
 							die();
@@ -598,7 +579,7 @@ $params = '{
 						
 					}
 					
-					$result = array('text' => $resp, 'resp' => $oResponse->messages);
+					$result = array('text' => $resp, 'typing' => $typing, 'resp' => $oResponse->messages);
 					header ('Content-Type: application/json');
 					echo json_encode($result);
 					
@@ -639,6 +620,59 @@ $params = '{
 			echo json_encode($result);
 			
 			break;
+			
+		case 'sendSurveyRating' :
+			
+			// init token
+			$con = new connector();
+			$con->setEndpoint(LOGIN_URI . "/services/oauth2/token");
+			$con->setRequestMethod('POST');
+			
+			$params = "&grant_type=password"
+				    . "&client_id=" . CLIENT_ID
+				    . "&client_secret=" . CLIENT_SECRET
+				    . "&username=" . USERNAME
+				    . "&password=" . PASSWORD;
+			
+			$con->setPostfields($params);
+			
+			$response = $con->sendRequest();
+
+			if (isset($response['result'])) {
+
+				$responseData = json_decode($response['result']);
+				$_SESSION['token'] = $token = $responseData->access_token;
+				$_SESSION['instance_url'] = $instance_url = $responseData->instance_url;
+				
+				$con = new connector();
+				$con->setEndpoint($instance_url . "/services/apexrest/DHL/PostChatSurveyRating/Update");
+				$con->setRequestMethod('POST');
+				
+$params = '{  
+"requestWrapper":{  
+"recordId":"' . (isset($_SESSION['callbackInfoId']) ? $_SESSION['callbackInfoId']: "") . '",
+"surveyRating":"' . $data->rating . '"
+}
+}';
+				
+				$con->setPostfields($params);
+
+				$header = array("Authorization: OAuth $token",
+				            "Content-type: application/json");
+				$con->setRequestHeader($header);
+
+				$response = $con->sendRequest();
+
+				echo json_encode(array('status' => 'ok', 'params' => $params, 'result' => $response));
+				die();
+			} else {
+				
+				echo json_encode(array('status' => 'error'));
+				die();
+			}
+			
+			break;			
+			
 	}
 } elseif (isset($_POST) && count($_POST) > 0) {
 	

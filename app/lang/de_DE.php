@@ -48,7 +48,8 @@ function createJsTranslate() {
 		'live_agent_connect_with' => 'Guten Tag, wie kann ich Ihnen helfen?',
 		'live_agent_not_available' => 'Leider sind derzeit alle Live-Agents in Kundengesprächen. Sie können uns einen Rückrufwunsch senden! Bitte klicken Sie dazu <a class=\"inside-link\">hier</a>',
 		'live_agent_chat_ended' => 'Der Chat wurde vom Live-Agent beendet!',
-
+		'live_agent_chat_goodbye_message' => 'Nachfolgend können Sie noch unseren neuen Service bewerten. Bitte klicken Sie dazu <a class=\"inside-link-survey\">hier</a>',
+		'live_agent_chat_disconnected' => 'Leider wurde Ihr Chat durch ein technisches Problem unterbrochen. Nachfolgend können Sie uns einen Rückrufwunsch senden! Bitte klicken Sie dazu <a class=\"inside-link\">hier</a>',
 	);
 	
 	echo '<script type="text/javascript">';

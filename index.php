@@ -155,7 +155,7 @@ include('app/lang/de_DE.php');
 								<div class="form-group radio">
 							    	<div class="form-radio">
 										<label>
-											<input name="tars" value="1" type="radio">
+											<input name="stars" value="1" type="radio">
 											<span class="input-dummy">
 												<span class="icon"></span>
 											</span>
@@ -168,7 +168,7 @@ include('app/lang/de_DE.php');
 								<div class="form-group radio">
 							    	<div class="form-radio">
 										<label>
-											<input name="tars" value="2" type="radio">
+											<input name="stars" value="2" type="radio">
 											<span class="input-dummy">
 												<span class="icon"></span>
 											</span>
@@ -181,7 +181,7 @@ include('app/lang/de_DE.php');
 								<div class="form-group radio">
 							    	<div class="form-radio">
 										<label>
-											<input name="tars" value="3" type="radio">
+											<input name="stars" value="3" type="radio" checked="checked">
 											<span class="input-dummy">
 												<span class="icon"></span>
 											</span>
@@ -194,7 +194,7 @@ include('app/lang/de_DE.php');
 								<div class="form-group radio">
 							    	<div class="form-radio">
 										<label>
-											<input name="tars" value="4" type="radio">
+											<input name="stars" value="4" type="radio">
 											<span class="input-dummy">
 												<span class="icon"></span>
 											</span>
@@ -207,7 +207,7 @@ include('app/lang/de_DE.php');
 								<div class="form-group radio">
 							    	<div class="form-radio">
 										<label>
-											<input name="tars" value="5" type="radio">
+											<input name="stars" value="5" type="radio">
 											<span class="input-dummy">
 												<span class="icon"></span>
 											</span>
@@ -224,7 +224,7 @@ include('app/lang/de_DE.php');
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
-					    	<a href="#" class="sendFeedback btn btn-default btn-block"><?php echo $survey_view_btn_send_feedback; ?></a>
+					    	<a class="sendFeedback btn btn-default btn-block" ><?php echo $survey_view_btn_send_feedback; ?></a>
 					  	</div> 
 					</div>
 				</div>

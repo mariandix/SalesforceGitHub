@@ -531,6 +531,7 @@ console.log(response.data);
 
 				var text = response.data['text'];
 				var chat = response.data['chat'];
+				var typing = response.data['typing'];
 					
 console.log('send check and talk');				
 console.log(response.data);
@@ -544,33 +545,46 @@ console.log(response.data);
 				
 				}
 				
-				if (chat == 'stop') {
+				if (chat == 'disconnect') {
+					
+					$('.livechatbutton').hide();
+
+					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_chat_disconnected));
+					$scope.chatScrollDown();
+					
+					$('.inside-link').bind('click', function(e) {
+						
+						$scope.showCallbackForm();
+					});
+				
+				} else if (chat == 'stop') {
 
 					$('.livechatbutton').hide();
 
 					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_chat_ended));
 					$scope.chatScrollDown();
+					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_chat_goodbye_message));
+					$scope.chatScrollDown();
+					
+					$('.inside-link-survey').bind('click', function(e) {
+						
+						$scope.showSurveyPage();
+					});
 					
 					$scope.chatStop = true;
 					clearTimeout($scope.timer);
 					
-					setTimeout(function(){
-						$('#chat-view').hide();
-						$('.endChat').hide();
-						$('.bottomClose').show();
-						$('#survey-view').show();
-					}, 5000);
-					
 				} else {
 					
-					$scope.timer = setTimeout(function() {$scope.sendAndCheckMessages();}, 2000);
+					$scope.timer = setTimeout(function() {$scope.sendAndCheckMessages();}, 1000);
 				}
 
 			}, function error(response, status, error){
+				console.log('check and talk error');
 				console.log(response);
 				console.log(status);
 				console.log(error);
-				$scope.timer = setTimeout(function() {$scope.sendAndCheckMessages();}, 2000);
+				$scope.timer = setTimeout(function() {$scope.sendAndCheckMessages();}, 1000);
 			});
 			
 	}
@@ -684,6 +698,29 @@ console.log(response.data);
 		
 	}
 	
+	$scope.sendSurveyRating = function () {
+		
+		sendOnUnload = false;
+
+		$http({ 
+			method: 'POST',
+			url: 'api.php',
+			data: {
+				'type': 'sendSurveyRating', 
+				'rating': $('input[name="stars"]:checked').val()
+			},
+			headers: {
+			    'Accept':'application/json',
+			    'Content-Type':'application/json'
+			}
+			}).then(function success(response) {
+console.log('save survey data');				
+console.log(response.data);
+			}, function error(response){
+				console.log(response);
+			});
+	}
+	
 	$scope.endChat = function () {
 		
 		if (sendOnUnload) {
@@ -730,11 +767,14 @@ console.log(response.data);
 	
 	$scope.entryChatbot = function(text) {
 		
+		var d = new Date();
+		
 		control_chatbot = '<li style="width:100%;">' +
 	                        '<div class="msj macro">' +
 	                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:36px;" src="'+you.avatar+'" /></div>' +
 	                        '<div class="text text-r">' +
 	                        '<p>'+text+'</p>' +
+	                        '<p>' + d.getDate() + '.' + d.getMonth() + '.' + d.getFullYear() + ' '+d.getHours() +':' + d.getMinutes()+':' + d.getSeconds() + '</p>' +
 	                        '</div>' +
 	                        '</li>';
 
@@ -743,10 +783,13 @@ console.log(response.data);
 	
 	$scope.entryCustomer = function(text) {
 		
+		var d = new Date();
+		
 		control_customer = '<li style="width:100%">' +
 	                        '<div class="msj-rta macro">' +
 	                        '<div class="text text-l">' +
 	                        '<p>'+ text +'</p>' +
+	                         '<p>' + d.getDate() + '.' + d.getMonth() + '.' + d.getFullYear() + ' '+d.getHours() +':' + d.getMinutes()+':' + d.getSeconds() + '</p>' +
 	                        '</div>' +
 	                        '<div class="avatar"><img class="img-circle" style="width:36px;" src="'+ me.avatar +'" /></div>' +
 	                        '</div>' +
@@ -757,11 +800,14 @@ console.log(response.data);
 	
 	$scope.entryAgent = function(text) {
 		
+		var d = new Date();
+		
 		control_agent = '<li style="width:100%;">' +
                         '<div class="msj macro">' +
                         '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:36px;" src="'+agent.avatar+'" /></div>' +
                         '<div class="text text-r">' +
                         '<p>' + text + '</p>' + 
+                         '<p>' + d.getDate() + '.' + d.getMonth() + '.' + d.getFullYear() + ' '+d.getHours() +':' + d.getMinutes()+':' + d.getSeconds() + '</p>' +
                         '</div>' +
                         '</li>';
 		
