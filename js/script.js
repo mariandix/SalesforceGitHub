@@ -75,7 +75,7 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 			savedData.history = [];
 			savedData.callback = '';
 			savedData.chatstatus = '';
-			savedData.summary = '';
+			savedData.summary = [];
 			savedData.tonality = '';
 			savedData.endTime = '';
 			savedData.startTime = '';
@@ -187,7 +187,7 @@ console.log(response.data);
 					var text = resp['text'];
 				var status = resp['status'];
 				var cnt = resp['sequence-id'];
-				savedData.summary = resp['summary'];
+				savedData.summary.push(resp['summary']);
 				
 				savedData.history.push({'sequenceNumber':resp['sequence-id'],'Type': 'A', 'message': resp['text']});
 				
@@ -267,7 +267,7 @@ console.log(response.data);
 					var status = resp['status'];
 					var cnt = resp['sequence-id'];
 					if (text != undefined) {
-						savedData.summary = resp['summary'];
+						savedData.summary.push(resp['summary']);
 						
 						if (savedData.chatstatus != 'handover') {
 							savedData.history.push({'sequenceNumber':resp['sequence-id'],'Type': 'A', 'message': resp['text']});
@@ -336,7 +336,7 @@ console.log(response.data);
 				var resp = JSON.parse(response.data['result'].result);
 				console.log(resp);
 				savedData.tonality = resp.tonality;
-				savedData.summary = resp.summary;
+				//savedData.summary = resp.summary;
 				savedData.endTime = resp.timestamp;
 				savedData.startTime = resp.started;
 				
