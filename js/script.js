@@ -1,13 +1,13 @@
 
 
 var me = {};
-me.avatar = "img/icon_user_avatar_klein.png";
+me.avatar = "img/icon_user.svg";
 
 var you = {};
-you.avatar = "img/icon_dhl_chatbot_avatar_klein.png";
+you.avatar = "img/icon_chatbot.svg";
 
 var agent = {};
-agent.avatar = "img/icon_dhl_avatarklein.png";
+agent.avatar = "img/icon_liveagent.svg";
 
 var REGEX_EMAIL = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;    
 var savedData = [];	
@@ -413,6 +413,9 @@ console.log(response.data);
 					
 					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_not_available));
 					$scope.chatScrollDown();
+					$('.chatbutton').hide();
+					
+					$('.input').unbind('keypress');
 					
 					$('.inside-link').bind('click', function(e) {
 						
@@ -650,6 +653,7 @@ console.log(response.data);
 				
 console.log('stop live agent');				
 console.log(response.data);
+				activeChatEndEvent = '';
 				$scope.chatStop = true;
 			}, function error(response){
 				
@@ -794,7 +798,7 @@ console.log(response.data);
 
 		control_chatbot = '<li style="width:100%;">' +
 	                        '<div class="msj macro">' +
-	                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:36px;" src="'+you.avatar+'" /></div>' +
+	                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="" style="width:36px;" src="'+you.avatar+'" /></div>' +
 	                        '<div class="text text-r">' +
 	                        '<p>'+text+'</p>' +
 	                        '<p>' + d.toLocaleString('de-DE') + '</p>' +
@@ -814,7 +818,7 @@ console.log(response.data);
 	                        '<p>'+ text +'</p>' +
 	                         '<p>' + d.toLocaleString('de-DE') + '</p>' +
 	                        '</div>' +
-	                        '<div class="avatar"><img class="img-circle" style="width:36px;" src="'+ me.avatar +'" /></div>' +
+	                        '<div class="avatar"><img class="" style="width:36px;" src="'+ me.avatar +'" /></div>' +
 	                        '</div>' +
 	                        '</li>';
 		
@@ -827,7 +831,7 @@ console.log(response.data);
 		
 		control_agent = '<li style="width:100%;">' +
                         '<div class="msj macro">' +
-                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:36px;" src="'+agent.avatar+'" /></div>' +
+                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="" style="width:36px;" src="'+agent.avatar+'" /></div>' +
                         '<div class="text text-r">' +
                         '<p>' + text + '</p>' + 
                          '<p>' + d.toLocaleString('de-DE') + '</p>' +
