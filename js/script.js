@@ -197,6 +197,8 @@ console.log(response.data);
 					
 					$('.chat-messages').find('ul').append($scope.entryChatbot(text));
 					$scope.chatScrollDown();
+					$('.chatbutton').hide();
+					$('.input').unbind('keypress');
 					
 					$scope.stop_cognesys_chat(false);
 					$scope.connectLiveAgent();
@@ -264,46 +266,48 @@ console.log(response.data);
 					var text = resp['text'];
 					var status = resp['status'];
 					var cnt = resp['sequence-id'];
-					savedData.summary = resp['summary'];
-					
-					savedData.history.push({'sequenceNumber':resp['sequence-id'],'Type': 'A', 'message': resp['text']});
-
-					if (status == 'handover') {
+					if (text != undefined) {
+						savedData.summary = resp['summary'];
 						
-						savedData.chatstatus = status;
-						
-						$('.chat-messages').find('ul').append($scope.entryChatbot(text));
-						$scope.chatScrollDown();
-						
-						$scope.stop_cognesys_chat(false);
-						$scope.connectLiveAgent();
-
-					} else if (status == 'chat-topic-finished') {
-						
-						savedData.chatstatus = 'ChatResolved';
-						$scope.chatStop = true;
-						
-						$scope.stop_cognesys_chat(true);
-						
-						$('.chat-messages').find('ul').append($scope.entryChatbot(text));
-						$scope.chatScrollDown();
-						$('.chat-messages').find('ul').append($scope.entryChatbot(cognesys_chat_end_message));
-						$scope.chatScrollDown();
-						$('.chat-messages').find('ul').append($scope.entryChatbot(cognesys_chat_end_goodbye_message));
-						$scope.chatScrollDown();
-						
-						$('.inside-link-survey').bind('click', function(e) {
+						savedData.history.push({'sequenceNumber':resp['sequence-id'],'Type': 'A', 'message': resp['text']});
+	
+						if (status == 'handover') {
 							
-							$scope.showSurveyPage();
-						});
-						
-					} else {
-						
-						
-						$('.chat-messages').find('ul').append($scope.entryChatbot(text));
-						$scope.chatScrollDown();
+							if (savedData.chatstatus != 'handover') {
+								savedData.chatstatus = status;
+								
+								$('.chat-messages').find('ul').append($scope.entryChatbot(text));
+								$scope.chatScrollDown();
+								
+								$scope.stop_cognesys_chat(false);
+								$scope.connectLiveAgent();
+							}
+						} else if (status == 'chat-topic-finished') {
+							
+							savedData.chatstatus = 'ChatResolved';
+							$scope.chatStop = true;
+							
+							$scope.stop_cognesys_chat(true);
+							
+							$('.chat-messages').find('ul').append($scope.entryChatbot(text));
+							$scope.chatScrollDown();
+							$('.chat-messages').find('ul').append($scope.entryChatbot(cognesys_chat_end_message));
+							$scope.chatScrollDown();
+							$('.chat-messages').find('ul').append($scope.entryChatbot(cognesys_chat_end_goodbye_message));
+							$scope.chatScrollDown();
+							
+							$('.inside-link-survey').bind('click', function(e) {
+								
+								$scope.showSurveyPage();
+							});
+							
+						} else {
+							
+							
+							$('.chat-messages').find('ul').append($scope.entryChatbot(text));
+							$scope.chatScrollDown();
+						}
 					}
-					
 				}, function error(response){
 					
 				});
