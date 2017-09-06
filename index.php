@@ -233,8 +233,17 @@ if (isset($_GET['lang']) && $_GET['lang'] == 'en') {
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
-					    	<a class="sendFeedback btn btn-default btn-block" ><?php echo $survey_view_btn_send_feedback; ?></a>
+					    	<a class="sendFeedback btn btn-default btn-block" ng-click="sendSurveyRating()"><?php echo $survey_view_btn_send_feedback; ?></a>
 					  	</div> 
+					</div>
+				</div>
+			</div>
+			
+			<div id="survey-success-view" style="display: none;">
+				<div class="row">
+					<div class="col-xs-12">
+						<h1><?php echo $survey_success_view_headline; ?></h1>
+						<p><?php echo $survey_success_view_subline; ?></p>
 					</div>
 				</div>
 			</div>
@@ -264,7 +273,7 @@ if (isset($_GET['lang']) && $_GET['lang'] == 'en') {
 			</div>
 			
 			<div class="bottomClose" style="display:block;">
-				<a ng-click="endChat()" class="bottomClose"><?php echo $general_btn_close_window; ?></a>
+				<a onclick="CloseWithWindowOpenTrick();" class="bottomClose"><?php echo $general_btn_close_window; ?></a>
 			</div>
 		</div>
 	</div>

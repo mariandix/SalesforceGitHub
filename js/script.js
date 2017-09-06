@@ -730,7 +730,8 @@ console.log(response.data);
 	$scope.sendSurveyRating = function () {
 		
 		sendOnUnload = false;
-
+		
+		/*
 		$http({ 
 			method: 'POST',
 			url: 'api.php',
@@ -748,12 +749,15 @@ console.log(response.data);
 			}, function error(response){
 				console.log(response);
 			});
+		*/
+		$('#survey-view').hide();
+		$('#survey-success-view').show();
 	}
 	
 	$scope.endChat = function () {
 		
 		if (sendOnUnload) {
-			if (confirm("Chat beenden?")) {
+			if (confirm(default_stop_chat)) {
 				
 				$scope.endChatOnUnload();
 				
@@ -768,7 +772,7 @@ console.log(response.data);
 			if ($scope.sessionid == '') {
 				// first view - no chat to stop
 				// do nothing
-				console.log('end do nothing');
+				console.log('end do nothing'); 
 			} else if (!$scope.congesysStop) {
 				
 				savedData.chatstatus = 'Aborted';
@@ -783,14 +787,14 @@ console.log(response.data);
 				$scope.liveagent_stop();
 				console.log('end stop live agent');
 			}
-		}
+		} 
 		
 		setTimeout(function(){
 			$('#chat-view').hide();
 			$('.endChat').hide();
 			$('.bottomClose').show();
 			$('#survey-view').show();
-		}, 2000);
+		}, 3000);
 		
 	}
 	
@@ -865,6 +869,12 @@ window.onbeforeunload = function (event) {
     */
 
 };
+
+function CloseWithWindowOpenTrick() {
+  var objWindow = window.open(location.href, "_self");
+  objWindow.close();
+}
+
 window.onunload = function () {
 	console.log('unload');
 	/*

@@ -27,6 +27,9 @@ $survey_view_rating_not_satisfied = 'Nicht sehr<br />zufrieden';
 $survey_view_rating_satisfied = 'Sehr zufrieden';
 $survey_view_btn_send_feedback = 'Feedback senden';
 
+$survey_success_view_headline = 'Vielen Dank für Ihre Bewertung.';
+$survey_success_view_subline = '';
+
 $callback_view_headline = 'Derzeit ist kein Live-Agent verfügbar.';
 $callback_view_subline = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
 $callback_view_textarea_headline = 'Bitte geben Sie nachfolgend Ihr Anliegen und Ihre Telefonnummer zur Kontaktaufnahme ein:';
@@ -42,6 +45,7 @@ function createJsTranslate() {
 		'default_firstname' => 'Max',
 		'default_phone' => '03012345678',
 		'default_salutation' => 'Keine Anrede',
+		'default_stop_chat' => 'Chat beenden?',
 		'cognesys_welcome_message' => 'Hallo<br>Wie kann ich Ihnen helfen?',
 		'cognesys_chat_end_message' => 'Chat wurde beendet. Vielen Dank und einen schönen Tag.',
 		'cognesys_chat_end_goodbye_message' => 'Nachfolgend können Sie noch unseren neuen Service bewerten. Bitte klicken Sie dazu <a class=\"inside-link-survey\">hier</a>',

@@ -58,6 +58,7 @@ label {
     width: 100%;
     text-align: center;
     margin: 50px 0px 20px;
+    cursor: pointer;
 }
 .bottomClose:hover {
 	color: #d40511;
