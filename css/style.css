@@ -318,6 +318,9 @@ ul {
     position: absolute;
     bottom: -10px;
 }
+.connect.text > p:last-of-type {
+	position: relative;
+}
 .msj-rta.macro .text > p:last-of-type {
 	right: 110px;
 	bottom: -10px;
