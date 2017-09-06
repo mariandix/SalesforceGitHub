@@ -155,7 +155,8 @@ label {
 	position: absolute;
     top: 0;
 }
-#chat-view .chat-messages a.inside-link {
+#chat-view .chat-messages a.inside-link,
+#chat-view .chat-messages a.inside-link-aborted {
 	cursor: pointer;
 }
 #chat-view .chat-input .form-control.input {
@@ -229,8 +230,9 @@ label {
     border-radius: 5px;
     padding: 5px;
     display: flex;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
     padding-left: 10px;
+    margin-bottom: 20px;
 }
 .msj.macro {
 	margin-top: 10px;
@@ -239,7 +241,7 @@ label {
     border-radius: 5px;
     padding: 5px;
     display: flex;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
     padding-right: 10px;
     margin-left: 80px;
 }
@@ -285,10 +287,19 @@ ul {
     width:100%;display:flex;flex-direction:column;
 }
 .text > p:first-of-type{
-    width:100%;margin-top:0;margin-bottom:auto;line-height: 13px;font-size: 14px;
+    width:100%;margin-top:0;margin-bottom:auto;line-height: 13px;font-size: 14px;min-height: 26px;
 }
 .text > p:last-of-type{
-    width:100%;color:#666;margin-bottom:-7px;margin-top:10px;line-height: 13px;font-size: 11px;
+	width: 100%;
+    color: #666;
+    line-height: 13px;
+    font-size: 11px;
+    position: absolute;
+    bottom: -30px;
+}
+.msj-rta.macro .text > p:last-of-type {
+	right: 110px;
+	bottom: -10px;
 }
 .text-l{
     float:left;padding-right:10px;text-align:right;
@@ -300,6 +311,9 @@ ul {
 	font-size: 12px;
 	margin-left: 10px;
     margin-top: 5px;
+}
+.chat-messages li.connect {
+	display:block;
 }
 .chat-messages li.connect p {
 	text-align: center;

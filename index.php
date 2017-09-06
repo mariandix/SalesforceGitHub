@@ -1,6 +1,11 @@
 <?php
 
-include('app/lang/de_DE.php');
+if (isset($_GET['lang']) && $_GET['lang'] == 'en') {
+	include('app/lang/en_US.php');
+} else {
+	include('app/lang/de_DE.php');	
+}
+
 
 ?>
 <html lang="en">

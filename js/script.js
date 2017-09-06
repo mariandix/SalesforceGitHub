@@ -400,6 +400,8 @@ console.log(response.data);
 					
 					$('.inside-link-aborted').bind('click', function(e) {
 						
+						savedData.chatstatus = 'Live Agent Not Available';
+						
 						activeChatEndEvent = '';
 						clearTimeout($scope.timer);
 						$scope.liveagent_stop();
@@ -652,7 +654,7 @@ console.log(response.data);
 			}).then(function success(response) {
 				
 console.log('stop live agent');				
-console.log(response.data);
+console.log(response);
 				activeChatEndEvent = '';
 				$scope.chatStop = true;
 			}, function error(response){
@@ -796,7 +798,7 @@ console.log(response.data);
 		
 		var d = new Date();
 
-		control_chatbot = '<li style="width:100%;">' +
+		control_chatbot = '<li style="width:100%;position: relative;">' +
 	                        '<div class="msj macro">' +
 	                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="" style="width:31px;" src="'+you.avatar+'" /></div>' +
 	                        '<div class="text text-r">' +
@@ -812,10 +814,13 @@ console.log(response.data);
 		
 		var d = new Date();
 		
-		control_customer = '<li style="width:100%">' +
+		var $div = $("<div>", {id: "foo", "class": "a"});
+		$div.text(text);
+		console.log($div.text());
+		control_customer = '<li style="width:100%;position: relative;">' +
 	                        '<div class="msj-rta macro">' +
 	                        '<div class="text text-l">' +
-	                        '<p>'+ text +'</p>' +
+	                        '<p>'+ $div.html() +'</p>' +
 	                         '<p>' + d.toLocaleString('de-DE') + '</p>' +
 	                        '</div>' +
 	                        '<div class="avatar"><img class="" style="width:31px;" src="'+ me.avatar +'" /></div>' +
@@ -829,7 +834,7 @@ console.log(response.data);
 		
 		var d = new Date();
 		
-		control_agent = '<li style="width:100%;">' +
+		control_agent = '<li style="width:100%;position: relative;">' +
                         '<div class="msj macro">' +
                         '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="" style="width:31px;" src="'+agent.avatar+'" /></div>' +
                         '<div class="text text-r">' +
