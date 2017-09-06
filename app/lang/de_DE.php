@@ -50,6 +50,7 @@ function createJsTranslate() {
 		'live_agent_chat_ended' => 'Der Chat wurde vom Live-Agent beendet!',
 		'live_agent_chat_goodbye_message' => 'Nachfolgend können Sie noch unseren neuen Service bewerten. Bitte klicken Sie dazu <a class=\"inside-link-survey\">hier</a>',
 		'live_agent_chat_disconnected' => 'Leider wurde Ihr Chat durch ein technisches Problem unterbrochen. Nachfolgend können Sie uns einen Rückrufwunsch senden! Bitte klicken Sie dazu <a class=\"inside-link\">hier</a>',
+		'live_agent_typing' => '<p>Der Live-Agent schreibt eine Nachricht ...</p>',
 	);
 	
 	echo '<script type="text/javascript">';

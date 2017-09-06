@@ -120,7 +120,9 @@ include('app/lang/de_DE.php');
 						<ul>
 
 						</ul>
+						<div class="typing"></div>
 					</div>
+					<div class="typing"></div>
 					<div class="row">
 						<div class="chat-input">
 							<div class="form-group">

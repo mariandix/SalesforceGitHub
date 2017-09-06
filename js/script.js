@@ -393,6 +393,9 @@ console.log(response.data);
 					
 					$('.chatbutton').hide();
 					
+					$('.chat-messages').find('ul').append('<li class="connect text"><p><img src="img/CircularProgressAnimationG.gif" width="32"></p></li>');
+					$scope.chatScrollDown();
+					
 					$scope.timer = setTimeout($scope.checkAgentStatus(), 1000);
 					
 				} else {
@@ -439,6 +442,8 @@ console.log(response.data);
 					
 					savedData.chatstatus = 'Live Agent Not Available';
 					
+					$('.connect').remove();
+					
 					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_not_available));
 					$scope.chatScrollDown();
 					
@@ -457,6 +462,8 @@ console.log(response.data);
 				
 					
 				} else if (chat == 'established') {
+					
+					$('.connect').remove();
 					
 					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_connect_with));
 					$scope.chatScrollDown();
@@ -542,7 +549,14 @@ console.log(response.data);
 						$('.chat-messages').find('ul').append($scope.entryAgent(value));
 						$scope.chatScrollDown();
 					});
+				}
 				
+				if (typing != undefined && typing == true) {
+					$('.typing').html(live_agent_typing);
+					$('#chat-view .chat-messages').css('height','calc(100vh - 185px)');
+				} else {
+					$('.typing').html(' ');
+					$('#chat-view .chat-messages').css('height','calc(100vh - 170px)');
 				}
 				
 				if (chat == 'disconnect') {

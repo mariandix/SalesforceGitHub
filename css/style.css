@@ -296,6 +296,14 @@ ul {
 .text-r{
     float:right;padding-left:10px;
 }
+.typing p {
+	font-size: 12px;
+	margin-left: 10px;
+    margin-top: 5px;
+}
+.chat-messages li.connect p {
+	text-align: center;
+}
 
 .form-radio.form-radio .input-dummy, .form-checkbox.form-radio .input-dummy {
     border-radius: 100%;
