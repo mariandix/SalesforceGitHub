@@ -393,7 +393,7 @@ console.log(response.data);
 					
 					$('.chatbutton').hide();
 					
-					$('.chat-messages').find('ul').append('<li class="connect text"><p><img src="img/CircularProgressAnimationG.gif" width="32"></p><p><a class="inside-link-aborted">' + live_agent_aborted + '</p></li>');
+					$('.chat-messages').find('ul').append('<li class="connect text"><p><img src="img/CircularProgressAnimationG.gif" width="32"></p><p><a class="inside-link-aborted">' + live_agent_aborted + '</a></p></li>');
 					$scope.chatScrollDown();
 					
 					$scope.timer = setTimeout($scope.checkAgentStatus(), 1000);
@@ -798,7 +798,7 @@ console.log(response.data);
 
 		control_chatbot = '<li style="width:100%;">' +
 	                        '<div class="msj macro">' +
-	                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="" style="width:36px;" src="'+you.avatar+'" /></div>' +
+	                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="" style="width:31px;" src="'+you.avatar+'" /></div>' +
 	                        '<div class="text text-r">' +
 	                        '<p>'+text+'</p>' +
 	                        '<p>' + d.toLocaleString('de-DE') + '</p>' +
@@ -818,7 +818,7 @@ console.log(response.data);
 	                        '<p>'+ text +'</p>' +
 	                         '<p>' + d.toLocaleString('de-DE') + '</p>' +
 	                        '</div>' +
-	                        '<div class="avatar"><img class="" style="width:36px;" src="'+ me.avatar +'" /></div>' +
+	                        '<div class="avatar"><img class="" style="width:31px;" src="'+ me.avatar +'" /></div>' +
 	                        '</div>' +
 	                        '</li>';
 		
@@ -831,7 +831,7 @@ console.log(response.data);
 		
 		control_agent = '<li style="width:100%;">' +
                         '<div class="msj macro">' +
-                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="" style="width:36px;" src="'+agent.avatar+'" /></div>' +
+                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="" style="width:31px;" src="'+agent.avatar+'" /></div>' +
                         '<div class="text text-r">' +
                         '<p>' + text + '</p>' + 
                          '<p>' + d.toLocaleString('de-DE') + '</p>' +
