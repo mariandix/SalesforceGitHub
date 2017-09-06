@@ -131,7 +131,7 @@ if (isset($_GET['lang']) && $_GET['lang'] == 'en') {
 					<div class="row">
 						<div class="chat-input">
 							<div class="form-group">
-								<input class="input form-control" placeholder="Nachricht hier eingeben" type="text" ng-model="message">
+								<input class="input form-control" placeholder="<?php echo $chat_view_input_placeholder;?>" type="text" ng-model="message">
 								<a class="btn btn-default btn-block chatbutton" ng-click="sendMessage()"><?php echo $chat_view_btn_send; ?></a>
 								<a class="btn btn-default btn-block livechatbutton" ng-click="sendLiveMessage()" style="display:none;"><?php echo $chat_view_btn_send; ?></a>
 							</div>

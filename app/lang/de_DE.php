@@ -18,6 +18,7 @@ $login_view_phone = 'Telefonnummer';
 $login_view_btn_start_chat = 'Chat starten!';
 
 $chat_view_btn_send = 'Absenden';
+$chat_view_input_placeholder = 'Nachricht hier eingeben';
 
 $survey_view_headline = 'Vielen Dank, wir freuen uns, wenn wir Ihnen helfen konnten.';
 $survey_view_subline = 'Bitte bewerten Sie noch kurz unseren neuen Service.';

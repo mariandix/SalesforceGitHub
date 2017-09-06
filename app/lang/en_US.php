@@ -6,7 +6,7 @@ $html_title = 'DHL - ChatBot';
 $login_view_welcome = 'Welcome by the DHL Kundensupport';
 
 // with open <p> tag on start and close </p> tag on end
-$login_view_welcome_text = '<p>damit wir auch lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+$login_view_welcome_text = '<p>rrr rttt  z df dfgd gdfgd fg dfgipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
 						<p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>';
 
 $login_view_salutation_mr = 'Mr';
@@ -18,6 +18,7 @@ $login_view_phone = 'Phone';
 $login_view_btn_start_chat = 'Start Chat!';
 
 $chat_view_btn_send = 'Send';
+$chat_view_input_placeholder = 'Insert your message here';
 
 $survey_view_headline = 'Vielen Dank, wir freuen uns, wenn wir Ihnen helfen konnten.';
 $survey_view_subline = 'Bitte bewerten Sie noch kurz unseren neuen Service.';
