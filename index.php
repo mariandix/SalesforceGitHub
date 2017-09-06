@@ -2,8 +2,10 @@
 
 if (isset($_GET['lang']) && $_GET['lang'] == 'en') {
 	include('app/lang/en_US.php');
+	$lang = 'en';
 } else {
 	include('app/lang/de_DE.php');	
+	$lang = 'de';
 }
 
 
@@ -34,7 +36,7 @@ if (isset($_GET['lang']) && $_GET['lang'] == 'en') {
 	<link href="css/style.css" media="all" rel="stylesheet" />
 	
 </head>
-<body ng-app="chat-bot" ng-controller="chat" id="chat-bot">
+<body ng-app="chat-bot" ng-controller="chat" id="chat-bot" class="<?php echo $lang; ?>">
 	<div class="wrap">
 		<div class="headbg"></div>
 		<div class="container">

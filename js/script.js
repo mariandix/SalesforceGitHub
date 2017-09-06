@@ -330,7 +330,7 @@ console.log(response.data);
 				var resp = JSON.parse(response.data['result'].result);
 				console.log(resp);
 				savedData.tonality = resp.tonality;
-				//savedData.summary = resp.summary;
+				savedData.summary = resp.summary;
 				savedData.endTime = resp.timestamp;
 				savedData.startTime = resp.started;
 				
@@ -816,7 +816,7 @@ console.log(response.data);
 		
 		var $div = $("<div>", {id: "foo", "class": "a"});
 		$div.text(text);
-		console.log($div.text());
+
 		control_customer = '<li style="width:100%;position: relative;">' +
 	                        '<div class="msj-rta macro">' +
 	                        '<div class="text text-l">' +
