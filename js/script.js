@@ -782,13 +782,13 @@ console.log(response.data);
 	$scope.entryChatbot = function(text) {
 		
 		var d = new Date();
-		
+
 		control_chatbot = '<li style="width:100%;">' +
 	                        '<div class="msj macro">' +
 	                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:36px;" src="'+you.avatar+'" /></div>' +
 	                        '<div class="text text-r">' +
 	                        '<p>'+text+'</p>' +
-	                        '<p>' + d.getDate() + '.' + d.getMonth() + '.' + d.getFullYear() + ' '+d.getHours() +':' + d.getMinutes()+':' + d.getSeconds() + '</p>' +
+	                        '<p>' + d.toLocaleString('de-DE') + '</p>' +
 	                        '</div>' +
 	                        '</li>';
 
@@ -803,7 +803,7 @@ console.log(response.data);
 	                        '<div class="msj-rta macro">' +
 	                        '<div class="text text-l">' +
 	                        '<p>'+ text +'</p>' +
-	                         '<p>' + d.getDate() + '.' + d.getMonth() + '.' + d.getFullYear() + ' '+d.getHours() +':' + d.getMinutes()+':' + d.getSeconds() + '</p>' +
+	                         '<p>' + d.toLocaleString('de-DE') + '</p>' +
 	                        '</div>' +
 	                        '<div class="avatar"><img class="img-circle" style="width:36px;" src="'+ me.avatar +'" /></div>' +
 	                        '</div>' +
@@ -821,7 +821,7 @@ console.log(response.data);
                         '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:36px;" src="'+agent.avatar+'" /></div>' +
                         '<div class="text text-r">' +
                         '<p>' + text + '</p>' + 
-                         '<p>' + d.getDate() + '.' + d.getMonth() + '.' + d.getFullYear() + ' '+d.getHours() +':' + d.getMinutes()+':' + d.getSeconds() + '</p>' +
+                         '<p>' + d.toLocaleString('de-DE') + '</p>' +
                         '</div>' +
                         '</li>';
 		
