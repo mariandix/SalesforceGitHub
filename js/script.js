@@ -121,7 +121,7 @@ console.log(response.data['result']);
 						clearTimeout($scope.inputTimer);
 						
 						if (event.which == 13) {
-							
+							console.log($scope.message);
 							if ($scope.message != '' && $scope.message != undefined) {
 								savedData.history.push({'sequenceNumber':$scope.messageCount, 'Type': 'Q', 'message': $scope.message});
 								
@@ -130,6 +130,7 @@ console.log(response.data['result']);
 								$('.chat-messages').find('ul').append($scope.entryCustomer($scope.message));
 								$scope.chatScrollDown();
 								$('.chat-input .input').val('');
+								$scope.message = '';
 								
 								console.log('enter');
 								
@@ -495,7 +496,7 @@ console.log(response.data);
 							if ($scope.message != '' && $scope.message != undefined) {
 
 								$scope.fullMessage = $scope.fullMessage + " " + $scope.message + '\n';
-
+					
 								$('.chat-messages').find('ul').append($scope.entryCustomer($scope.message));
 								$scope.chatScrollDown();
 								$('.chat-input .input').val('');

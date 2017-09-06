@@ -127,7 +127,8 @@ label {
 }
 #login-view,
 #callback-view,
-#survey-view {
+#survey-view,
+#survey-success-view {
 	margin: 45px 50px 0px 50px;
 }
 .container .form-control {
