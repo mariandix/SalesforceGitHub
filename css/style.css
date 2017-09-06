@@ -288,7 +288,7 @@ ul {
     width:100%;margin-top:0;margin-bottom:auto;line-height: 13px;font-size: 12px;
 }
 .text > p:last-of-type{
-    width:100%;color:black;margin-bottom:-7px;margin-top:10px;line-height: 13px;font-size: 12px;
+    width:100%;color:#666;margin-bottom:-7px;margin-top:10px;line-height: 13px;font-size: 12px;
 }
 .text-l{
     float:left;padding-right:10px;text-align:right;
@@ -303,6 +303,11 @@ ul {
 }
 .chat-messages li.connect p {
 	text-align: center;
+}
+.chat-messages li.connect p a {
+	margin: 0px 0px 20px;
+	color: #333;
+	display: block;
 }
 
 .form-radio.form-radio .input-dummy, .form-checkbox.form-radio .input-dummy {

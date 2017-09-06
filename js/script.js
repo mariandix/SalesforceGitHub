@@ -393,10 +393,18 @@ console.log(response.data);
 					
 					$('.chatbutton').hide();
 					
-					$('.chat-messages').find('ul').append('<li class="connect text"><p><img src="img/CircularProgressAnimationG.gif" width="32"></p></li>');
+					$('.chat-messages').find('ul').append('<li class="connect text"><p><img src="img/CircularProgressAnimationG.gif" width="32"></p><p><a class="inside-link-aborted">' + live_agent_aborted + '</p></li>');
 					$scope.chatScrollDown();
 					
 					$scope.timer = setTimeout($scope.checkAgentStatus(), 1000);
+					
+					$('.inside-link-aborted').bind('click', function(e) {
+						
+						activeChatEndEvent = '';
+						clearTimeout($scope.timer);
+						$scope.liveagent_stop();
+						$scope.showCallbackForm();
+					});
 					
 				} else {
 					
@@ -458,8 +466,9 @@ console.log(response.data);
 				
 				} else if (chat == 'no-resp') {	
 					
-					$scope.timer = setTimeout($scope.checkAgentStatus(), 1000);
-				
+					if (activeChatEndEvent != '') {
+						$scope.timer = setTimeout($scope.checkAgentStatus(), 1000);
+					}
 					
 				} else if (chat == 'established') {
 					

@@ -45,6 +45,7 @@ function createJsTranslate() {
 		'cognesys_chat_end_message' => 'Chat wurde beendet. Vielen Dank und einen schönen Tag.',
 		'cognesys_chat_end_goodbye_message' => 'Nachfolgend können Sie noch unseren neuen Service bewerten. Bitte klicken Sie dazu <a class=\"inside-link-survey\">hier</a>',
 		'live_agent_connect' => 'Sie werden mit Live-Agent verbunden. Bitte haben Sie einen Augenblick Geduld.', 
+		'live_agent_aborted' => 'Abbrechen', 
 		'live_agent_connect_with' => 'Guten Tag, wie kann ich Ihnen helfen?',
 		'live_agent_not_available' => 'Leider sind derzeit alle Live-Agents in Kundengesprächen. Sie können uns einen Rückrufwunsch senden! Bitte klicken Sie dazu <a class=\"inside-link\">hier</a>',
 		'live_agent_chat_ended' => 'Der Chat wurde vom Live-Agent beendet!',
