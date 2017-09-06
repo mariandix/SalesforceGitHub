@@ -244,6 +244,7 @@ label {
     padding-bottom: 10px;
     padding-right: 10px;
     margin-left: 80px;
+    margin-bottom: 20px;
 }
 .msj-rta{
     background:#f5f5f5;float: right;
@@ -295,7 +296,7 @@ ul {
     line-height: 13px;
     font-size: 11px;
     position: absolute;
-    bottom: -30px;
+    bottom: -10px;
 }
 .msj-rta.macro .text > p:last-of-type {
 	right: 110px;
