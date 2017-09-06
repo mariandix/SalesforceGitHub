@@ -269,8 +269,9 @@ console.log(response.data);
 					if (text != undefined) {
 						savedData.summary = resp['summary'];
 						
-						savedData.history.push({'sequenceNumber':resp['sequence-id'],'Type': 'A', 'message': resp['text']});
-	
+						if (savedData.chatstatus != 'handover') {
+							savedData.history.push({'sequenceNumber':resp['sequence-id'],'Type': 'A', 'message': resp['text']});
+						}
 						if (status == 'handover') {
 							
 							if (savedData.chatstatus != 'handover') {
