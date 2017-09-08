@@ -33,7 +33,7 @@ $survey_success_view_subline = '';
 $callback_view_headline = 'At the moment no Live-Agent is available.';
 $callback_view_subline = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
 $callback_view_textarea_headline = 'Bitte geben Sie nachfolgend Ihr Anliegen und Ihre Telefonnummer zur Kontaktaufnahme ein:';
-$callback_view_btn_callback_request = 'Rückrufwunsch senden';
+$callback_view_btn_callback_request = 'Send Callback';
 
 $general_btn_close_window = 'Close Chat Window';
 
