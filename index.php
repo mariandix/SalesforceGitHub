@@ -15,6 +15,8 @@ if (isset($_GET['lang']) && $_GET['lang'] == 'en') {
 	<meta charset="UTF-8">
 	<title><?php echo $html_title; ?></title>
 	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-route.min.js"></script>  
 	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-base64/2.0.5/angular-base64.min.js"></script>
