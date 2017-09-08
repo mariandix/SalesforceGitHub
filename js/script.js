@@ -208,6 +208,9 @@ console.log(response.data);
 					savedData.chatstatus = 'ChatResolved';
 					$scope.chatStop = true;
 					
+					$('.chatbutton').hide();
+					$('.input').unbind('keypress');
+					
 					$scope.stop_cognesys_chat(true);
 					
 					$('.chat-messages').find('ul').append($scope.entryChatbot(text));
@@ -288,6 +291,9 @@ console.log(response.data);
 							savedData.chatstatus = 'ChatResolved';
 							$scope.chatStop = true;
 							
+							$('.chatbutton').hide();
+							$('.input').unbind('keypress');
+					
 							$scope.stop_cognesys_chat(true);
 							
 							$('.chat-messages').find('ul').append($scope.entryChatbot(text));
