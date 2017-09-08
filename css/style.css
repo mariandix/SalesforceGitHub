@@ -200,6 +200,8 @@ input.form-control {
 	}
 }
 
+
+
 @media (max-width: 480px) {
 	.endChat {
 		display:none;
@@ -442,4 +444,41 @@ input[type="radio"]:checked + .input-dummy .icon, input[type="checkbox"]:checked
 #survey-view .form-radio .input-dummy {
     left: 5px;
     top: 0px;
+}
+@media (max-width: 768px) {
+	
+	.de .container .header .endChat {
+		background: url('../img/btn_mobile_sprite.svg') no-repeat;
+		background-size: 62px 31px;
+		width: 31px;
+	    height: 31px;
+	    cursor: pointer;
+	    position: absolute;
+	    top: 29px;
+	    right: 15px;
+	}
+	
+	#survey-view h1 {
+		font-size: 22px;
+	}
+	#survey-view ul li:first-of-type {
+	    padding-top: 20px;
+	    padding-left: 10px;
+	    padding-right: 15px;
+	}
+	#survey-view ul li:last-of-type {
+	    padding-top: 30px;
+	    padding-left: 15px;
+	}	
+	#survey-view ul li.star {
+	    text-align: center;
+	    background: #fff;
+	    padding: 0px 3px 0px 3px;
+	}	
+	.checkbox, .radio {
+	    position: relative;
+	    display: block;
+	    margin-top: 17px;
+	    margin-bottom: 10px;
+	}	
 }
