@@ -31,7 +31,7 @@ if (isset($data) && count($data) > 0) {
 				die();
 			} else {
 				
-				echo json_encode(array('status' => 'ChatBot Not Available'));
+				echo json_encode(array('status' => 'ChatBot Not Available', 'result' => $response));
 				die();
 			}	
 					
@@ -314,7 +314,7 @@ $params = '{
 			
 			} else {
 			
-				$result = array('status' => 'ok', 'response' => $response, 'agent' => false);
+				$result = array('status' => 'ok', 'response' => $response, 'agent' => false, 'response_session' => $response_session);
 				echo json_encode($result);	
 			}
 			
