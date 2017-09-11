@@ -17,6 +17,7 @@ var chatBot = angular.module('chat-bot', ['base64']);
 var messageQueue = '';
 var activeChatEndEvent = 'none';
 var sendOnUnload = true;
+var token = '';
 
 chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 
@@ -400,6 +401,7 @@ console.log('connect live agent');
 console.log(response.data);
 				
 				var agent = response.data['agent'];
+				token = response.data['token'];
 
 				if (agent) {
 					
@@ -458,7 +460,8 @@ console.log(response.data);
 			data: {
 				'type': 'liveagent_check', 
 				'history': savedData.history,
-				'name' : savedData.name
+				'name' : savedData.name,
+				'token' : token
 			},
 			headers: {
 			    'Accept':'application/json',
@@ -558,7 +561,7 @@ console.log(response.data);
 		$http({
 			method: 'POST',
 			url: 'api.php',
-			data: {'type' : 'liveagent_checkandtalk', 'text': messageQueue},
+			data: {'type' : 'liveagent_checkandtalk', 'text': messageQueue, 'token': token},
 			headers: {
 			    'Accept':'application/json',
 			    'Content-Type':'application/json'
@@ -662,7 +665,8 @@ console.log(response.data);
 			method: 'POST',
 			url: 'api.php',
 			data: {
-				'type': 'liveagent_stop'
+				'type': 'liveagent_stop',
+				'token': token
 			},
 			headers: {
 			    'Accept':'application/json',

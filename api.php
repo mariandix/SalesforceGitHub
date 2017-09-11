@@ -158,11 +158,11 @@ $params = '{
 			
 			$response_session = $con->sendRequest();
 			
-			$result = json_decode($response_session['result']);
+			$result_session = json_decode($response_session['result']);
 			
-			$_SESSION['affinityToken'] = $result->affinityToken;
-			$_SESSION['key'] = $result->key;
-			$_SESSION['sId'] = $result->id;
+			$_SESSION[$result_session->id]['affinityToken'] = $result_session->affinityToken;
+			$_SESSION[$result_session->id]['key'] = $result_session->key;
+			$_SESSION[$result_session->id]['sId'] = $result_session->id;
 			
 			
 			// check live agent availability
@@ -187,9 +187,9 @@ $params = '{
 				$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChasitorInit");
 				$con->setRequestMethod('POST');
 				
-				$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'],
+				$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$result_session->id]['affinityToken'],
 					            "X-LIVEAGENT-API-VERSION: 40",
-								"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key'],
+								"X-LIVEAGENT-SESSION-KEY: ".$_SESSION[$result_session->id]['key'],
 								"X-LIVEAGENT-SEQUENCE : 1");
 				$con->setRequestHeader($header);
 				
@@ -199,7 +199,7 @@ $params = '{
 "organizationId": "' . ORG_ID . '", 
 "deploymentId": "' . DEPLOYMENT_ID . '", 
 "buttonId": "' . BUTTON_ID . '", 
-"sessionId": "' . $_SESSION['sId'] . '", 
+"sessionId": "' . $_SESSION[$result_session->id]['sId'] . '", 
 "visitorName": "' . $data->firstname . ' ' . $data->name . '", 
 "userAgent": "' . $data->userAgent . '", 
 "language": "' . $data->language . '", 
@@ -309,12 +309,12 @@ $params = '{
 				
 				$response_chatinit = $con->sendRequest();
 
-  				$result = array('status' => 'ok', 'response_chatinit' => $response_chatinit, 'response_session' => $response_session, 'agent' => true);
+  				$result = array('status' => 'ok', 'response_chatinit' => $response_chatinit, 'token' => $_SESSION[$result_session->id]['sId'], 'agent' => true);
 				echo json_encode($result);	
 			
 			} else {
 			
-				$result = array('status' => 'ok', 'response' => $response, 'agent' => false);
+				$result = array('status' => 'ok', 'response' => $response, 'agent' => false, 'response_session' => $response_session, 'response_chatinit' => $response_chatinit);
 				echo json_encode($result);	
 			}
 			
@@ -327,9 +327,9 @@ $params = '{
 			$con->setEndpoint(LIVEAGENT_REST_URL . "/System/Messages");
 			$con->setRequestMethod('GET');
 			
-			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'], 
+			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$data->token]['affinityToken'], 
 				            "X-LIVEAGENT-API-VERSION: 40",
-							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION[$data->token]['key']);
 			$con->setRequestHeader($header);
 			
 			$response = $con->sendRequest();
@@ -354,9 +354,9 @@ $params = '{
 								$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChatMessage");
 								$con->setRequestMethod('POST');
 								
-								$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'],
+								$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$data->token]['affinityToken'],
 									            "X-LIVEAGENT-API-VERSION: 40",
-												"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+												"X-LIVEAGENT-SESSION-KEY: ".$_SESSION[$data->token]['key']);
 								$con->setRequestHeader($header);
 							
 			
@@ -431,9 +431,9 @@ $params = '{
 			$con->setEndpoint(LIVEAGENT_REST_URL . "/System/Messages");
 			$con->setRequestMethod('GET');
 			
-			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'], 
+			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$data->token]['affinityToken'], 
 				            "X-LIVEAGENT-API-VERSION: 40",
-							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION[$data->token]['key']);
 			$con->setRequestHeader($header);
 			
 			$response = $con->sendRequest();
@@ -444,9 +444,9 @@ $params = '{
 			$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChatMessage");
 			$con->setRequestMethod('POST');
 			
-			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'],
+			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$data->token]['affinityToken'],
 				            "X-LIVEAGENT-API-VERSION: 40",
-							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION[$data->token]['key']);
 			$con->setRequestHeader($header);
 		
 
@@ -508,9 +508,9 @@ $params = '{
 				$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChatMessage");
 				$con->setRequestMethod('POST');
 				
-				$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'],
+				$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$data->token]['affinityToken'],
 					            "X-LIVEAGENT-API-VERSION: 40",
-								"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+								"X-LIVEAGENT-SESSION-KEY: ".$_SESSION[$data->token]['key']);
 				$con->setRequestHeader($header);
 			
 	
@@ -528,9 +528,9 @@ $params = '{
 			$con->setEndpoint(LIVEAGENT_REST_URL . "/System/Messages");
 			$con->setRequestMethod('GET');
 			
-			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'], 
+			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$data->token]['affinityToken'], 
 				            "X-LIVEAGENT-API-VERSION: 40",
-							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION[$data->token]['key']);
 			$con->setRequestHeader($header);
 
 			$response = $con->sendRequest();
@@ -604,9 +604,9 @@ $params = '{
 			$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChatEnd");
 			$con->setRequestMethod('POST');
 			
-			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'],
+			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$data->token]['affinityToken'],
 				            "X-LIVEAGENT-API-VERSION: 40",
-							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION[$data->token]['key']);
 			$con->setRequestHeader($header);
 			
 			$params = '{reason: "client"}'; 
@@ -684,9 +684,9 @@ $params = '{
 			$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChatEnd");
 			$con->setRequestMethod('POST');
 			
-			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'],
+			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$data->token]['affinityToken'],
 				            "X-LIVEAGENT-API-VERSION: 40",
-							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION[$data->token]['key']);
 			$con->setRequestHeader($header);
 			
 			$params = '{reason: "client"}'; 
