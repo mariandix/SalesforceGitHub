@@ -198,6 +198,10 @@ input.form-control {
 	#survey-view {
 		margin: 15px 10px 0px 10px;
 	}
+	
+	.container .header .logo {
+	    margin: 30px 0px 0px 15px;
+	}	
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) { 
