@@ -898,7 +898,7 @@ function CloseWithWindowOpenTrick() {
 
 window.onunload = function () {
 	console.log('unload');
-	/*
+	
 	$.ajax({
      type: 'POST',
      async: false,
@@ -922,5 +922,5 @@ window.onunload = function () {
    }).done(function(data) {
 	  console.log(data);
 	});
-*/
+
 }
