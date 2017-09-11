@@ -4,7 +4,7 @@ define("CLIENT_ID", "3MVG9od6vNol.eBgxIiNM0JqZp_YuXM5fxbYJ5_UJvbU78w98EESnSRTODT
 define("CLIENT_SECRET", "3577859520326194529");
 define("LOGIN_URI", "https://test.salesforce.com");  
 define('USERNAME', 'hmalhotra@meinservice.ext.dpdhl.rqa');
-define('PASSWORD', 'P@ss0102');
+define('PASSWORD', 'P@ss0102VEIoEkXNzTpgM9fz2GRupAya');
 
 define('DEPLOYMENT_ID', '572260000008OQT');
 define('BUTTON_ID', '573260000008Oh0');
