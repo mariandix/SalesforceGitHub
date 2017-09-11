@@ -10,8 +10,8 @@ define('DEPLOYMENT_ID', '572260000008OQT');
 define('BUTTON_ID', '573260000008Oh0');
 define('ORG_ID', '00D260000009FVj');
 
-//define('COGNESYS_URL', 'https://lhZepTho1M0xnFVznOsT:GRi78QOuyeHpFh0bC5BA@api.cognesys.de:5679/prototype');
-define('COGNESYS_URL', 'https://nuk3258nxq2q3c524:trh78b4563vg456456@78.137.97.103:4444/prototype');
+define('COGNESYS_URL', 'https://lhZepTho1M0xnFVznOsT:GRi78QOuyeHpFh0bC5BA@api.cognesys.de:5679/prototype');
+//define('COGNESYS_URL', 'https://nuk3258nxq2q3c524:trh78b4563vg456456@78.137.97.103:4444/prototype');
 
 define('LIVEAGENT_REST_URL', 'https://d.la1-c2cs-lon.salesforceliveagent.com/chat/rest/');
 
