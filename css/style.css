@@ -444,13 +444,13 @@ input[type="radio"]:checked + .input-dummy .icon, input[type="checkbox"]:checked
 @media (max-width: 768px) {
 	
 	.de .container .header .endChat {
-		background: url('../img/btn_mobile_sprite.svg') no-repeat;
-		background-size: 62px 31px;
-		width: 31px;
+	    background: url(../img/btn_close_mobile.svg) no-repeat;
+	    background-size: 21px 21px;
+	    width: 31px;
 	    height: 31px;
 	    cursor: pointer;
 	    position: absolute;
-	    top: 29px;
+	    top: 39px;
 	    right: 15px;
 	}
 	
