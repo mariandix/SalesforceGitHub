@@ -308,12 +308,12 @@ ul {
     width:100%;display:flex;flex-direction:column;
 }
 .text > p:first-of-type{
-    width:100%;margin-top:0;margin-bottom:auto;line-height: 13px;font-size: 14px;min-height: 26px;
+    width:100%;margin-top:0;margin-bottom:auto;line-height: 16px;font-size: 14px;min-height: 26px;
 }
 .text > p:last-of-type{
 	width: 100%;
     color: #666;
-    line-height: 13px;
+    line-height: 16px;
     font-size: 11px;
     position: absolute;
     bottom: -10px;
