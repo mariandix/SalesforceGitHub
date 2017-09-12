@@ -596,6 +596,7 @@ console.log(response.data);
 				if (chat == 'disconnect') {
 					
 					$('.livechatbutton').hide();
+					$('.input').unbind('keypress');
 
 					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_chat_disconnected));
 					$scope.chatScrollDown();
@@ -609,6 +610,8 @@ console.log(response.data);
 
 					$('.livechatbutton').hide();
 
+					$('.input').unbind('keypress');
+					
 					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_chat_ended));
 					$scope.chatScrollDown();
 					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_chat_goodbye_message));
