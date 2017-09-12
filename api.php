@@ -114,7 +114,7 @@ $params = '{
 "FirstName":"' . $data->firstname . '",
 "LastName":"' . $data->name . '",
 "Email":"' . $data->email . '",
-"PhoneNumber":"' . $data->phone . '",
+"PhoneNumber":"' . (isset($data->phone)?$data->phone:"") . '",
 "Title":"' . $data->salutation . '",
 "chatHistory":' . json_encode($data->chathistory) . ',
 "callbackInfo":"' . $data->callback . '",
@@ -249,7 +249,7 @@ $params = '{
 	},
     {
 		"label":"Phone",
-		"value":"' . $data->phone . '",
+		"value":"' . (isset($data->phone)?$data->phone:"") . '",
 		"entityMaps":[
         	{
             	"entityName":"Contact",
@@ -749,7 +749,7 @@ $params = '{
 "FirstName":"' . $_POST['firstname'] . '",
 "LastName":"' . $_POST['name'] . '",
 "Email":"' . $_POST['email'] . '",
-"PhoneNumber":"' . $_POST['phone'] . '",
+"PhoneNumber":"' . (isset($_POST['phone'])?$_POST['phone']:"") . '",
 "Title":"' . $_POST['salutation'] . '",
 "chatHistory":' . (isset($_POST['chathistory']) ? json_encode($_POST['chathistory']): "") . ',
 "callbackInfo":"' . (isset($_POST['callback']) ? $_POST['callback']: "") . '",

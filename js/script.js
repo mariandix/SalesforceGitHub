@@ -64,7 +64,7 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 		if ($scope.phone != undefined) {
 			savedData.phone = $scope.phone;
 		} else {
-			savedData.phone = default_phone;
+			savedData.phone = '';
 		}
 		if ($scope.salutation != undefined) {
 			savedData.salutation = $scope.salutation;
@@ -916,7 +916,8 @@ window.onunload = function () {
 		'chathistory': savedData.history,
 		'summary': savedData.summary,
 		'endTime': savedData.endTime,
-		'startTime': savedData.startTime
+		'startTime': savedData.startTime,
+		'token': token
 	},
      url: 'api.php'
    }).done(function(data) {
