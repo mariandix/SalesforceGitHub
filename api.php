@@ -314,7 +314,7 @@ $params = '{
 			
 			} else {
 			
-				$result = array('status' => 'ok', 'response' => $response, 'agent' => false, 'response_session' => $response_session, 'response_chatinit' => $response_chatinit);
+				$result = array('status' => 'ok', 'response' => $response, 'agent' => false, 'response_session' => $response_session);
 				echo json_encode($result);	
 			}
 			
