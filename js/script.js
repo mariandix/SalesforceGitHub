@@ -424,7 +424,9 @@ console.log(response.data);
 						activeChatEndEvent = '';
 						clearTimeout($scope.timer);
 						$scope.liveagent_stop();
-						$scope.showCallbackForm();
+						//$scope.showCallbackForm();
+						$('.chat-messages').find('ul li.connect').remove();
+						$('.chat-messages').find('ul').append($scope.entryAgent(customer_aborted_connect_to_liveagent));
 					});
 					
 				} else {
