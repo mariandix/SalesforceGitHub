@@ -432,7 +432,7 @@ console.log(response.data);
 				} else {
 					
 					savedData.chatstatus = 'Live Agent Not Available';
-					//$scope.saveCustomerData();
+					$scope.saveCustomerData();
 					
 					$('.chat-messages').find('ul').append($scope.entryChatbot(live_agent_not_available));
 					$scope.chatScrollDown();
