@@ -407,7 +407,7 @@ console.log(response.data);
 					
 					activeChatEndEvent = 'liveagent_stop';
 					
-					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_connect));
+					$('.chat-messages').find('ul').append($scope.entryChatbot(live_agent_connect));
 					$scope.chatScrollDown();
 					
 					$('.chatbutton').hide();
@@ -432,7 +432,7 @@ console.log(response.data);
 					savedData.chatstatus = 'Live Agent Not Available';
 					//$scope.saveCustomerData();
 					
-					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_not_available));
+					$('.chat-messages').find('ul').append($scope.entryChatbot(live_agent_not_available));
 					$scope.chatScrollDown();
 					$('.chatbutton').hide();
 					
