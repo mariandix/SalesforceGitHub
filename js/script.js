@@ -893,18 +893,8 @@ window.onbeforeunload = function (event) {
      url: 'api.php'
    });
     */
-
-};
-
-function CloseWithWindowOpenTrick() {
-  var objWindow = window.open(location.href, "_self");
-  objWindow.close();
-}
-
-window.onunload = function () {
-	console.log('unload');
-	
-	$.ajax({
+   
+   $.ajax({
      type: 'POST',
      async: false,
      data: {
@@ -928,5 +918,18 @@ window.onunload = function () {
    }).done(function(data) {
 	  console.log(data);
 	});
+   
+
+};
+
+function CloseWithWindowOpenTrick() {
+  var objWindow = window.open(location.href, "_self");
+  objWindow.close();
+}
+
+window.onunload = function () {
+	console.log('unload');
+	
+	
 
 }

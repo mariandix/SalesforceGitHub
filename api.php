@@ -133,9 +133,9 @@ $params = '{
 				            "Content-type: application/json");
 				$con->setRequestHeader($header);
 
-				$response = $con->sendRequest();
+				$response_save = $con->sendRequest();
 
-				echo json_encode(array('status' => 'ok', 'params' => $params, 'result' => $response));
+				echo json_encode(array('status' => 'ok', 'params' => $params, 'result' => $response_save, 'result_token' => $response));
 				die();
 			} else {
 				
@@ -777,14 +777,17 @@ $params = '{
 			}
 			
 			break;		
-		
+		default: 
+	
+		echo json_encode(array('status' => 'default'));
+		die();
 	}	
 	
 	echo json_encode(array('status' => 'no vars'));
 	die();
 	
 } else {
-	
+
 	echo json_encode(array('status' => 'empty vars'));
 	die();
 	
