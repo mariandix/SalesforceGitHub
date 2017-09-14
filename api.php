@@ -260,6 +260,20 @@ $params = '{
         	"Phone"
 		],
         "displayToAgent":true
+	},
+	{
+		"label":"Tonality",
+		"value":"' . (isset($data->tonality)?$data->tonality:"") . '",
+		"entityMaps":[
+        	{
+            	"entityName":"LiveChatTranscript",
+            	"fieldName":"ChatBotTonality__c"
+            }
+		],
+        "transcriptFields":[
+        	"ChatBotTonality__c"
+		],
+        "displayToAgent":true
 	}
 ],  
 "prechatEntities": [

@@ -204,8 +204,7 @@ console.log(response.data);
 					$('.chatbutton').hide();
 					$('.input').unbind('keypress');
 					
-					$scope.stop_cognesys_chat(false);
-					$scope.connectLiveAgent();
+					$scope.stop_cognesys_chat(false, true);
 
 				} else if (status == 'chat-topic-finished') {
 					
@@ -215,7 +214,7 @@ console.log(response.data);
 					$('.chatbutton').hide();
 					$('.input').unbind('keypress');
 					
-					$scope.stop_cognesys_chat(true);
+					$scope.stop_cognesys_chat(true, false);
 					
 					$('.chat-messages').find('ul').append($scope.entryChatbot(text));
 					$scope.chatScrollDown();
@@ -289,8 +288,8 @@ console.log(response.data);
 								$('.chat-messages').find('ul').append($scope.entryChatbot(text));
 								$scope.chatScrollDown();
 								
-								$scope.stop_cognesys_chat(false);
-								$scope.connectLiveAgent();
+								$scope.stop_cognesys_chat(false, true);
+								
 							}
 						} else if (status == 'chat-topic-finished') {
 							
@@ -300,7 +299,7 @@ console.log(response.data);
 							$('.chatbutton').hide();
 							$('.input').unbind('keypress');
 					
-							$scope.stop_cognesys_chat(true);
+							$scope.stop_cognesys_chat(true, false);
 							
 							$('.chat-messages').find('ul').append($scope.entryChatbot(text));
 							$scope.chatScrollDown();
@@ -330,7 +329,7 @@ console.log(response.data);
 		}
 	}	
 
-	$scope.stop_cognesys_chat = function (saveCustomerData) {
+	$scope.stop_cognesys_chat = function (saveCustomerData, initLiveAgent) {
 		
 		$scope.congesysStop = true;
 		
@@ -351,6 +350,10 @@ console.log(response.data);
 				//savedData.summary = resp.summary;
 				savedData.endTime = resp.timestamp;
 				savedData.startTime = resp.started;
+				
+				if (initLiveAgent) {
+					$scope.connectLiveAgent();
+				}
 				
 				if (saveCustomerData) {
 					$scope.saveCustomerData();
@@ -389,7 +392,8 @@ console.log(response.data);
 				'userAgent': navigator.userAgent,
 				'language': navigator.language,
 				'width': window.innerWidth,
-				'height': window.innerHeight
+				'height': window.innerHeight,
+				'tonality': savedData.tonality
 			},
 			headers: {
 			    'Accept':'application/json',
