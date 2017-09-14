@@ -17,6 +17,7 @@ var chatBot = angular.module('chat-bot', ['base64']);
 var messageQueue = '';
 var activeChatEndEvent = 'none';
 var sendOnUnload = true;
+var token = '';
 
 chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 
@@ -63,7 +64,7 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 		if ($scope.phone != undefined) {
 			savedData.phone = $scope.phone;
 		} else {
-			savedData.phone = default_phone;
+			savedData.phone = '';
 		}
 		if ($scope.salutation != undefined) {
 			savedData.salutation = $scope.salutation;
@@ -203,8 +204,7 @@ console.log(response.data);
 					$('.chatbutton').hide();
 					$('.input').unbind('keypress');
 					
-					$scope.stop_cognesys_chat(false);
-					$scope.connectLiveAgent();
+					$scope.stop_cognesys_chat(false, true);
 
 				} else if (status == 'chat-topic-finished') {
 					
@@ -214,7 +214,7 @@ console.log(response.data);
 					$('.chatbutton').hide();
 					$('.input').unbind('keypress');
 					
-					$scope.stop_cognesys_chat(true);
+					$scope.stop_cognesys_chat(true, false);
 					
 					$('.chat-messages').find('ul').append($scope.entryChatbot(text));
 					$scope.chatScrollDown();
@@ -288,8 +288,8 @@ console.log(response.data);
 								$('.chat-messages').find('ul').append($scope.entryChatbot(text));
 								$scope.chatScrollDown();
 								
-								$scope.stop_cognesys_chat(false);
-								$scope.connectLiveAgent();
+								$scope.stop_cognesys_chat(false, true);
+								
 							}
 						} else if (status == 'chat-topic-finished') {
 							
@@ -299,7 +299,7 @@ console.log(response.data);
 							$('.chatbutton').hide();
 							$('.input').unbind('keypress');
 					
-							$scope.stop_cognesys_chat(true);
+							$scope.stop_cognesys_chat(true, false);
 							
 							$('.chat-messages').find('ul').append($scope.entryChatbot(text));
 							$scope.chatScrollDown();
@@ -329,7 +329,7 @@ console.log(response.data);
 		}
 	}	
 
-	$scope.stop_cognesys_chat = function (saveCustomerData) {
+	$scope.stop_cognesys_chat = function (saveCustomerData, initLiveAgent) {
 		
 		$scope.congesysStop = true;
 		
@@ -350,6 +350,10 @@ console.log(response.data);
 				//savedData.summary = resp.summary;
 				savedData.endTime = resp.timestamp;
 				savedData.startTime = resp.started;
+				
+				if (initLiveAgent) {
+					$scope.connectLiveAgent();
+				}
 				
 				if (saveCustomerData) {
 					$scope.saveCustomerData();
@@ -388,7 +392,8 @@ console.log(response.data);
 				'userAgent': navigator.userAgent,
 				'language': navigator.language,
 				'width': window.innerWidth,
-				'height': window.innerHeight
+				'height': window.innerHeight,
+				'tonality': savedData.tonality
 			},
 			headers: {
 			    'Accept':'application/json',
@@ -400,12 +405,13 @@ console.log('connect live agent');
 console.log(response.data);
 				
 				var agent = response.data['agent'];
+				token = response.data['token'];
 
 				if (agent) {
 					
 					activeChatEndEvent = 'liveagent_stop';
 					
-					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_connect));
+					$('.chat-messages').find('ul').append($scope.entryChatbot(live_agent_connect));
 					$scope.chatScrollDown();
 					
 					$('.chatbutton').hide();
@@ -422,15 +428,17 @@ console.log(response.data);
 						activeChatEndEvent = '';
 						clearTimeout($scope.timer);
 						$scope.liveagent_stop();
-						$scope.showCallbackForm();
+						//$scope.showCallbackForm();
+						$('.chat-messages').find('ul li.connect').remove();
+						$('.chat-messages').find('ul').append($scope.entryAgent(customer_aborted_connect_to_liveagent));
 					});
 					
 				} else {
 					
 					savedData.chatstatus = 'Live Agent Not Available';
-					//$scope.saveCustomerData();
+					$scope.saveCustomerData();
 					
-					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_not_available));
+					$('.chat-messages').find('ul').append($scope.entryChatbot(live_agent_not_available));
 					$scope.chatScrollDown();
 					$('.chatbutton').hide();
 					
@@ -458,7 +466,8 @@ console.log(response.data);
 			data: {
 				'type': 'liveagent_check', 
 				'history': savedData.history,
-				'name' : savedData.name
+				'name' : savedData.name,
+				'token' : token
 			},
 			headers: {
 			    'Accept':'application/json',
@@ -558,7 +567,7 @@ console.log(response.data);
 		$http({
 			method: 'POST',
 			url: 'api.php',
-			data: {'type' : 'liveagent_checkandtalk', 'text': messageQueue},
+			data: {'type' : 'liveagent_checkandtalk', 'text': messageQueue, 'token': token},
 			headers: {
 			    'Accept':'application/json',
 			    'Content-Type':'application/json'
@@ -593,6 +602,7 @@ console.log(response.data);
 				if (chat == 'disconnect') {
 					
 					$('.livechatbutton').hide();
+					$('.input').unbind('keypress');
 
 					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_chat_disconnected));
 					$scope.chatScrollDown();
@@ -606,6 +616,8 @@ console.log(response.data);
 
 					$('.livechatbutton').hide();
 
+					$('.input').unbind('keypress');
+					
 					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_chat_ended));
 					$scope.chatScrollDown();
 					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_chat_goodbye_message));
@@ -662,7 +674,8 @@ console.log(response.data);
 			method: 'POST',
 			url: 'api.php',
 			data: {
-				'type': 'liveagent_stop'
+				'type': 'liveagent_stop',
+				'token': token
 			},
 			headers: {
 			    'Accept':'application/json',
@@ -884,18 +897,8 @@ window.onbeforeunload = function (event) {
      url: 'api.php'
    });
     */
-
-};
-
-function CloseWithWindowOpenTrick() {
-  var objWindow = window.open(location.href, "_self");
-  objWindow.close();
-}
-
-window.onunload = function () {
-	console.log('unload');
-	/*
-	$.ajax({
+   
+   $.ajax({
      type: 'POST',
      async: false,
      data: {
@@ -912,11 +915,25 @@ window.onunload = function () {
 		'chathistory': savedData.history,
 		'summary': savedData.summary,
 		'endTime': savedData.endTime,
-		'startTime': savedData.startTime
+		'startTime': savedData.startTime,
+		'token': token
 	},
      url: 'api.php'
    }).done(function(data) {
 	  console.log(data);
 	});
-*/
+   
+
+};
+
+function CloseWithWindowOpenTrick() {
+  var objWindow = window.open(location.href, "_self");
+  objWindow.close();
+}
+
+window.onunload = function () {
+	console.log('unload');
+	
+	
+
 }

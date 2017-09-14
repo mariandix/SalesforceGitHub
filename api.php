@@ -114,7 +114,7 @@ $params = '{
 "FirstName":"' . $data->firstname . '",
 "LastName":"' . $data->name . '",
 "Email":"' . $data->email . '",
-"PhoneNumber":"' . $data->phone . '",
+"PhoneNumber":"' . (isset($data->phone)?$data->phone:"") . '",
 "Title":"' . $data->salutation . '",
 "chatHistory":' . json_encode($data->chathistory) . ',
 "callbackInfo":"' . $data->callback . '",
@@ -133,9 +133,9 @@ $params = '{
 				            "Content-type: application/json");
 				$con->setRequestHeader($header);
 
-				$response = $con->sendRequest();
+				$response_save = $con->sendRequest();
 
-				echo json_encode(array('status' => 'ok', 'params' => $params, 'result' => $response));
+				echo json_encode(array('status' => 'ok', 'params' => $params, 'result' => $response_save, 'result_token' => $response));
 				die();
 			} else {
 				
@@ -158,11 +158,11 @@ $params = '{
 			
 			$response_session = $con->sendRequest();
 			
-			$result = json_decode($response_session['result']);
+			$result_session = json_decode($response_session['result']);
 			
-			$_SESSION['affinityToken'] = $result->affinityToken;
-			$_SESSION['key'] = $result->key;
-			$_SESSION['sId'] = $result->id;
+			$_SESSION[$result_session->id]['affinityToken'] = $result_session->affinityToken;
+			$_SESSION[$result_session->id]['key'] = $result_session->key;
+			$_SESSION[$result_session->id]['sId'] = $result_session->id;
 			
 			
 			// check live agent availability
@@ -187,9 +187,9 @@ $params = '{
 				$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChasitorInit");
 				$con->setRequestMethod('POST');
 				
-				$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'],
+				$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$result_session->id]['affinityToken'],
 					            "X-LIVEAGENT-API-VERSION: 40",
-								"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key'],
+								"X-LIVEAGENT-SESSION-KEY: ".$_SESSION[$result_session->id]['key'],
 								"X-LIVEAGENT-SEQUENCE : 1");
 				$con->setRequestHeader($header);
 				
@@ -199,7 +199,7 @@ $params = '{
 "organizationId": "' . ORG_ID . '", 
 "deploymentId": "' . DEPLOYMENT_ID . '", 
 "buttonId": "' . BUTTON_ID . '", 
-"sessionId": "' . $_SESSION['sId'] . '", 
+"sessionId": "' . $_SESSION[$result_session->id]['sId'] . '", 
 "visitorName": "' . $data->firstname . ' ' . $data->name . '", 
 "userAgent": "' . $data->userAgent . '", 
 "language": "' . $data->language . '", 
@@ -249,7 +249,7 @@ $params = '{
 	},
     {
 		"label":"Phone",
-		"value":"' . $data->phone . '",
+		"value":"' . (isset($data->phone)?$data->phone:"") . '",
 		"entityMaps":[
         	{
             	"entityName":"Contact",
@@ -258,6 +258,20 @@ $params = '{
 		],
         "transcriptFields":[
         	"Phone"
+		],
+        "displayToAgent":true
+	},
+	{
+		"label":"Tonality",
+		"value":"' . (isset($data->tonality)?$data->tonality:"") . '",
+		"entityMaps":[
+        	{
+            	"entityName":"LiveChatTranscript",
+            	"fieldName":"ChatBotTonality__c"
+            }
+		],
+        "transcriptFields":[
+        	"ChatBotTonality__c"
 		],
         "displayToAgent":true
 	}
@@ -309,7 +323,7 @@ $params = '{
 				
 				$response_chatinit = $con->sendRequest();
 
-  				$result = array('status' => 'ok', 'response_chatinit' => $response_chatinit, 'response_session' => $response_session, 'agent' => true);
+  				$result = array('status' => 'ok', 'response_chatinit' => $response_chatinit, 'token' => $_SESSION[$result_session->id]['sId'], 'agent' => true);
 				echo json_encode($result);	
 			
 			} else {
@@ -327,9 +341,9 @@ $params = '{
 			$con->setEndpoint(LIVEAGENT_REST_URL . "/System/Messages");
 			$con->setRequestMethod('GET');
 			
-			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'], 
+			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$data->token]['affinityToken'], 
 				            "X-LIVEAGENT-API-VERSION: 40",
-							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION[$data->token]['key']);
 			$con->setRequestHeader($header);
 			
 			$response = $con->sendRequest();
@@ -354,9 +368,9 @@ $params = '{
 								$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChatMessage");
 								$con->setRequestMethod('POST');
 								
-								$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'],
+								$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$data->token]['affinityToken'],
 									            "X-LIVEAGENT-API-VERSION: 40",
-												"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+												"X-LIVEAGENT-SESSION-KEY: ".$_SESSION[$data->token]['key']);
 								$con->setRequestHeader($header);
 							
 			
@@ -431,9 +445,9 @@ $params = '{
 			$con->setEndpoint(LIVEAGENT_REST_URL . "/System/Messages");
 			$con->setRequestMethod('GET');
 			
-			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'], 
+			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$data->token]['affinityToken'], 
 				            "X-LIVEAGENT-API-VERSION: 40",
-							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION[$data->token]['key']);
 			$con->setRequestHeader($header);
 			
 			$response = $con->sendRequest();
@@ -444,9 +458,9 @@ $params = '{
 			$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChatMessage");
 			$con->setRequestMethod('POST');
 			
-			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'],
+			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$data->token]['affinityToken'],
 				            "X-LIVEAGENT-API-VERSION: 40",
-							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION[$data->token]['key']);
 			$con->setRequestHeader($header);
 		
 
@@ -508,9 +522,9 @@ $params = '{
 				$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChatMessage");
 				$con->setRequestMethod('POST');
 				
-				$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'],
+				$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$data->token]['affinityToken'],
 					            "X-LIVEAGENT-API-VERSION: 40",
-								"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+								"X-LIVEAGENT-SESSION-KEY: ".$_SESSION[$data->token]['key']);
 				$con->setRequestHeader($header);
 			
 	
@@ -528,9 +542,9 @@ $params = '{
 			$con->setEndpoint(LIVEAGENT_REST_URL . "/System/Messages");
 			$con->setRequestMethod('GET');
 			
-			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'], 
+			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$data->token]['affinityToken'], 
 				            "X-LIVEAGENT-API-VERSION: 40",
-							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION[$data->token]['key']);
 			$con->setRequestHeader($header);
 
 			$response = $con->sendRequest();
@@ -604,9 +618,9 @@ $params = '{
 			$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChatEnd");
 			$con->setRequestMethod('POST');
 			
-			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'],
+			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$data->token]['affinityToken'],
 				            "X-LIVEAGENT-API-VERSION: 40",
-							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION[$data->token]['key']);
 			$con->setRequestHeader($header);
 			
 			$params = '{reason: "client"}'; 
@@ -684,9 +698,9 @@ $params = '{
 			$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChatEnd");
 			$con->setRequestMethod('POST');
 			
-			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION['affinityToken'],
+			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$data->token]['affinityToken'],
 				            "X-LIVEAGENT-API-VERSION: 40",
-							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION['key']);
+							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION[$data->token]['key']);
 			$con->setRequestHeader($header);
 			
 			$params = '{reason: "client"}'; 
@@ -749,7 +763,7 @@ $params = '{
 "FirstName":"' . $_POST['firstname'] . '",
 "LastName":"' . $_POST['name'] . '",
 "Email":"' . $_POST['email'] . '",
-"PhoneNumber":"' . $_POST['phone'] . '",
+"PhoneNumber":"' . (isset($_POST['phone'])?$_POST['phone']:"") . '",
 "Title":"' . $_POST['salutation'] . '",
 "chatHistory":' . (isset($_POST['chathistory']) ? json_encode($_POST['chathistory']): "") . ',
 "callbackInfo":"' . (isset($_POST['callback']) ? $_POST['callback']: "") . '",
@@ -777,14 +791,17 @@ $params = '{
 			}
 			
 			break;		
-		
+		default: 
+	
+		echo json_encode(array('status' => 'default'));
+		die();
 	}	
 	
 	echo json_encode(array('status' => 'no vars'));
 	die();
 	
 } else {
-	
+
 	echo json_encode(array('status' => 'empty vars'));
 	die();
 	
