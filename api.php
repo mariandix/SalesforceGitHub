@@ -698,9 +698,9 @@ $params = '{
 			$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChatEnd");
 			$con->setRequestMethod('POST');
 			
-			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$data->token]['affinityToken'],
+			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$_POST['token']]['affinityToken'],
 				            "X-LIVEAGENT-API-VERSION: 40",
-							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION[$data->token]['key']);
+							"X-LIVEAGENT-SESSION-KEY: ".$_SESSION[$_POST['token']]['key']);
 			$con->setRequestHeader($header);
 			
 			$params = '{reason: "client"}'; 
