@@ -51,7 +51,7 @@ function createJsTranslate() {
 		'cognesys_chat_end_goodbye_message' => 'Nachfolgend können Sie noch unseren neuen Service bewerten. Bitte klicken Sie dazu <a class=\"inside-link-survey\">hier</a>',
 		'live_agent_connect' => 'Sie werden mit Live-Agent verbunden. Bitte haben Sie einen Augenblick Geduld.', 
 		'live_agent_aborted' => 'Cancel', 
-		'customer_aborted_connect_to_liveagent' => 'Sie haben die Verbindung zu einem Live-Agent abgebrochen. Bitte schließen Sie das Fenster. Auf der Service-Seite finden Sie weitere Informationen uns zu kontaktieren.',
+		'customer_aborted_connect_to_liveagent' => 'Sie haben die Verbindung zu einem Live-Agent abgebrochen. Bitte <a class=\"inside-link-close\">schließen</a> Sie das Fenster. Auf der Service-Seite finden Sie weitere Informationen uns zu kontaktieren.',
 		'live_agent_connect_with' => 'Guten Tag, wie kann ich Ihnen helfen?',
 		'live_agent_not_available' => 'Leider sind derzeit alle Live-Agents in Kundengesprächen. Sie können uns einen Rückrufwunsch senden! Bitte klicken Sie dazu <a class=\"inside-link\">hier</a>',
 		'live_agent_chat_ended' => 'Der Chat wurde vom Live-Agent beendet!',

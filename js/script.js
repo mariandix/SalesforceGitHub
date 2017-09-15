@@ -428,9 +428,15 @@ console.log(response.data);
 						activeChatEndEvent = '';
 						clearTimeout($scope.timer);
 						$scope.liveagent_stop();
+						$scope.saveCustomerData();
 						//$scope.showCallbackForm();
 						$('.chat-messages').find('ul li.connect').remove();
 						$('.chat-messages').find('ul').append($scope.entryAgent(customer_aborted_connect_to_liveagent));
+						
+						$('.inside-link-close').bind('click', function(e) {
+						
+							CloseWindow();
+						});
 					});
 					
 				} else {
@@ -926,7 +932,7 @@ window.onbeforeunload = function (event) {
 
 };
 
-function CloseWithWindowOpenTrick() {
+function CloseWindow() {
   var objWindow = window.open(location.href, "_self");
   objWindow.close();
 }

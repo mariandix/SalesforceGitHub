@@ -171,7 +171,8 @@ input.form-control {
     top: 0;
 }
 #chat-view .chat-messages a.inside-link,
-#chat-view .chat-messages a.inside-link-aborted {
+#chat-view .chat-messages a.inside-link-aborted,
+#chat-view .chat-messages a.inside-link-close {
 	cursor: pointer;
 }
 #chat-view .chat-input .form-control.input {
