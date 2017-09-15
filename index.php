@@ -275,7 +275,7 @@ if (isset($_GET['lang']) && $_GET['lang'] == 'en') {
 			</div>
 			
 			<div class="bottomClose" style="display:block;">
-				<a onclick="CloseWithWindowOpenTrick();" class="bottomClose"><?php echo $general_btn_close_window; ?></a>
+				<a onclick="CloseWindow();" class="bottomClose"><?php echo $general_btn_close_window; ?></a>
 			</div>
 		</div>
 	</div>
