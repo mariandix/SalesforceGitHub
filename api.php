@@ -323,7 +323,7 @@ $params = '{
 				
 				$response_chatinit = $con->sendRequest();
 
-  				$result = array('status' => 'ok', 'response_chatinit' => $response_chatinit, 'token' => $_SESSION[$result_session->id]['sId'], 'agent' => true);
+  				$result = array('status' => 'ok', 'response_chatinit' => $response_chatinit, 'response_session' => $result_session, 'token' => $_SESSION[$result_session->id]['sId'], 'agent' => true);
 				echo json_encode($result);	
 			
 			} else {
