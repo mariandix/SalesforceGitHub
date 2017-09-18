@@ -80,6 +80,7 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 			savedData.tonality = '';
 			savedData.endTime = '';
 			savedData.startTime = '';
+			savedData.callbackId = '';
 				
 			$scope.start_cognesys_chat();
 		} else {
@@ -406,6 +407,7 @@ console.log(response.data);
 				
 				var agent = response.data['agent'];
 				token = response.data['token'];
+				savedData.callbackId = '';
 
 				if (agent) {
 					
@@ -729,6 +731,7 @@ console.log(response);
 			}).then(function success(response) {
 console.log('save data');				
 console.log(response.data);
+				savedData.callbackId = JSON.parse(response.data['result'].result).callBackInfoId;
 			}, function error(response){
 				console.log(response);
 			});
@@ -767,13 +770,14 @@ console.log(response.data);
 		
 		sendOnUnload = false;
 		
-		/*
 		$http({ 
 			method: 'POST',
 			url: 'api.php',
 			data: {
 				'type': 'sendSurveyRating', 
-				'rating': $('input[name="stars"]:checked').val()
+				'rating': $('input[name="stars"]:checked').val(),
+				'callback': savedData.callbackId,
+				'session': token
 			},
 			headers: {
 			    'Accept':'application/json',
@@ -785,7 +789,7 @@ console.log(response.data);
 			}, function error(response){
 				console.log(response);
 			});
-		*/
+		
 		$('#survey-view').hide();
 		$('#survey-success-view').show();
 	}

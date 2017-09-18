@@ -664,10 +664,12 @@ $params = '{
 				
 $params = '{  
 "requestWrapper":{  
-"recordId":"' . (isset($_SESSION['callbackInfoId']) ? $_SESSION['callbackInfoId']: "") . '",
-"surveyRating":"' . $data->rating . '"
+"recordId":"' . (isset($data->callback) ? $data->callback: "") . '",
+"surveyRating":"' . $data->rating . '",
+"sessionId":"' . (isset($data->session) ? $data->session: "") . '"
 }
 }';
+		
 				
 				$con->setPostfields($params);
 
