@@ -99,7 +99,7 @@ class connector {
 		$error = curl_error($ch);
 		curl_close($ch);
 		
-		return array('result' => $result, 'info' => $info, 'error' => $error);
+		return array('result' => $result, 'error' => $error);
 	}
 }
 

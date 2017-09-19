@@ -110,8 +110,7 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 				if (response.data['status'] == 'ok') {
 					var resp = JSON.parse(response.data['result'].result);
 					savedData.sessionid = $scope.sessionid = resp['session-id'];
-console.log('start');					
-console.log(response.data['result']);
+
 					$('#login-view').hide();
 					$('#chat-view').show();
 					$('.endChat').show();
@@ -125,7 +124,7 @@ console.log(response.data['result']);
 						clearTimeout($scope.inputTimer);
 						
 						if (event.which == 13) {
-							console.log($scope.message);
+						
 							if ($scope.message != '' && $scope.message != undefined) {
 								savedData.history.push({'sequenceNumber':$scope.messageCount, 'Type': 'Q', 'message': $scope.message});
 								
@@ -135,8 +134,6 @@ console.log(response.data['result']);
 								$scope.chatScrollDown();
 								$('.chat-input .input').val('');
 								$scope.message = '';
-								
-								console.log('enter');
 								
 								$scope.inputTimer = setTimeout(function(){
 									$scope.sendFullMessage();
@@ -186,9 +183,7 @@ console.log(response.data['result']);
 			}).then(function success(response) {
 				
 				var resp = JSON.parse(response.data['result'].result);
-console.log('talk full');					
-console.log(response.data);					
-					var text = resp['text'];
+				var text = resp['text'];
 				var status = resp['status'];
 				var cnt = resp['sequence-id'];
 				
@@ -270,8 +265,6 @@ console.log(response.data);
 				}).then(function success(response) {
 					
 					var resp = JSON.parse(response.data['result'].result);
-console.log('talk');					
-console.log(response.data);					
 					var text = resp['text'];
 					var status = resp['status'];
 					var cnt = resp['sequence-id'];
@@ -345,10 +338,9 @@ console.log(response.data);
 			    'Content-Type':'application/json'
 			}
 			}).then(function success(response) {
-console.log('stop');				
-console.log(response.data);
+
 				var resp = JSON.parse(response.data['result'].result);
-				console.log(resp);
+
 				savedData.tonality = resp.tonality;
 				//savedData.summary = resp.summary;
 				savedData.endTime = resp.timestamp;
@@ -403,10 +395,7 @@ console.log(response.data);
 			    'Content-Type':'application/json'
 			}
 			}).then(function success(response) {
-				
-console.log('connect live agent');				
-console.log(response.data);
-				
+
 				var agent = response.data['agent'];
 				token = response.data['token'];
 				savedData.callbackId = '';
@@ -468,8 +457,7 @@ console.log(response.data);
 	}
 	
 	$scope.checkAgentStatus = function() {
-	
-	console.log('liveagent_check');
+
 		$http({
 			method: 'POST',
 			url: 'api.php',
@@ -487,7 +475,7 @@ console.log(response.data);
 			}).then(function success(response) {
 	
 				var chat = response.data['chat'];
-				console.log(response);
+
 				if (chat == 'requestfail') {
 					
 					savedData.chatstatus = 'Live Agent Not Available';
@@ -540,9 +528,6 @@ console.log(response.data);
 								$('.chat-input .input').val('');
 								$scope.message = '';
 								
-								console.log('enter');
-								console.log($scope.fullMessage);
-								
 								$scope.inputTimer = setTimeout(function(){
 									$scope.createFullLiveMessage($scope.fullMessage);
 								}, 2000);
@@ -571,10 +556,6 @@ console.log(response.data);
 	}
 	
 	$scope.sendAndCheckMessages = function() {
-		
-		console.log('Q ' + messageQueue);
-		console.log('F ' + $scope.fullMessage);
-		console.log('M ' + $scope.message);
 
 		var oldMQ = messageQueue;
 		$http({
@@ -593,13 +574,7 @@ console.log(response.data);
 				var chat = response.data['chat'];
 				var typing = response.data['typing'];
 				var messageId = response.data['messageId'];
-				
-				// "{"messages":[{"type":"ChatEnded", "message":{"attachedRecords":[{"fieldValue":"0032600000T75o6AAB","fieldName":"Contact"}],"reason":"agent"}}], "sequence":9, "offset":1042920}"
-				
-				// $value->message->attachedRecords[0]->fieldValue
-					
-console.log('send check and talk');				
-console.log(response.data);
+
 				if (text != '' && text != undefined) {
 					
 					$.each(text, function(key, value) {
@@ -658,19 +633,15 @@ console.log(response.data);
 				}
 
 			}, function error(response, status, error){
-				console.log('check and talk error');
-				console.log(response);
-				console.log(status);
-				console.log(error);
+
 				$scope.timer = setTimeout(function() {$scope.sendAndCheckMessages();}, 1000);
 			});
 			
 	}
 	
 	$scope.createFullLiveMessage = function(fullMessage) {
-		console.log('change message to queue');
+
 		messageQueue = fullMessage;
-		console.log('cf ' + fullMessage);
 		$scope.fullMessage = '';
 	}
 	
@@ -686,7 +657,7 @@ console.log(response.data);
 			$scope.message = '';
 			$scope.fullMessage = '';
 		}
-		console.log('slm mq ' + messageQueue);
+
 	}	
 	
 	$scope.liveagent_stop = function() {
@@ -703,9 +674,7 @@ console.log(response.data);
 			    'Content-Type':'application/json'
 			}
 			}).then(function success(response) {
-				
-console.log('stop live agent');				
-console.log(response);
+
 				activeChatEndEvent = '';
 				$scope.chatStop = true;
 			}, function error(response){
@@ -742,11 +711,10 @@ console.log(response);
 			    'Content-Type':'application/json'
 			}
 			}).then(function success(response) {
-console.log('save data');				
-console.log(response.data);
+
 				savedData.callbackId = JSON.parse(response.data['result'].result).callBackInfoId;
 			}, function error(response){
-				console.log(response);
+
 			});
 	}
 	
@@ -798,10 +766,9 @@ console.log(response.data);
 			    'Content-Type':'application/json'
 			}
 			}).then(function success(response) {
-console.log('save survey data');				
-console.log(response.data);
+
 			}, function error(response){
-				console.log(response);
+
 			});
 		
 		$('#survey-view').hide();
@@ -826,13 +793,11 @@ console.log(response.data);
 			if ($scope.sessionid == '') {
 				// first view - no chat to stop
 				// do nothing
-				console.log('end do nothing'); 
 			} else if (!$scope.congesysStop) {
 				
 				savedData.chatstatus = 'Aborted';
 				$scope.stop_cognesys_chat(true);
 				
-				console.log('end stop cognesys');
 			} else if (activeChatEndEvent == '') {
 				
 				$scope.saveCustomerData();
@@ -842,7 +807,6 @@ console.log(response.data);
 				clearTimeout($scope.timer);
 	
 				$scope.liveagent_stop();
-				console.log('end stop live agent');
 			}
 		} 
 		
@@ -914,14 +878,6 @@ console.log(response.data);
 
 window.onbeforeunload = function (event) {
 
-    console.log('beforeunload2');
-	/*$.ajax({
-     type: 'POST',
-     data: {beforeunload: true},
-     url: 'api.php'
-   });
-    */
-   
    $.ajax({
      type: 'POST',
      async: false,
@@ -944,7 +900,7 @@ window.onbeforeunload = function (event) {
 	},
      url: 'api.php'
    }).done(function(data) {
-	  console.log(data);
+
 	});
    
 
@@ -956,8 +912,6 @@ function CloseWindow() {
 }
 
 window.onunload = function () {
-	console.log('unload');
-	
-	
+
 
 }

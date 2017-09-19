@@ -3,10 +3,19 @@
 include('app/config/config.inc.php');
 
 //header ('Content-type: application/json');
-$data = json_decode(file_get_contents("php://input")); 
+$tmp = (array)json_decode(file_get_contents("php://input")); 
+$data = new stdClass();
+foreach($tmp as $k => $v) {
+	if (is_string($v)) {
+		$data->$k = strip_tags($v);
+	} else {
+		$data->$k = $v;
+	}
+}
 
 session_start();
 
+// when data is sending from the angular post request 
 if (isset($data) && count($data) > 0) {
 	
 	$response = array();
@@ -55,7 +64,7 @@ if (isset($data) && count($data) > 0) {
 			
 			$_SESSION['chatbot'][] = $response['result'];
 			
-			echo json_encode(array('status' => 'ok', 'params' => $params, 'result' => $response, 'chatbot' => $_SESSION['chatbot']));
+			echo json_encode(array('status' => 'ok', 'result' => $response));
 			die();
 
 			break;
@@ -76,7 +85,7 @@ if (isset($data) && count($data) > 0) {
 
 			$response = $con->sendRequest();
 
-			echo json_encode(array('status' => 'ok', 'params' => $params, 'result' => $response));
+			echo json_encode(array('status' => 'ok', 'result' => $response));
 			die();
 			
 			break;
@@ -135,7 +144,7 @@ $params = '{
 
 				$response_save = $con->sendRequest();
 
-				echo json_encode(array('status' => 'ok', 'params' => $params, 'result' => $response_save, 'result_token' => $response));
+				echo json_encode(array('status' => 'ok', 'result' => $response_save));
 				die();
 			} else {
 				
@@ -337,12 +346,12 @@ $params = '{
 				
 				$response_chatinit = $con->sendRequest();
 
-  				$result = array('status' => 'ok', 'response_chatinit' => $response_chatinit, 'response_session' => $result_session, 'token' => $_SESSION[$result_session->id]['sId'], 'agent' => true, 'params' => $params);
+  				$result = array('status' => 'ok', 'token' => $_SESSION[$result_session->id]['sId'], 'agent' => true);
 				echo json_encode($result);	
 			
 			} else {
 			
-				$result = array('status' => 'ok', 'response' => $response, 'agent' => false, 'response_session' => $response_session);
+				$result = array('status' => 'ok', 'agent' => false);
 				echo json_encode($result);	
 			}
 			
@@ -435,7 +444,7 @@ $params = '{
 								
 							}
 							
-							$result = array('text' => '','chat' => 'stop', 'response' => $response, 'messageId' => $messageId);
+							$result = array('text' => '','chat' => 'stop', 'messageId' => $messageId);
 							header ('Content-Type: application/json');
 							echo json_encode($result);
 							die();
@@ -443,12 +452,12 @@ $params = '{
 						
 					}
 					
-					$result = array('text' => $resp, 'result' => $result, 'response' => $response);
+					$result = array('text' => $resp);
 					header ('Content-Type: application/json');
 					echo json_encode($result);
 					
 				} else {
-					$result = array('text' => '', 'result' => $result, 'resp' => 'no-msg', 'response' => $response);
+					$result = array('text' => '', 'resp' => 'no-msg');
 					header ('Content-Type: application/json');
 					echo json_encode($result);
 				}
@@ -462,7 +471,7 @@ $params = '{
 					die();
 				} else {
 				
-					$result = array('text' => '', 'result' => $result, 'chat' => 'no-resp', 'response' => $response);
+					$result = array('text' => '', 'chat' => 'no-resp');
 					header ('Content-Type: application/json');
 					echo json_encode($result);
 				}
@@ -529,7 +538,7 @@ $params = '{
 								
 							}
 							
-							$result = array('text' => '','chat' => 'stop', 'response' => $response, 'messageId' => $messageId);
+							$result = array('text' => '','chat' => 'stop', 'messageId' => $messageId);
 							header ('Content-Type: application/json');
 							echo json_encode($result);
 							die();
@@ -627,7 +636,7 @@ $params = '{
 								
 							}
 							
-							$result = array('text' => '','chat' => 'stop', 'response' => $response, 'messageId' => $messageId);
+							$result = array('text' => '','chat' => 'stop', 'messageId' => $messageId);
 							header ('Content-Type: application/json');
 							echo json_encode($result);
 							die();
@@ -679,7 +688,7 @@ $params = '{
 		
 			$response = $con->sendRequest();
 			
-			$result = array('response' => $response);
+			$result = array('status' => 'ok');
 			header ('Content-Type: application/json');
 			echo json_encode($result);
 			
@@ -737,7 +746,7 @@ $params = '{
 
 				$response = $con->sendRequest();
 
-				echo json_encode(array('status' => 'ok', 'params' => $params, 'result' => $response, 'response' => $response_token));
+				echo json_encode(array('status' => 'ok'));
 				die();
 			} else {
 				
@@ -748,6 +757,8 @@ $params = '{
 			break;			
 			
 	}
+
+// when sending the data over the unload event and the ajax call
 } elseif (isset($_POST) && count($_POST) > 0) {
 	
 	switch ($_POST['type']) {
@@ -769,7 +780,7 @@ $params = '{
 		
 			$response = $con->sendRequest();
 			
-			$result = array('response' => $response);
+			$result = array('status' => 'ok');
 			header ('Content-Type: application/json');
 			echo json_encode($result);
 			
@@ -842,7 +853,7 @@ $params = '{
 
 				$response = $con->sendRequest();
 
-				echo json_encode(array('status' => 'ok', 'params' => $params, 'result' => $response));
+				echo json_encode(array('status' => 'ok'));
 				die();
 			} else {
 				
