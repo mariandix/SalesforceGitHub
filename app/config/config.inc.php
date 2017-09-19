@@ -31,6 +31,8 @@ define('COGNESYS_URL', 'https://lhZepTho1M0xnFVznOsT:GRi78QOuyeHpFh0bC5BA@api.co
 
 define('LIVEAGENT_REST_URL', 'https://d.la1-c2cs-lon.salesforceliveagent.com/chat/rest');
 
+define('LIVEAGENT_CHECK_COUNT', 8);
+
 include(dirname(__FILE__) . '/../lib/connector.php');
 
 ?>

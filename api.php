@@ -455,7 +455,7 @@ $params = '{
 			
 			} else {
 				
-				if (isset($data->cnt) && $data->cnt >= 4) {
+				if (isset($data->cnt) && $data->cnt >= LIVEAGENT_CHECK_COUNT) {
 					$result = array('text' => '','chat' => 'requestfail');
 					header ('Content-Type: application/json');
 					echo json_encode($result);

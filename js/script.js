@@ -619,6 +619,8 @@ console.log(response.data);
 				
 				if (chat == 'disconnect') {
 					
+					savedData.chatstatus = 'Agent Disconnect';
+					
 					$('.livechatbutton').hide();
 					$('.input').unbind('keypress');
 
