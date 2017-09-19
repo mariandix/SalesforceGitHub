@@ -6,6 +6,9 @@ include('app/config/config.inc.php');
 $tmp = (array)json_decode(file_get_contents("php://input")); 
 $data = new stdClass();
 foreach($tmp as $k => $v) {
+	if ($k == 'email') {
+		$v = str_replace(' ','',$v);
+	}
 	if (is_string($v)) {
 		$data->$k = strip_tags($v);
 	} else {
@@ -833,7 +836,7 @@ $params = '{
 "requestNumber":"' . $_POST['session_id'] . '",
 "FirstName":"' . $_POST['firstname'] . '",
 "LastName":"' . $_POST['name'] . '",
-"Email":"' . $_POST['email'] . '",
+"Email":"' . str_replace(' ','',$_POST['email']) . '",
 "PhoneNumber":"' . (isset($_POST['phone'])?$_POST['phone']:"") . '",
 "Title":"' . $_POST['salutation'] . '",
 "chatHistory":' . (isset($_POST['chathistory']) ? json_encode($_POST['chathistory']): "") . ',
