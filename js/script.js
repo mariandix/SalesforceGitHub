@@ -18,6 +18,7 @@ var messageQueue = '';
 var activeChatEndEvent = 'none';
 var sendOnUnload = true;
 var token = '';
+var cnt = 0;
 
 chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 
@@ -475,7 +476,8 @@ console.log(response.data);
 				'type': 'liveagent_check', 
 				'history': savedData.history,
 				'name' : savedData.name,
-				'token' : token
+				'token' : token,
+				'cnt': cnt++
 			},
 			headers: {
 			    'Accept':'application/json',

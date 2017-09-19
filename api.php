@@ -274,6 +274,20 @@ $params = '{
         	"ChatBotTonality__c"
 		],
         "displayToAgent":true
+	},
+	{
+		"label":"SessionId",
+		"value":"' . $_SESSION[$result_session->id]['sId'] . '",
+		"entityMaps":[
+        	{
+            	"entityName":"LiveChatTranscript",
+            	"fieldName":"SessionId__c"
+            }
+		],
+        "transcriptFields":[
+        	"SessionId__c"
+		],
+        "displayToAgent":true
 	}
 ],  
 "prechatEntities": [
@@ -323,7 +337,7 @@ $params = '{
 				
 				$response_chatinit = $con->sendRequest();
 
-  				$result = array('status' => 'ok', 'response_chatinit' => $response_chatinit, 'response_session' => $result_session, 'token' => $_SESSION[$result_session->id]['sId'], 'agent' => true);
+  				$result = array('status' => 'ok', 'response_chatinit' => $response_chatinit, 'response_session' => $result_session, 'token' => $_SESSION[$result_session->id]['sId'], 'agent' => true, 'params' => $params);
 				echo json_encode($result);	
 			
 			} else {
@@ -412,7 +426,7 @@ $params = '{
 						}
 						if ($value->type == 'ChatEnded') {
 								
-							$result = array('text' => '','chat' => 'stop');
+							$result = array('text' => '','chat' => 'stop', 'response' => $response);
 							header ('Content-Type: application/json');
 							echo json_encode($result);
 							die();
@@ -431,9 +445,18 @@ $params = '{
 				}
 			
 			} else {
-				$result = array('text' => '', 'result' => $result, 'chat' => 'no-resp', 'response' => $response);
-				header ('Content-Type: application/json');
-				echo json_encode($result);
+				
+				if (isset($data->cnt) && $data->cnt >= 9) {
+					$result = array('text' => '','chat' => 'requestfail');
+					header ('Content-Type: application/json');
+					echo json_encode($result);
+					die();
+				} else {
+				
+					$result = array('text' => '', 'result' => $result, 'chat' => 'no-resp', 'response' => $response);
+					header ('Content-Type: application/json');
+					echo json_encode($result);
+				}
 			}
 
 		
@@ -488,7 +511,7 @@ $params = '{
 						}
 						if ($value->type == 'ChatEnded') {
 								
-							$result = array('text' => '','chat' => 'stop');
+							$result = array('text' => '','chat' => 'stop', 'response' => $response);
 							header ('Content-Type: application/json');
 							echo json_encode($result);
 							die();
@@ -577,7 +600,7 @@ $params = '{
 						}
 						if ($value->type == 'ChatEnded') {
 								
-							$result = array('text' => $resp,'chat' => 'stop');
+							$result = array('text' => $resp,'chat' => 'stop', 'response' => $response);
 							header ('Content-Type: application/json');
 							echo json_encode($result);
 							die();
@@ -650,26 +673,33 @@ $params = '{
 			
 			$con->setPostfields($params);
 			
-			$response = $con->sendRequest();
+			$response_token = $con->sendRequest();
 
-			if (isset($response['result'])) {
+			if (isset($response_token['result'])) {
 
-				$responseData = json_decode($response['result']);
+				$responseData = json_decode($response_token['result']);
 				$_SESSION['token'] = $token = $responseData->access_token;
 				$_SESSION['instance_url'] = $instance_url = $responseData->instance_url;
 				
 				$con = new connector();
 				$con->setEndpoint($instance_url . "/services/apexrest/DHL/PostChatSurveyRating/Update");
 				$con->setRequestMethod('POST');
-				
+
+if (isset($data->callback) && $data->callback != '') {				
 $params = '{  
 "requestWrapper":{  
 "recordId":"' . (isset($data->callback) ? $data->callback: "") . '",
+"surveyRating":"' . $data->rating . '"
+}
+}';
+} else {
+$params = '{  
+"requestWrapper":{  
 "surveyRating":"' . $data->rating . '",
 "sessionId":"' . (isset($data->session) ? $data->session: "") . '"
 }
 }';
-		
+}
 				
 				$con->setPostfields($params);
 
@@ -679,7 +709,7 @@ $params = '{
 
 				$response = $con->sendRequest();
 
-				echo json_encode(array('status' => 'ok', 'params' => $params, 'result' => $response));
+				echo json_encode(array('status' => 'ok', 'params' => $params, 'result' => $response, 'response' => $response_token));
 				die();
 			} else {
 				
