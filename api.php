@@ -425,8 +425,17 @@ $params = '{
 							
 						}
 						if ($value->type == 'ChatEnded') {
+							$messageId = '';
+							
+							if (isset($value->message->attachedRecords) 
+								&& count($value->message->attachedRecords) > 0 
+								&& isset($value->message->attachedRecords[0]->fieldValue) ) {
 								
-							$result = array('text' => '','chat' => 'stop', 'response' => $response);
+								$messageId = $value->message->attachedRecords[0]->fieldValue;
+								
+							}
+							
+							$result = array('text' => '','chat' => 'stop', 'response' => $response, 'messageId' => $messageId);
 							header ('Content-Type: application/json');
 							echo json_encode($result);
 							die();
@@ -446,7 +455,7 @@ $params = '{
 			
 			} else {
 				
-				if (isset($data->cnt) && $data->cnt >= 9) {
+				if (isset($data->cnt) && $data->cnt >= 4) {
 					$result = array('text' => '','chat' => 'requestfail');
 					header ('Content-Type: application/json');
 					echo json_encode($result);
@@ -510,8 +519,17 @@ $params = '{
 							
 						}
 						if ($value->type == 'ChatEnded') {
+							$messageId = '';
+							
+							if (isset($value->message->attachedRecords) 
+								&& count($value->message->attachedRecords) > 0 
+								&& isset($value->message->attachedRecords[0]->fieldValue) ) {
 								
-							$result = array('text' => '','chat' => 'stop', 'response' => $response);
+								$messageId = $value->message->attachedRecords[0]->fieldValue;
+								
+							}
+							
+							$result = array('text' => '','chat' => 'stop', 'response' => $response, 'messageId' => $messageId);
 							header ('Content-Type: application/json');
 							echo json_encode($result);
 							die();
@@ -599,8 +617,17 @@ $params = '{
 							
 						}
 						if ($value->type == 'ChatEnded') {
+							$messageId = '';
+							
+							if (isset($value->message->attachedRecords) 
+								&& count($value->message->attachedRecords) > 0 
+								&& isset($value->message->attachedRecords[0]->fieldValue) ) {
 								
-							$result = array('text' => $resp,'chat' => 'stop', 'response' => $response);
+								$messageId = $value->message->attachedRecords[0]->fieldValue;
+								
+							}
+							
+							$result = array('text' => '','chat' => 'stop', 'response' => $response, 'messageId' => $messageId);
 							header ('Content-Type: application/json');
 							echo json_encode($result);
 							die();
@@ -696,7 +723,8 @@ $params = '{
 $params = '{  
 "requestWrapper":{  
 "surveyRating":"' . $data->rating . '",
-"sessionId":"' . (isset($data->session) ? $data->session: "") . '"
+"sessionId":"' . (isset($data->session) ? $data->session: "") . '",
+"contactId":"' . (isset($data->messageId) ? $data->messageId: "") . '"
 }
 }';
 }
