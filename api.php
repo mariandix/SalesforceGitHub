@@ -11,6 +11,9 @@ foreach($tmp as $k => $v) {
 	}
 	if (is_string($v)) {
 		$data->$k = strip_tags($v);
+		if ($k == 'name' && $data->$k == '') {
+			$data->$k = 'Mustermann';
+		} 
 	} else {
 		$data->$k = $v;
 	}

@@ -16,6 +16,7 @@ $login_view_lastname = 'Lastname';
 $login_view_email = 'E-Mail';
 $login_view_phone = 'Phone';
 $login_view_btn_start_chat = 'Start Chat!';
+$login_default_lastname = 'Mustermann';
 
 $chat_view_btn_send = 'Send';
 $chat_view_input_placeholder = 'Insert your message here';
