@@ -18,6 +18,7 @@ var messageQueue = '';
 var activeChatEndEvent = 'none';
 var sendOnUnload = true;
 var token = '';
+var cnt = 0;
 
 chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 
@@ -81,6 +82,7 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 			savedData.endTime = '';
 			savedData.startTime = '';
 			savedData.callbackId = '';
+			savedData.messageId = '';
 				
 			$scope.start_cognesys_chat();
 		} else {
@@ -475,7 +477,8 @@ console.log(response.data);
 				'type': 'liveagent_check', 
 				'history': savedData.history,
 				'name' : savedData.name,
-				'token' : token
+				'token' : token,
+				'cnt': cnt++
 			},
 			headers: {
 			    'Accept':'application/json',
@@ -493,6 +496,8 @@ console.log(response.data);
 					
 					$('.chat-messages').find('ul').append($scope.entryAgent(live_agent_not_available));
 					$scope.chatScrollDown();
+					
+					$scope.liveagent_stop();
 					
 					$('.inside-link').bind('click', function(e) {
 						
@@ -587,6 +592,11 @@ console.log(response.data);
 				var text = response.data['text'];
 				var chat = response.data['chat'];
 				var typing = response.data['typing'];
+				var messageId = response.data['messageId'];
+				
+				// "{"messages":[{"type":"ChatEnded", "message":{"attachedRecords":[{"fieldValue":"0032600000T75o6AAB","fieldName":"Contact"}],"reason":"agent"}}], "sequence":9, "offset":1042920}"
+				
+				// $value->message->attachedRecords[0]->fieldValue
 					
 console.log('send check and talk');				
 console.log(response.data);
@@ -609,6 +619,8 @@ console.log(response.data);
 				
 				if (chat == 'disconnect') {
 					
+					savedData.chatstatus = 'Agent Disconnect';
+					
 					$('.livechatbutton').hide();
 					$('.input').unbind('keypress');
 
@@ -621,7 +633,8 @@ console.log(response.data);
 					});
 				
 				} else if (chat == 'stop') {
-
+					
+					savedData.messageId = messageId;
 					$('.livechatbutton').hide();
 
 					$('.input').unbind('keypress');
@@ -777,7 +790,8 @@ console.log(response.data);
 				'type': 'sendSurveyRating', 
 				'rating': $('input[name="stars"]:checked').val(),
 				'callback': savedData.callbackId,
-				'session': token
+				'session': token,
+				'messageId': savedData.messageId
 			},
 			headers: {
 			    'Accept':'application/json',
@@ -819,6 +833,9 @@ console.log(response.data);
 				$scope.stop_cognesys_chat(true);
 				
 				console.log('end stop cognesys');
+			} else if (activeChatEndEvent == '') {
+				
+				$scope.saveCustomerData();
 			} else {
 				
 				$scope.chatStop = true;
@@ -830,11 +847,8 @@ console.log(response.data);
 		} 
 		
 		setTimeout(function(){
-			$('#chat-view').hide();
-			$('.endChat').hide();
-			$('.bottomClose').show();
-			$('#survey-view').show();
-		}, 3000);
+			CloseWindow();
+		}, 2000);
 		
 	}
 	
