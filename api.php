@@ -4,18 +4,20 @@ include('app/config/config.inc.php');
 
 //header ('Content-type: application/json');
 $tmp = (array)json_decode(file_get_contents("php://input")); 
-$data = new stdClass();
-foreach($tmp as $k => $v) {
-	if ($k == 'email') {
-		$v = str_replace(' ','',$v);
-	}
-	if (is_string($v)) {
-		$data->$k = strip_tags($v);
-		if ($k == 'name' && $data->$k == '') {
-			$data->$k = 'Mustermann';
-		} 
-	} else {
-		$data->$k = $v;
+if (count($tmp) > 0) {
+	$data = new stdClass();
+	foreach($tmp as $k => $v) {
+		if ($k == 'email') {
+			$v = str_replace(' ','',$v);
+		}
+		if (is_string($v)) {
+			$data->$k = strip_tags($v);
+			if ($k == 'name' && $data->$k == '') {
+				$data->$k = 'Mustermann';
+			} 
+		} else {
+			$data->$k = $v;
+		}
 	}
 }
 
@@ -767,6 +769,9 @@ $params = '{
 // when sending the data over the unload event and the ajax call
 } elseif (isset($_POST) && count($_POST) > 0) {
 	
+	ignore_user_abort(1);
+	set_time_limit(0);
+	
 	switch ($_POST['type']) {
 		
 		case 'liveagent_stop' :
@@ -789,7 +794,7 @@ $params = '{
 			$result = array('status' => 'ok');
 			header ('Content-Type: application/json');
 			echo json_encode($result);
-			
+
 			break;
 		
 		case 'sendCustomerData': 
@@ -878,7 +883,7 @@ $params = '{
 	die();
 	
 } else {
-
+	
 	echo json_encode(array('status' => 'empty vars'));
 	die();
 	
