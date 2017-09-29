@@ -126,7 +126,7 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 						if (event.which == 13) {
 						
 							if ($scope.message != '' && $scope.message != undefined) {
-								savedData.history.push({'sequenceNumber':$scope.messageCount, 'Type': 'Q', 'message': $scope.message});
+								savedData.history.push({'sequenceNumber':$scope.messageCount, 'Type': 'Q', 'message': addslashes($scope.message)});
 								
 								$scope.fullMessage = $scope.fullMessage + " " + $scope.message + "\n";
 								
@@ -175,7 +175,7 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 		$http({
 			method: 'POST',
 			url: 'api.php',
-			data: {'type': 'cognesys_talk', 'session_id': $scope.sessionid, 'text': $scope.fullMessage, 'sequence': $scope.messageCount },
+			data: {'type': 'cognesys_talk', 'session_id': $scope.sessionid, 'text': addslashes($scope.fullMessage), 'sequence': $scope.messageCount },
 			headers: {
 			    'Accept':'application/json',
 			    'Content-Type':'application/json'
@@ -246,12 +246,12 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 		if ($scope.message != '' && $scope.message != undefined) {
 			
 			clearTimeout($scope.inputTimer);
-			savedData.history.push({'sequenceNumber':$scope.messageCount, 'Type': 'Q', 'message': $scope.message});
+			savedData.history.push({'sequenceNumber':$scope.messageCount, 'Type': 'Q', 'message': addslashes($scope.message)});
 			
 			$('.chat-messages').find('ul').append($scope.entryCustomer($scope.message));
 			$scope.chatScrollDown();
 			$('.chat-input .input').val('');
-			var message = $scope.fullMessage + " " + $scope.message;
+			var message = $scope.fullMessage + " " + addslashes($scope.message);
 			$scope.message = '';
 			
 			$http({
@@ -486,6 +486,8 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 					$scope.chatScrollDown();
 					
 					$scope.liveagent_stop();
+					
+					$scope.saveCustomerData();
 					
 					$('.inside-link').bind('click', function(e) {
 						
@@ -914,4 +916,8 @@ function CloseWindow() {
 window.onunload = function () {
 
 
+}
+
+function addslashes( str ) {
+    return (str + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
 }

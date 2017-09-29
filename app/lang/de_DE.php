@@ -3,11 +3,10 @@
 // contents inside index.php
 $html_title = 'DHL - ChatBot';
 
-$login_view_welcome = 'Willkommen beim DHL Kundensupport';
+$login_view_welcome = 'Willkommen im Service-Chat';
 
 // with open <p> tag on start and close </p> tag on end
-$login_view_welcome_text = '<p>damit wir auch lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-						<p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>';
+$login_view_welcome_text = '<p>Bitte geben Sie (optional) Ihren Namen und Ihre Kontaktdaten ein und starten Sie dann den Chat.</p>';
 
 $login_view_salutation_mr = 'Herr';
 $login_view_salutation_mrs = 'Frau';
@@ -32,7 +31,7 @@ $survey_success_view_headline = 'Vielen Dank für Ihre Bewertung.';
 $survey_success_view_subline = '';
 
 $callback_view_headline = 'Derzeit ist kein Live-Agent verfügbar.';
-$callback_view_subline = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
+$callback_view_subline = 'Derzeit können wir keine Verbindung zu einem Kundenbetreuer herstellen. Bitte versuchen Sie es später noch einmal oder nutzen Sie eine andere Kontaktmöglichkeit.';
 $callback_view_textarea_headline = 'Bitte geben Sie nachfolgend Ihr Anliegen und Ihre Telefonnummer zur Kontaktaufnahme ein:';
 $callback_view_btn_callback_request = 'Rückrufwunsch senden';
 
@@ -54,7 +53,7 @@ function createJsTranslate() {
 		'live_agent_aborted' => 'Abbrechen', 
 		'customer_aborted_connect_to_liveagent' => 'Sie haben die Verbindung zu einem Live-Agent abgebrochen. Bitte <a class=\"inside-link-close\">schließen</a> Sie das Fenster. Auf der Service-Seite finden Sie weitere Informationen uns zu kontaktieren.',
 		'live_agent_connect_with' => 'Guten Tag, wie kann ich Ihnen helfen?',
-		'live_agent_not_available' => 'Leider sind derzeit alle Live-Agents in Kundengesprächen. Sie können uns einen Rückrufwunsch senden! Bitte klicken Sie dazu <a class=\"inside-link\">hier</a>',
+		'live_agent_not_available' => 'Derzeit können wir keine Verbindung zu einem Kundenbetreuer herstellen. Bitte versuchen Sie es später noch einmal oder nutzen Sie eine andere Kontaktmöglichkeit. Bitte klicken Sie dazu <a class=\"inside-link\">hier</a>',
 		'live_agent_chat_ended' => 'Der Chat wurde vom Live-Agent beendet!',
 		'live_agent_chat_goodbye_message' => 'Nachfolgend können Sie noch unseren neuen Service bewerten. Bitte klicken Sie dazu <a class=\"inside-link-survey\">hier</a>',
 		'live_agent_chat_disconnected' => 'Leider wurde Ihr Chat durch ein technisches Problem unterbrochen. Nachfolgend können Sie uns einen Rückrufwunsch senden! Bitte klicken Sie dazu <a class=\"inside-link\">hier</a>',

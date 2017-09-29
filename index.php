@@ -1,5 +1,10 @@
 <?php
 
+header('X-Frame-Options: SAMEORIGIN'); 
+header("Content-Security-Policy: default-src 'self' maxcdn.bootstrapcdn.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' www.google-analytics.com ajax.googleapis.com maxcdn.bootstrapcdn.com cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' maxcdn.bootstrapcdn.com;"); 
+header("X-Content-Security-Policy: default-src 'self' maxcdn.bootstrapcdn.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' www.google-analytics.com ajax.googleapis.com maxcdn.bootstrapcdn.com cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' maxcdn.bootstrapcdn.com;");
+
+
 if (isset($_GET['lang']) && $_GET['lang'] == 'en') {
 	include('app/lang/en_US.php');
 	$lang = 'en';
@@ -257,21 +262,6 @@ if (isset($_GET['lang']) && $_GET['lang'] == 'en') {
 						<p><?php echo $callback_view_subline; ?></p>
 					</div>
 				</div>
-				<div class="row mt-20">
-					<div class="col-xs-12 col-sm-6">
-						<div class="form-group">
-					    	<label for="phone"><?php echo $callback_view_textarea_headline; ?></label>
-					    	<textarea rows="6" type="text" class="form-control" name="phone" id="phone" ng-model="callbackphone"></textarea>
-					  	</div>
-					</div>  
-				</div>
-				<div class="row">
-					<div class="col-xs-12 col-sm-6">
-						<div class="form-group">
-					    	<a class="callbackBtn btn btn-default btn-block" ng-click="sendCallBackRequest()"><?php echo $callback_view_btn_callback_request; ?></a>
-					  	</div> 	
-			        </div>
-			    </div>	
 			</div>
 			
 			<div class="bottomClose" style="display:block;">

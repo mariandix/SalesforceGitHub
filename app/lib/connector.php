@@ -5,6 +5,8 @@ class connector {
 	
 	public $endpoint;
 	
+	public $proxy;
+	
 	public $method;
 	
 	public $postfields;
@@ -25,6 +27,18 @@ class connector {
 	public function getEndpoint () {
 		
 		return $this->endpoint;
+	}
+	
+	public function setProxy ($proxy) {
+		
+		$this->proxy = $proxy;
+		
+		return $this;
+	}
+	
+	public function getProxy () {
+		
+		return $this->proxy;
 	}
 	
 	public function setRequestMethod($method = 'POST') {
@@ -75,6 +89,10 @@ class connector {
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 15);
 		
+		if (INCLUDE_PROXY) {
+			curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, 1);
+			curl_setopt($ch, CURLOPT_PROXY, $this->getProxy());
+		}
 		
 		if ($this->getRequestHeader() != '') {
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $this->getRequestHeader());

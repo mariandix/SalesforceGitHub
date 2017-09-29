@@ -1,5 +1,9 @@
 <?php
 
+header('X-Frame-Options: SAMEORIGIN'); 
+header("Content-Security-Policy: default-src 'self' maxcdn.bootstrapcdn.com; script-src 'self' 'unsafe-inline' www.google-analytics.com ajax.googleapis.com maxcdn.bootstrapcdn.com cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' maxcdn.bootstrapcdn.com;"); 
+header("X-Content-Security-Policy: default-src 'self' maxcdn.bootstrapcdn.com; script-src 'self' 'unsafe-inline' www.google-analytics.com ajax.googleapis.com maxcdn.bootstrapcdn.com cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' maxcdn.bootstrapcdn.com;");
+
 include('app/config/config.inc.php');
 
 //header ('Content-type: application/json');
@@ -64,7 +68,7 @@ if (isset($data) && count($data) > 0) {
 				            "Content-Type: application/json");
 			$con->setRequestHeader($header);
 			
-			$params = '{"session-id":"' . $data->session_id . '","text":"' . $data->text . '", "sequence-id":"' . $data->sequence . '"}';
+			$params = '{"session-id":"' . $data->session_id . '","text":"' . ($data->text) . '", "sequence-id":"' . $data->sequence . '"}';
 			
 			$con->setPostfields($params);
 
@@ -103,6 +107,7 @@ if (isset($data) && count($data) > 0) {
 			// init token
 			$con = new connector();
 			$con->setEndpoint(LOGIN_URI . "/services/oauth2/token");
+			$con->setProxy(PROXY_URI);
 			$con->setRequestMethod('POST');
 			
 			$params = "&grant_type=password"
@@ -289,20 +294,6 @@ $params = '{
 		],
         "transcriptFields":[
         	"ChatBotTonality__c"
-		],
-        "displayToAgent":true
-	},
-	{
-		"label":"SessionId",
-		"value":"' . $_SESSION[$result_session->id]['sId'] . '",
-		"entityMaps":[
-        	{
-            	"entityName":"LiveChatTranscript",
-            	"fieldName":"SessionId__c"
-            }
-		],
-        "transcriptFields":[
-        	"SessionId__c"
 		],
         "displayToAgent":true
 	}
@@ -707,6 +698,7 @@ $params = '{
 			// init token
 			$con = new connector();
 			$con->setEndpoint(LOGIN_URI . "/services/oauth2/token");
+			$con->setProxy(PROXY_URI);
 			$con->setRequestMethod('POST');
 			
 			$params = "&grant_type=password"
@@ -817,6 +809,7 @@ $params = '{
 			// init token
 			$con = new connector();
 			$con->setEndpoint(LOGIN_URI . "/services/oauth2/token");
+			$con->setProxy(PROXY_URI);
 			$con->setRequestMethod('POST');
 			
 			$params = "&grant_type=password"
