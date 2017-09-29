@@ -128,6 +128,7 @@ if (isset($data) && count($data) > 0) {
 				
 				$con = new connector();
 				$con->setEndpoint($instance_url . "/services/apexrest/DHL/CustomerInfoAndCallBack/Operation");
+				$con->setProxy(PROXY_URI);
 				$con->setRequestMethod('POST');
 				
 $params = '{  
@@ -172,6 +173,7 @@ $params = '{
 			// init session
 			$con = new connector();
 			$con->setEndpoint(LIVEAGENT_REST_URL . "/System/SessionId");
+			$con->setProxy(PROXY_URI);
 			$con->setRequestMethod('GET');
 			
 			$header = array("X-LIVEAGENT-AFFINITY: null",
@@ -194,6 +196,7 @@ $params = '{
    					. "deployment_id=" . DEPLOYMENT_ID . "&Availability.ids=[" . BUTTON_ID . "]";
 			$con = new connector();
 			$con->setEndpoint(LIVEAGENT_REST_URL . "/Visitor/Availability" . $params);
+			$con->setProxy(PROXY_URI);
 			$con->setRequestMethod('GET');
 			
 			$header = array("X-LIVEAGENT-API-VERSION: 40");
@@ -207,6 +210,7 @@ $params = '{
 
 				$con = new connector();
 				$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChasitorInit");
+				$con->setProxy(PROXY_URI);
 				$con->setRequestMethod('POST');
 				
 				$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$result_session->id]['affinityToken'],
@@ -361,6 +365,7 @@ $params = '{
 			
 			$con = new connector();
 			$con->setEndpoint(LIVEAGENT_REST_URL . "/System/Messages");
+			$con->setProxy(PROXY_URI);
 			$con->setRequestMethod('GET');
 			
 			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$data->token]['affinityToken'], 
@@ -388,6 +393,7 @@ $params = '{
 								
 								$con = new connector();
 								$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChatMessage");
+								$con->setProxy(PROXY_URI);
 								$con->setRequestMethod('POST');
 								
 								$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$data->token]['affinityToken'],
@@ -483,6 +489,7 @@ $params = '{
 			
 			$con = new connector();
 			$con->setEndpoint(LIVEAGENT_REST_URL . "/System/Messages");
+			$con->setProxy(PROXY_URI);
 			$con->setRequestMethod('GET');
 			
 			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$data->token]['affinityToken'], 
@@ -496,6 +503,7 @@ $params = '{
 			
 			$con = new connector();
 			$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChatMessage");
+			$con->setProxy(PROXY_URI);
 			$con->setRequestMethod('POST');
 			
 			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$data->token]['affinityToken'],
@@ -569,6 +577,7 @@ $params = '{
 			if (isset($data->text) && $data->text != '') {
 				$con = new connector();
 				$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChatMessage");
+				$con->setProxy(PROXY_URI);
 				$con->setRequestMethod('POST');
 				
 				$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$data->token]['affinityToken'],
@@ -589,6 +598,7 @@ $params = '{
 			
 			$con = new connector();
 			$con->setEndpoint(LIVEAGENT_REST_URL . "/System/Messages");
+			$con->setProxy(PROXY_URI);
 			$con->setRequestMethod('GET');
 			
 			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$data->token]['affinityToken'], 
@@ -674,6 +684,7 @@ $params = '{
 			
 			$con = new connector();
 			$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChatEnd");
+			$con->setProxy(PROXY_URI);
 			$con->setRequestMethod('POST');
 			
 			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$data->token]['affinityToken'],
@@ -719,6 +730,7 @@ $params = '{
 				
 				$con = new connector();
 				$con->setEndpoint($instance_url . "/services/apexrest/DHL/PostChatSurveyRating/Update");
+				$con->setProxy(PROXY_URI);
 				$con->setRequestMethod('POST');
 
 if (isset($data->callback) && $data->callback != '') {				
@@ -770,6 +782,7 @@ $params = '{
 			
 			$con = new connector();
 			$con->setEndpoint(LIVEAGENT_REST_URL . "/Chasitor/ChatEnd");
+			$con->setProxy(PROXY_URI);
 			$con->setRequestMethod('POST');
 			
 			$header = array("X-LIVEAGENT-AFFINITY: ".$_SESSION[$_POST['token']]['affinityToken'],
@@ -830,6 +843,7 @@ $params = '{
 				
 				$con = new connector();
 				$con->setEndpoint($instance_url . "/services/apexrest/DHL/CustomerInfoAndCallBack/Operation");
+				$con->setProxy(PROXY_URI);
 				$con->setRequestMethod('POST');
 				
 $params = '{  
