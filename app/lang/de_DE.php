@@ -46,7 +46,7 @@ function createJsTranslate() {
 		'default_phone' => '03012345678',
 		'default_salutation' => 'Keine Anrede',
 		'default_stop_chat' => 'Chat beenden?',
-		'cognesys_welcome_message' => 'Hallo<br>Wie kann ich Ihnen helfen?',
+		'cognesys_welcome_message' => 'Hallo, <br>ich bin der neue Chatbot von Deutsche Post DHL. Schön, dass Sie hier sind. Wie kann ich Ihnen helfen?',
 		'cognesys_chat_end_message' => 'Chat wurde beendet. Vielen Dank und einen schönen Tag.',
 		'cognesys_chat_end_goodbye_message' => 'Nachfolgend können Sie noch unseren neuen Service bewerten. Bitte klicken Sie dazu <a class=\"inside-link-survey\">hier</a>',
 		'live_agent_connect' => 'Sie werden mit Live-Agent verbunden. Bitte haben Sie einen Augenblick Geduld.', 
