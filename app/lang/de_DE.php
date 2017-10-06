@@ -53,10 +53,10 @@ function createJsTranslate() {
 		'live_agent_aborted' => 'Abbrechen', 
 		'customer_aborted_connect_to_liveagent' => 'Sie haben die Verbindung zu einem Live-Agent abgebrochen. Bitte <a class=\"inside-link-close\">schließen</a> Sie das Fenster. Auf der Service-Seite finden Sie weitere Informationen uns zu kontaktieren.',
 		'live_agent_connect_with' => 'Guten Tag, wie kann ich Ihnen helfen?',
-		'live_agent_not_available' => 'Derzeit können wir keine Verbindung zu einem Kundenbetreuer herstellen. Bitte versuchen Sie es später noch einmal oder nutzen Sie eine andere Kontaktmöglichkeit. Bitte klicken Sie dazu <a class=\"inside-link\">hier</a>',
+		'live_agent_not_available' => 'Derzeit können wir keine Verbindung zu einem Kundenbetreuer herstellen. Bitte versuchen Sie es später noch einmal oder nutzen Sie unsere Telefonhotline: 0228 4333112 <br>Mo - So von 7 - 20 Uhr, auch an Feiertagen.',
 		'live_agent_chat_ended' => 'Der Chat wurde vom Live-Agent beendet!',
 		'live_agent_chat_goodbye_message' => 'Nachfolgend können Sie noch unseren neuen Service bewerten. Bitte klicken Sie dazu <a class=\"inside-link-survey\">hier</a>',
-		'live_agent_chat_disconnected' => 'Leider wurde Ihr Chat durch ein technisches Problem unterbrochen. Nachfolgend können Sie uns einen Rückrufwunsch senden! Bitte klicken Sie dazu <a class=\"inside-link\">hier</a>',
+		'live_agent_chat_disconnected' => 'Derzeit können wir keine Verbindung zu einem Kundenbetreuer herstellen. Bitte versuchen Sie es später noch einmal oder nutzen Sie unsere Telefonhotline:0228 4333112 <br>Mo - So von 7 - 20 Uhr, auch an Feiertagen.',
 		'live_agent_typing' => '<p>Der Live-Agent schreibt eine Nachricht ...</p>',
 	);
 	
