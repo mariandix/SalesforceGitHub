@@ -45,10 +45,7 @@ if (isset($_GET['lang']) && $_GET['lang'] == 'en') {
 	<script src="js/script.js" type="text/javascript"></script>
 	<link href="css/fonts.css" media="all" rel="stylesheet" />
 	<link href="css/style.css" media="all" rel="stylesheet" />
-<!--[if IE]>
-	<link rel="stylesheet" href="css/ie.css" type="text/css" media="all" /> 
-<![endif]--> 
-	
+
 </head>
 <body ng-app="chat-bot" ng-controller="chat" id="chat-bot" class="<?php echo $lang; ?>">
 	<div class="wrap">
