@@ -1,4 +1,6 @@
 <?php
+ini_set('session.cookie_httponly', 1);
+ini_set('session.cookie_secure', 1);
 
 header('X-Frame-Options: SAMEORIGIN'); 
 header("Content-Security-Policy: default-src 'self' maxcdn.bootstrapcdn.com; script-src 'self' 'unsafe-inline' www.google-analytics.com ajax.googleapis.com maxcdn.bootstrapcdn.com cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' maxcdn.bootstrapcdn.com;"); 
@@ -6,7 +8,7 @@ header("X-Content-Security-Policy: default-src 'self' maxcdn.bootstrapcdn.com; s
 
 include('app/config/config.inc.php');
 
-//header ('Content-type: application/json');
+header ('Content-type: application/json');
 $tmp = (array)json_decode(file_get_contents("php://input")); 
 if (count($tmp) > 0) {
 	$data = new stdClass();
