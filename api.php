@@ -1,4 +1,5 @@
 <?php
+
 ini_set('session.cookie_httponly', 1);
 ini_set('session.cookie_secure', 1);
 
@@ -230,7 +231,7 @@ $params = '{
 "sessionId": "' . $_SESSION[$result_session->id]['sId'] . '", 
 "visitorName": "' . $data->firstname . ' ' . $data->name . '", 
 "userAgent": "' . $data->userAgent . '", 
-"language": "' . $data->language . '", 
+"language": "de", 
 "screenResolution": "' . $data->width . 'x' . $data->height . '", 
 "prechatDetails": [
 	{

@@ -24,6 +24,7 @@ if (isset($_GET['lang']) && $_GET['lang'] == 'en') {
 	<title><?php echo $html_title; ?></title>
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=10" />
 	
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-route.min.js"></script>  
@@ -44,6 +45,9 @@ if (isset($_GET['lang']) && $_GET['lang'] == 'en') {
 	<script src="js/script.js" type="text/javascript"></script>
 	<link href="css/fonts.css" media="all" rel="stylesheet" />
 	<link href="css/style.css" media="all" rel="stylesheet" />
+<!--[if IE]>
+	<link rel="stylesheet" href="css/ie.css" type="text/css" media="all" /> 
+<![endif]--> 
 	
 </head>
 <body ng-app="chat-bot" ng-controller="chat" id="chat-bot" class="<?php echo $lang; ?>">
@@ -137,7 +141,6 @@ if (isset($_GET['lang']) && $_GET['lang'] == 'en') {
 						<ul>
 
 						</ul>
-						<div class="typing"></div>
 					</div>
 					<div class="typing"></div>
 					<div class="row">
