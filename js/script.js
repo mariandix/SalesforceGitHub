@@ -145,7 +145,7 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 									if ($scope.fullMessage != '') {
 										$scope.sendFullMessage();
 									}
-								}, 3000);
+								}, 5000);
 							}
 						}
 						
