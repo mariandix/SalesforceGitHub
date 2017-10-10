@@ -120,9 +120,9 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 					$scope.chatScrollDown();
   		
 					$('.input').keypress(function(event) {
-						var oldTimer = ($scope.inputTimer != undefined);
-						clearTimeout($scope.inputTimer);
 						
+						clearTimeout($scope.inputTimer);
+						var oldTimer = ($scope.inputTimer != undefined);
 						if (event.which == 13) {
 						
 							if ($scope.message != '' && $scope.message != undefined) {
@@ -140,10 +140,11 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 								}, 2000);
 							}
 						} else {
-							
 							if (oldTimer) {
 								$scope.inputTimer = setTimeout(function(){
-									$scope.sendFullMessage();
+									if ($scope.fullMessage != '') {
+										$scope.sendFullMessage();
+									}
 								}, 3000);
 							}
 						}
