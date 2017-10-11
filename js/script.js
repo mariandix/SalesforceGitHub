@@ -19,6 +19,7 @@ var activeChatEndEvent = 'none';
 var sendOnUnload = true;
 var token = '';
 var cnt = 0;
+var additional = false;
 
 chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 
@@ -458,13 +459,21 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 	}
 	
 	$scope.checkAgentStatus = function() {
-
+		
+		var hist = savedData.history;
+		if (!additional) {
+			
+			hist.push({'sequenceNumber':$scope.messageCount++, 'Type': 'A', 'message': addslashes(live_agent_connect)});
+			hist.push({'sequenceNumber':$scope.messageCount++, 'Type': 'A', 'message': addslashes(live_agent_connect_with)});
+			console.log(savedData.history);
+			additional = true;
+		}
 		$http({
 			method: 'POST',
 			url: 'api.php',
 			data: {
 				'type': 'liveagent_check', 
-				'history': savedData.history,
+				'history': hist,
 				'name' : savedData.name,
 				'token' : token,
 				'cnt': cnt++
