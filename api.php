@@ -78,7 +78,7 @@ if (isset($data) && count($data) > 0) {
 			$response = $con->sendRequest();
 			
 			$_SESSION['chatbot'][] = $response['result'];
-			
+
 			echo json_encode(array('status' => 'ok', 'result' => $response));
 			die();
 
@@ -122,7 +122,7 @@ if (isset($data) && count($data) > 0) {
 			$con->setPostfields($params);
 			
 			$response = $con->sendRequest();
-
+var_dump(session_id());
 			if (isset($response['result'])) {
 
 				$responseData = json_decode($response['result']);
@@ -133,7 +133,7 @@ if (isset($data) && count($data) > 0) {
 				$con->setEndpoint($instance_url . "/services/apexrest/DHL/CustomerInfoAndCallBack/Operation");
 				$con->setProxy(PROXY_URI);
 				$con->setRequestMethod('POST');
-				
+				var_dump($_SESSION);
 $params = '{  
 "requestWrapper":{  
 "requestNumber":"' . $data->session_id . '",

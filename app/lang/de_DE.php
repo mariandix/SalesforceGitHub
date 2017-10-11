@@ -6,7 +6,7 @@ $html_title = 'DHL - ChatBot';
 $login_view_welcome = 'Willkommen im Service-Chat';
 
 // with open <p> tag on start and close </p> tag on end
-$login_view_welcome_text = '<p>Bitte geben Sie (optional) Ihren Namen und Ihre Kontaktdaten ein und starten Sie dann den Chat.</p>';
+$login_view_welcome_text = '<p>Unser virtueller Service-Berater hilft Ihnen gerne weiter.</p>';
 
 $login_view_salutation_mr = 'Herr';
 $login_view_salutation_mrs = 'Frau';
@@ -14,7 +14,7 @@ $login_view_firstname = 'Vorname';
 $login_view_lastname = 'Nachname';
 $login_view_email = 'E-Mail';
 $login_view_phone = 'Telefonnummer';
-$login_view_btn_start_chat = 'Chat starten!';
+$login_view_btn_start_chat = 'Jetzt Chat starten!';
 $login_default_lastname = 'Mustermann';
 
 $chat_view_btn_send = 'Absenden';
@@ -46,7 +46,7 @@ function createJsTranslate() {
 		'default_phone' => '03012345678',
 		'default_salutation' => 'Keine Anrede',
 		'default_stop_chat' => 'Chat beenden?',
-		'cognesys_welcome_message' => 'Hallo, <br>ich bin der neue Chatbot von Deutsche Post DHL. Schön, dass Sie hier sind. Wie kann ich Ihnen helfen?',
+		'cognesys_welcome_message' => 'Hallo, <br>ich bin der virtuelle Service-Berater von Deutsche Post DHL. Schön, dass Sie hier sind. Wie kann ich Ihnen helfen?',
 		'cognesys_chat_end_message' => 'Chat wurde beendet. Vielen Dank und einen schönen Tag.',
 		'cognesys_chat_end_goodbye_message' => 'Nachfolgend können Sie noch unseren neuen Service bewerten. Bitte klicken Sie dazu <a class=\"inside-link-survey\">hier</a>',
 		'live_agent_connect' => 'Sie werden mit Live-Agent verbunden. Bitte haben Sie einen Augenblick Geduld.', 
