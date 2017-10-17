@@ -13,6 +13,8 @@ define('BUTTON_ID', '5730Y0000008flT');
 define('ORG_ID', '00D0Y000001Xopw');
 define('LIVEAGENT_REST_URL', 'https://d.la1-c2-frf.salesforceliveagent.com/chat/rest/');
 define('COGNESYS_URL', 'https://lhZepTho1M0xnFVznOsT:GRi78QOuyeHpFh0bC5BA@api.cognesys.de:5679/api/v1');
+define("PROXY_URI", "https://10.222.0.2:3128"); 
+define("INCLUDE_PROXY", false); 
 define('LIVEAGENT_CHECK_COUNT', 8);
 
 include(dirname(__FILE__) . '/../lib/connector.php');
