@@ -129,7 +129,7 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 							if ($scope.message != '' && $scope.message != undefined) {
 								savedData.history.push({'sequenceNumber':$scope.messageCount, 'Type': 'Q', 'message': addslashes($scope.message)});
 								
-								$scope.fullMessage = $scope.fullMessage + " " + $scope.message + "\n";
+								$scope.fullMessage = $scope.fullMessage + " " + $scope.message.replace("'","&apos;") + "\n";
 								
 								$('.chat-messages').find('ul').append($scope.entryCustomer($scope.message));
 								$scope.chatScrollDown();
@@ -253,7 +253,7 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 			$('.chat-messages').find('ul').append($scope.entryCustomer($scope.message));
 			$scope.chatScrollDown();
 			$('.chat-input .input').val('');
-			var message = $scope.fullMessage + " " + addslashes($scope.message);
+			var message = $scope.fullMessage + " " + addslashes($scope.message.replace("'","&apos;"));
 			$scope.message = '';
 			
 			$http({
