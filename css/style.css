@@ -4,7 +4,7 @@ html, body
 	font-family: "FrutigerLTW01-55Roman",Verdana,sans-serif;
 }
 #chat-bot {
-	background: #F5F5F5;
+	background: #FFF;
 }
 h1 {
 	font-size: 31px;
@@ -38,6 +38,8 @@ input.form-control {
     font-weight: 500;
     white-space: normal;
     transition: color 200ms,background-color 200ms,border-color 200ms;
+    font-size: 16px;
+    line-height: 1.7;
 }
 .btn:hover {
     color: #d40511;
@@ -52,9 +54,6 @@ input.form-control {
     border: 2px solid #d40511;
     color: #fff;
     background: #d40511;
-    text-shadow: none;
-	-webkit-box-shadow: none;
-	box-shadow: none;
 }
 .btn-primary:active:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.disabled, .btn-primary.disabled.active, .btn-primary.disabled.focus, .btn-primary.disabled:active, .btn-primary.disabled:focus, .btn-primary.disabled:hover, .btn-primary[disabled], .btn-primary.active[disabled], .btn-primary.focus[disabled], .btn-primary[disabled]:active, .btn-primary[disabled]:focus, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary, fieldset[disabled] .btn-primary.active, fieldset[disabled] .btn-primary.focus, fieldset[disabled] .btn-primary:active, fieldset[disabled] .btn-primary:focus, fieldset[disabled] .btn-primary:hover{
     color: #fff;
@@ -88,7 +87,7 @@ input.form-control {
 }
 .headbg {
 	position: absolute;;
-	background: linear-gradient(to bottom, #ffcc0f 50%, #ffcd0e 25%, #fff) no-repeat ;
+	background: linear-gradient(-180deg,#fc0 0,#ffd83f 50%,rgba(255,216,63,0) 100%);
 	height: 96px;
 	width: 100%;
 	z-index: 1;
@@ -97,10 +96,10 @@ input.form-control {
 	min-height: 100%;
 	z-index: 999;
 	position: relative;
-	background: #F5F5F5;
+	background: #FFF;
 }
 .container .header {
-	background: linear-gradient(to bottom, #ffcc0f 50%, #ffcd0e 25%, #fff) no-repeat ;
+	background: linear-gradient(-180deg,#fc0 0,#ffd83f 50%,rgba(255,216,63,0) 100%);
 	height: 96px;
 	width: 100%;
 	z-index: 1;
@@ -108,9 +107,9 @@ input.form-control {
 }
 
 .container .header .logo {
-	background: url('../img/logo_dhl.svg') no-repeat;
+	background: url('../img/dhl-official.svg') no-repeat;
 	height: 30px;
-	width: 200px;
+	width: 130px;
 	margin: 30px 0px 0px 50px;
 }
 .de .container .header .endChat {
@@ -149,7 +148,6 @@ input.form-control {
 	box-shadow: none;
 }
 .container .form-group .openChat {
-	width: 100%;
 	margin-top: 15px;
 }
 #chat-view {

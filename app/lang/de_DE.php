@@ -14,7 +14,7 @@ $login_view_firstname = 'Vorname';
 $login_view_lastname = 'Nachname';
 $login_view_email = 'E-Mail';
 $login_view_phone = 'Telefonnummer';
-$login_view_btn_start_chat = 'Jetzt Chat starten!';
+$login_view_btn_start_chat = 'Jetzt Chat starten';
 $login_default_lastname = 'Mustermann';
 
 $chat_view_btn_send = 'Absenden';
