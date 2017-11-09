@@ -54,7 +54,6 @@ if (isset($_GET['lang']) && $_GET['lang'] == 'en') {
 			<div class="row">
 				<div class="header col-xs-12">
 					<div class="logo"></div>
-					<div class="endChat" ng-click="endChat()" style="display:none"></div>
 				</div>
 			</div>
 
@@ -80,6 +79,13 @@ if (isset($_GET['lang']) && $_GET['lang'] == 'en') {
 			
 			<div id="chat-view" style="display: none;">
 				<div id="chat">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="beta"></div>
+							<div class="headline"><?php echo $login_view_headline; ?></div>
+							<a class="btn btn-primary endChat" ng-click="endChat()"><?php echo $chat_view_btn_endchat; ?></a>
+						</div>
+					</div>
 					<div id="chat-messages" class="chat-messages">
 						<ul>
 

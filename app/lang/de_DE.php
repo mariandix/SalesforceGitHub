@@ -19,6 +19,8 @@ $login_default_lastname = 'Mustermann';
 
 $chat_view_btn_send = 'Absenden';
 $chat_view_input_placeholder = 'Nachricht hier eingeben';
+$chat_view_btn_endchat = 'Chat beenden';
+$login_view_headline = 'Virtueller Service-Chat';
 
 $survey_view_headline = 'Vielen Dank, wir freuen uns, wenn wir Ihnen helfen konnten.';
 $survey_view_subline = 'Bitte bewerten Sie noch kurz unseren neuen Service.';
