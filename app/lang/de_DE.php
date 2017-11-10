@@ -20,7 +20,8 @@ $login_default_lastname = 'Mustermann';
 $chat_view_btn_send = 'Absenden';
 $chat_view_input_placeholder = 'Nachricht hier eingeben';
 $chat_view_btn_endchat = 'Chat beenden';
-$login_view_headline = 'Virtueller Service-Chat';
+$chat_view_headline = 'Virtueller Service-Chat';
+$chat_view_subline = '̶  &nbsp;&nbsp; Beta-Version &nbsp;&nbsp; ̶  ';
 
 $survey_view_headline = 'Vielen Dank, wir freuen uns, wenn wir Ihnen helfen konnten.';
 $survey_view_subline = 'Bitte bewerten Sie noch kurz unseren neuen Service.';
@@ -48,7 +49,7 @@ function createJsTranslate() {
 		'default_phone' => '03012345678',
 		'default_salutation' => 'Keine Anrede',
 		'default_stop_chat' => 'Chat beenden?',
-		'cognesys_welcome_message' => 'Hallo, <br>ich bin der virtuelle Service-Berater von Deutsche Post DHL. Schön, dass Sie hier sind. Wie kann ich Ihnen helfen?',
+		'cognesys_welcome_message' => 'Hallo, ich bin Ihr virtueller DHL Serviceberater. Schön, dass Sie hier sind. <br>Ich stecke gerade in den Kinderschuhen und muss noch einiges lernen. Probieren Sie mich trotzdem einfach aus:<br />Was möchten Sie wissen?',
 		'cognesys_chat_end_message' => 'Chat wurde beendet. Vielen Dank und einen schönen Tag.',
 		'cognesys_chat_end_goodbye_message' => 'Nachfolgend können Sie noch unseren neuen Service bewerten. Bitte klicken Sie dazu <a class=\"inside-link-survey\">hier</a>',
 		'live_agent_connect' => 'Sie werden mit Live-Agent verbunden. Bitte haben Sie einen Augenblick Geduld.', 
