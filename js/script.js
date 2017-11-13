@@ -44,7 +44,7 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 		
 		if ($scope.email == undefined || $scope.email == '') {
 
-        	savedData.email = Math.random()+'test@test.de';
+        	savedData.email = Math.random()+'test_'+Math.random()+'@test.de';
         } else if (!reg.test($scope.email)) {
 
             error = true;
@@ -56,7 +56,7 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 		if ($scope.name != undefined) {
 			savedData.name = $scope.name;
 		} else {
-			savedData.name = default_lastname;
+			savedData.name = default_lastname + '_' + Math.random()+;
 		}
 		if ($scope.firstname != undefined) {
 			savedData.firstname = $scope.firstname;
