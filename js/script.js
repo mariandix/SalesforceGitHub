@@ -598,10 +598,10 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 				
 				if (typing != undefined && typing == true) {
 					$('.typing').html(live_agent_typing);
-					$('#chat-view .chat-messages').css('height','calc(100vh - 185px)');
+					$('#chat-view .chat-messages').css('height','calc(100vh - 285px)');
 				} else {
 					$('.typing').html(' ');
-					$('#chat-view .chat-messages').css('height','calc(100vh - 170px)');
+					$('#chat-view .chat-messages').css('height','calc(100vh - 270px)');
 				}
 				
 				if (chat == 'disconnect') {
