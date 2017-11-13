@@ -56,7 +56,7 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 		if ($scope.name != undefined) {
 			savedData.name = $scope.name;
 		} else {
-			savedData.name = default_lastname + '_' + Math.random()+;
+			savedData.name = default_lastname + '_' + Math.random();
 		}
 		if ($scope.firstname != undefined) {
 			savedData.firstname = $scope.firstname;
