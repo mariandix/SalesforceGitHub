@@ -148,10 +148,12 @@ $params = '{
 "chatBotSummary":"' . (isset($data->summary)?addslashes(implode(',',$data->summary)):"") . '",
 "tonality": "' . (isset($data->tonality) ? $data->tonality : "") . '",
 "chatStartTime": "' . (isset($data->startTime) ? $data->startTime : "2017-09-04T13:20:49.717+02:00") . '",
-"chatEndTime": "' . (isset($data->endTime) ? $data->endTime : "2017-09-04T13:25:01.975+02:00") . '", 
-"jsonStringBody": "' . addslashes(implode(',', $_SESSION['chatbot'])) . '" 
+"chatEndTime": "' . (isset($data->endTime) ? $data->endTime : "2017-09-04T13:25:01.975+02:00") . '"
 }
 }';
+
+// , 
+//"jsonStringBody": "' . addslashes(implode(',', $_SESSION['chatbot'])) . '" 
 				
 				$con->setPostfields($params);
 

@@ -44,7 +44,7 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 		
 		if ($scope.email == undefined || $scope.email == '') {
 
-        	savedData.email = Math.random()+'test_'+Math.random()+'@test.de';
+        	savedData.email = Math.random()+'test_12@test.de';
         } else if (!reg.test($scope.email)) {
 
             error = true;
@@ -56,7 +56,7 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 		if ($scope.name != undefined) {
 			savedData.name = $scope.name;
 		} else {
-			savedData.name = default_lastname + '_' + Math.random();
+			savedData.name = default_lastname + Math.random();
 		}
 		if ($scope.firstname != undefined) {
 			savedData.firstname = $scope.firstname;
@@ -330,6 +330,8 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 	$scope.stop_cognesys_chat = function (saveCustomerData, initLiveAgent) {
 		
 		$scope.congesysStop = true;
+		
+		activeChatEndEvent = 'none';
 		
 		$http({
 			method: 'POST',
@@ -732,6 +734,8 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 	
 	$scope.showCallbackForm = function () {
 		
+		sendOnUnload = false;
+		
 		$('#chat-view').hide();
 		$('.endChat').hide();
 		$('.bottomClose').show();
@@ -739,6 +743,8 @@ chatBot.controller('chat', function ($scope, $http, $base64, $q) {
 	}
 	
 	$scope.showSurveyPage = function () {
+		
+		sendOnUnload = false;
 		
 		$('#chat-view').hide();
 		$('.endChat').hide();
