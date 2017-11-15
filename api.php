@@ -149,7 +149,7 @@ $params = '{
 "tonality": "' . (isset($data->tonality) ? $data->tonality : "") . '",
 "chatStartTime": "' . (isset($data->startTime) ? $data->startTime : "2017-09-04T13:20:49.717+02:00") . '",
 "chatEndTime": "' . (isset($data->endTime) ? $data->endTime : "2017-09-04T13:25:01.975+02:00") . '", 
-"jsonStringBody": "' . (strlen(addslashes(implode(',', $_SESSION['chatbot']))) > 32000 ? "{}" : addslashes(implode(',', $_SESSION['chatbot']))) . '" 
+"jsonStringBody": "' . (strlen(addslashes(implode(',', $_SESSION['chatbot']))) > 131000 ? "{}" : addslashes(implode(',', $_SESSION['chatbot']))) . '" 
 }
 }';
 				
@@ -862,7 +862,7 @@ $params = '{
 "chatStatus":"Aborted",
 "chatBotSummary":"' . (isset($_POST['summary']) ? $_POST['summary']: "") . '",
 "tonality": "' . (isset($responseStopData->tonality) ? $responseStopData->tonality : "") . '", 
-"jsonStringBody": "' . (strlen(addslashes(implode(',', $_SESSION['chatbot']))) > 32000 ? "{}" : addslashes(implode(',', $_SESSION['chatbot']))) . '" 
+"jsonStringBody": "' . (strlen(addslashes(implode(',', $_SESSION['chatbot']))) > 131000 ? "{}" : addslashes(implode(',', $_SESSION['chatbot']))) . '" 
 }
 }';
 				
